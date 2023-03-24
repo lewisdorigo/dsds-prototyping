@@ -1,16 +1,23 @@
 import Head from 'next/head';
-import Wrapper from '../components/Wrapper';
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+
+import Wrapper from '../../components/Wrapper';
+import getApplicationBySlug from '../../lib/getApplicationBySlug';
 
 /**
  * The document structure
  *
  * @returns {JSX.Element} - The page
  */
-const Home:React.FC = function Home() {
+const HubPage:React.FC = function HubPage() {
+    const router = useRouter();
+    const { application } = router.query;
+
     return (
         <>
             <Head>
-                <title>Social Security Scotland</title>
+                <title>{ application }</title>
             </Head>
 
             <Wrapper>
@@ -27,18 +34,38 @@ const Home:React.FC = function Home() {
     );
 };
 
-export default Home;
+export default HubPage;
 
 /**
  * Props to load when rendering the page server-side
+ *
+ * @param {object} context - The NextJS Page context
  * @returns {object} - The props to use for the page
  */
-export async function getServerSideProps() {
+export const getServerSideProps:GetServerSideProps<
+    WebFrontEnd.Page,
+    WebFrontEnd.Pages.Application.Query
+> = async function getServerSideProps(context) {
+    let application = '';
+
+    if (context.params) {
+        ({
+            application,
+        } = context.params);
+    }
+
+    const details = getApplicationBySlug(application);
+
+    if (!details) {
+        return {
+            notFound: true,
+        };
+    }
+
     return {
         props: {
             title: {
-                caption: 'Social Security Scotland',
-                title: 'Prototype Toolkit',
+                title: details.hubTitle,
             },
             navigation: [
                 {
@@ -49,4 +76,4 @@ export async function getServerSideProps() {
             ],
         },
     };
-}
+};

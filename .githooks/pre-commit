@@ -1,0 +1,76 @@
+#!/bin/sh
+
+# Required when using NVM to manage Node versions, for some reason.
+if test -f $HOME/.nvm/nvm.sh; then
+    . $HOME/.nvm/nvm.sh
+fi
+
+# Make sure we're navigated to the top level of the git tree
+cd "$(git rev-parse --show-toplevel)"
+
+# Set the location of the ESLint binary
+ESLINT="./node_modules/.bin/eslint"
+TYPESCRIPT="./node_modules/.bin/tsc"
+pwd
+
+# If ESLint is not installed display an error and exit, preventing commit.
+if [[ ! -x "$ESLINT" ]]; then
+  printf "\t\033[41mPlease install ESlint\033[0m (npm install eslint)\n"
+  exit 1
+fi
+
+# List all of the JavaScript and Typescript files staged for the commit.
+STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep -E ".tsx$|.jsx$|.js$|.ts$"))
+STAGED_FILES_TS=($(git diff --cached --name-only --diff-filter=ACM | grep -E ".tsx$|.ts$"))
+
+# If there are no matching files, we can exit with no errors.
+if [[ "$STAGED_FILES" = "" ]]; then
+  exit 0
+fi
+
+TMP=.tsconfig-lint.json
+cat >$TMP <<EOF
+{
+  "extends": "./tsconfig.json",
+  "includes": [
+EOF
+for file in "${STAGED_FILES_TS[@]}"; do
+  if [[ $file == ${STAGED_FILES_TS[${#STAGED_FILES_TS[*]} - 1]} ]]
+  then
+    echo "    \"$file\"" >> $TMP
+    break
+  else
+    echo "    \"$file\"," >> $TMP
+  fi
+done
+cat >>$TMP <<EOF
+  ]
+}
+EOF
+
+# Compile Typescript
+$TYPESCRIPT --project $TMP --skipLibCheck --noEmit
+rm $TMP
+TS_EXIT="$?"
+
+# If ESlint exited without error, commit can go ahead. Otherwise, stop.
+if [[ "${TS_EXIT}" == 0 ]]; then
+  printf "\n\033[42mTYPESCRIPT COMPILE SUCCEEDED\033[0m\n"
+else
+  printf "\n\033[41mTYPESCRIPT FAILED:\033[0m Fix typescript errors and try again\n"
+  exit 1
+fi
+
+# Lint the staged files
+$ESLINT "${STAGED_FILES[@]}"
+ESLINT_EXIT="$?"
+
+# If ESlint exited without error, commit can go ahead. Otherwise, stop.
+if [[ "${ESLINT_EXIT}" == 0 ]]; then
+  printf "\n\033[42mCOMMIT SUCCEEDED\033[0m\n"
+else
+  printf "\n\033[41mCOMMIT FAILED:\033[0m Fix eslint errors and try again\n"
+  exit 1
+fi
+
+exit $?

@@ -1,0 +1,19 @@
+.ds_site-navigation {
+    $self: &;
+
+    @include ds_media-query(medium) {
+        display: flex;
+        align-items: center;
+    }
+
+    #{$self} &__link {
+        color: $ds_colour__blue;
+        font-weight: 700;
+        display: block;
+        text-align: center;
+
+        &::after {
+            content: none;
+        }
+    }
+}

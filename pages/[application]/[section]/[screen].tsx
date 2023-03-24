@@ -1,12 +1,17 @@
+import React from 'react';
+
 import Head from 'next/head';
-import Wrapper from '../components/Wrapper';
+import { GetServerSideProps } from 'next';
+
+import Wrapper from '../../../components/Wrapper';
+import getApplicationBySlug from '../../../lib/getApplicationBySlug';
 
 /**
  * The document structure
  *
  * @returns {JSX.Element} - The page
  */
-const Home:React.FC = function Home() {
+const FormScreen:React.FC = function FormScreen() {
     return (
         <>
             <Head>
@@ -27,18 +32,41 @@ const Home:React.FC = function Home() {
     );
 };
 
-export default Home;
+export default FormScreen;
 
 /**
  * Props to load when rendering the page server-side
+ *
+ * @param {object} context - The NextJS Page context
  * @returns {object} - The props to use for the page
  */
-export async function getServerSideProps() {
+export const getServerSideProps:GetServerSideProps<
+    WebFrontEnd.Page,
+    WebFrontEnd.Pages.FormPage.Query
+> = async function getServerSideProps(context) {
+    let application = '';
+    let screen = '';
+
+    if (context.params) {
+        ({
+            application,
+            screen,
+        } = context.params);
+    }
+
+    const details = getApplicationBySlug(application);
+
+    if (!details) {
+        return {
+            notFound: true,
+        };
+    }
+
     return {
         props: {
             title: {
-                caption: 'Social Security Scotland',
-                title: 'Prototype Toolkit',
+                caption: details.name,
+                title: screen,
             },
             navigation: [
                 {
@@ -49,4 +77,4 @@ export async function getServerSideProps() {
             ],
         },
     };
-}
+};

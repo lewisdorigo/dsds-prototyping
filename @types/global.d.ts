@@ -20,11 +20,6 @@ namespace WebFrontEnd {
     type BenefitNames = 'pip' | 'pipsrti' | 'dla' | 'srti' | 'ra' | 'common';
     type RAAppliedBenefits = 'raadp' | 'racdp';
 
-    interface ServerSideError {
-        ErrorMessage: string,
-        ShortErrorMessage?: string,
-    }
-
     interface Title {
         title: string,
         caption?: string,
@@ -32,44 +27,44 @@ namespace WebFrontEnd {
     }
 
     interface DashboardItem {
+        id: string,
         client: string,
-        applicationType: string,
-        lastSaved: string,
-        resumeLink: string,
+        formType: keyof FormTypes,
+        lastSaved: Date,
+        resume?: string,
     }
 
-    namespace ApplicationTypes {
+    namespace FormTypes {
         interface Type {
             name: string,
             applyFor: string,
             hubTitle: string,
-        };
-    }
-
-    interface ApplicationTypes {
-        [key:string]: ApplicationTypes.Type;
-    }
-
-    namespace Pages {
-        namespace FormPage {
-            interface Query {
-                [key: string]: string,
-                application: string,
-                section: string,
-                screen: string,
-            }
-        }
-
-        namespace Application {
-            interface Query {
-                [key: string]: string,
-                application: string,
-            }
         }
     }
 
-    interface Page {
-        title: PageHeader,
-        navigation: WebFrontEnd.Link[],
+    interface FormTypes {
+        [key:string]: FormTypes.Type,
+    }
+
+    interface Field<Type = unknown, Items = undefined> {
+        type?: Type,
+        name: string,
+        id: string,
+        label?: string,
+        labelHidden?: boolean,
+        reviewLabel?: string,
+        text?: string,
+        hintText?: string,
+        value?: string,
+        className?: string,
+        required?: boolean,
+        items?: Items,
+        conditional?: {
+            hidden: boolean,
+            field: string | string[],
+            value: string | string[],
+            type?: string,
+        },
+        error?: string | boolean,
     }
 }

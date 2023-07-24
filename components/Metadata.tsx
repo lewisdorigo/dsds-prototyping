@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import classNames from '../lib/classNames';
-
-let metaDataCounter = 0;
 
 /**
  * @param {Object} props - Properties for the element
@@ -17,7 +15,7 @@ export const MetadataItem: React.FC<WebFrontEnd.Metadata.Item> = function Metada
     return (
         <div className="ds_metadata__item">
             <dt className={classNames('ds_metadata__key', hideName ? 'visually-hidden' : '')}>
-                {name}
+                { name }
             </dt>
             {' '}
             <dd className={classNames('ds_metadata__value', isLabel ? 'ds_content-label' : '')}>
@@ -36,12 +34,10 @@ const Metadata: React.FC<WebFrontEnd.Metadata> = function Metadata({
     className,
     ...props
 }) {
-    const [count] = useState(metaDataCounter += 1);
-
     return (
         <dl className={`ds_metadata${className ? ` ${className}` : ''}`} {...props}>
             { items && items.map((item, index) => {
-                const itemKey = `meta-data-${count}-${index}`;
+                const itemKey = `meta-data-${index}`;
                 return <MetadataItem key={itemKey} {...item} />;
             })}
         </dl>

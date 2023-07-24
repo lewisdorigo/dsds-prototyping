@@ -8,6 +8,6 @@ declare namespace WebFrontEnd {
     interface SiteHeader extends Partial<React.HTMLProps<HTMLDivElement>> {
         className?: string,
         'aria-label'?: string,
-        menuItems: Link[],
+        menuItems?: Link[],
     }
 }

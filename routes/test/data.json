@@ -1,0 +1,30 @@
+{
+    "title": {
+        "title": "Test",
+        "caption": "Social Security Scotland"
+    },
+    "components": [
+        {
+            "id": "test",
+            "name": "Test",
+            "type": "text",
+            "label": "First Name",
+            "hintText": "This is a test field",
+            "text": "Some additional text",
+            "error": "This is an error message"
+        },
+        "This is a test"
+    ],
+    "hasNextButton": true,
+    "hasBackButton": true,
+    "nextPage": {
+        "default": "/something/like/this",
+        "options": [
+            {
+                "field": "test",
+                "value": "lewis",
+                "page": "/super/secret/route"
+            }
+        ]
+    }
+}

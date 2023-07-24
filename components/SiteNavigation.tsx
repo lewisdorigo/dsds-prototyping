@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import MobileMenu from '@scottish-government/pattern-library/src/components/site-navigation/site-navigation';
 
@@ -20,16 +22,16 @@ const SiteNavigation: React.FC<WebFrontEnd.SiteNavigation> = function SiteNaviga
     const [menuId] = useState(id || 'site-navigation');
     const menuToggleId = `${menuId}-toggle`;
 
-    if (!menuItems || menuItems.length < 1) {
-        return null;
-    }
-
     useEffect(() => {
-        if (process.browser) {
+        if (typeof window !== 'undefined') {
             const mobileMenu = document.getElementById(menuId);
             new MobileMenu(mobileMenu).init();
         }
     });
+
+    if (!menuItems || menuItems.length < 1) {
+        return null;
+    }
 
     return (
         <>

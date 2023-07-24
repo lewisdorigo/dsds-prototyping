@@ -2,7 +2,7 @@ declare namespace WebFrontEnd {
     namespace Metadata {
         interface Item {
             name: string,
-            value: string,
+            value: string | ReactNode | ReactNode[],
             hideName?: boolean,
             isLabel?: boolean,
         }

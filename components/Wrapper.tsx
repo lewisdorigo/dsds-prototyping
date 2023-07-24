@@ -1,5 +1,6 @@
 import React from 'react';
 
+import WrapperTag from './WrapperTag';
 import classNames from '../lib/classNames';
 
 /**
@@ -9,12 +10,34 @@ import classNames from '../lib/classNames';
  * @returns {JSX.Element} - The element
  */
 const Wrapper: React.FC<WebFrontEnd.Wrapper> = function Wrapper({
+    tag = 'div',
     children,
     className,
+    hasBackground = false,
     ...props
 }) {
+    if (hasBackground) {
+        return (
+            <div className="ds_cb ds_cb--cards ds_cb--bg-grey ds_cb--fullwidth">
+                <WrapperTag
+                    tag={tag}
+                    className={classNames(
+                        'ds_wrapper',
+                        className,
+                    )}
+                    {...props}
+                >
+                    <div className="ds_cb__inner">
+                        { children }
+                    </div>
+                </WrapperTag>
+            </div>
+        );
+    }
+
     return (
-        <div
+        <WrapperTag
+            tag={tag}
             className={classNames(
                 'ds_wrapper',
                 className,
@@ -22,7 +45,7 @@ const Wrapper: React.FC<WebFrontEnd.Wrapper> = function Wrapper({
             {...props}
         >
             { children }
-        </div>
+        </WrapperTag>
     );
 };
 

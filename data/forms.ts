@@ -1,4 +1,4 @@
-const types:WebFrontEnd.ApplicationTypes = {
+const forms:WebFrontEnd.FormTypes = {
     adp: {
         name: 'Adult Disability Payment',
         applyFor: 'Apply for Adult Disability Payment',
@@ -21,4 +21,19 @@ const types:WebFrontEnd.ApplicationTypes = {
     },
 };
 
-export default types;
+export const demoData:WebFrontEnd.DashboardItem[] = [
+    {
+        id: '50af26ce-9466-4a4a-8b55-9f5cbaab03b0',
+        client: 'Lucia Arethusa',
+        formType: 'adp',
+        lastSaved: new Date(),
+    },
+    {
+        id: 'f3bbfbe5-dc0b-40b5-8263-8fc4a404c1d5',
+        client: 'Klaus-Peter Virginia',
+        formType: 'adpSrti',
+        lastSaved: new Date(),
+    },
+];
+
+export default forms;

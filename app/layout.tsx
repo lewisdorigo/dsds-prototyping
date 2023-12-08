@@ -1,19 +1,25 @@
 import React, { PropsWithChildren } from 'react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
-import '../styles/globals.scss';
+import '@/styles/globals.scss';
 
-import classNames from '../lib/classNames';
+import classNames from '@/lib/classNames';
 
-import SiteHeader from '../components/SiteHeader';
-import SiteFooter from '../components/SiteFooter';
+import SiteHeader from '@/components/SiteHeader';
+import SiteFooter from '@/components/SiteFooter';
+import PhaseBanner from '@/components/PhaseBanner';
+import BackToTop from '@/components/BackToTop';
+
+export const viewport:Viewport = {
+    themeColor: '#ffffff',
+    colorScheme: 'light',
+};
 
 export const metadata:Metadata = {
     title: {
         default: 'Social Security Scotland',
         template: '%s | Prototype Toolkit | Social Security Scotland',
     },
-    themeColor: '#ffffff',
     icons: {
         icon: '/images/favicon.ico',
         apple: [
@@ -67,13 +73,17 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                                 },
                             ]}
                         />
+                        <PhaseBanner phase="alpha">
+                            This is a new service.
+                        </PhaseBanner>
                     </div>
                     <div className="ds_page_middle">
                         <main id="main-content">
                             { children }
+                            <BackToTop />
                         </main>
                     </div>
-                    <div className="ds_page_botom">
+                    <div className="ds_page_bottom">
                         <SiteFooter
                             links={[
                                 {

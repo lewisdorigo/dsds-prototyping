@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import PageHeader from '../../components/PageHeader';
-import Wrapper from '../../components/Wrapper';
+import PageHeader from '@/components/PageHeader';
+import Wrapper from '@/components/Wrapper';
 
 export const metadata:Metadata = {
     title: 'Help',

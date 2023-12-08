@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {React.HTMLProps<HTMLLabelElement>} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
 const Label: React.FC<React.HTMLProps<HTMLLabelElement>> = function Label({

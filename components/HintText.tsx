@@ -9,7 +9,7 @@ import classNames from '../lib/classNames';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const HintText: React.FC<React.PropsWithChildren> = function HintText({
+const HintText: React.FC<ScotGov.Component.HintText> = function HintText({
     children,
     className,
     text,
@@ -21,7 +21,7 @@ const HintText: React.FC<React.PropsWithChildren> = function HintText({
                 'ds_hint-text',
                 className,
             )}
-            dangerouslySetInnerHTML={{ __html: autop(text) }}
+            dangerouslySetInnerHTML={text ? { __html: text ? autop(text) : '' } : undefined}
             {...props}
         >
             { children }

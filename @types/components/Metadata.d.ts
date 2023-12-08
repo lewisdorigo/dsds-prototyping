@@ -1,4 +1,4 @@
-declare namespace WebFrontEnd {
+declare namespace ScotGov.Component {
     namespace Metadata {
         interface Item {
             name: string,

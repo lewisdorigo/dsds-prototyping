@@ -8,10 +8,10 @@ import Link from './Link';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteHeader.Branding} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SiteBranding: React.FC<WebFrontEnd.SiteHeader.Branding> = function SiteBranding({
+export const SiteBranding: React.FC<ScotGov.Component.SiteHeader.Branding> = function SiteBranding({
     title,
 }) {
     return (
@@ -39,10 +39,10 @@ export const SiteBranding: React.FC<WebFrontEnd.SiteHeader.Branding> = function 
 };
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteHeader} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SiteHeader: React.FC<WebFrontEnd.SiteHeader> = function SiteHead({
+const SiteHeader: React.FC<ScotGov.Component.SiteHeader> = function SiteHead({
     title,
     className,
     'aria-label': ariaLabel = 'Site Header',

@@ -1,8 +1,8 @@
-declare namespace WebFrontEnd {
+declare namespace ScotGov.Component {
     interface SiteNavigation extends Partial<React.HTMLProps<HTMLDivElement>> {
         id?: string,
         className?: string,
         'aria-label'?: string,
-        menuItems: WebFrontEnd.Link[],
+        menuItems: ScotGov.Link[],
     }
 }

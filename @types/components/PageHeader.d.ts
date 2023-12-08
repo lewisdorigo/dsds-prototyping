@@ -1,4 +1,4 @@
-declare namespace WebFrontEnd {
+declare namespace ScotGov.Component {
     interface PageHeader extends Title, Partial<React.HTMLProps<HTMLDivElement>> {
         title: string,
         caption?: string,

@@ -6,10 +6,10 @@ import classNames from '../lib/classNames';
 /**
  * DSDS `Wrapper` component
  *
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.Wrapper} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Wrapper: React.FC<WebFrontEnd.Wrapper> = function Wrapper({
+const Wrapper: React.FC<ScotGov.Component.Wrapper> = function Wrapper({
     tag = 'div',
     children,
     className,

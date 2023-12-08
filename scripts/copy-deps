@@ -19,11 +19,11 @@ async function copyDir(src, dest) {
 };
 
 copyDir(
-	path.join(__dirname, '../node_modules/@scottish-government/pattern-library/dist'),
-	path.join(__dirname, '../public/pattern-library/'),
+	path.join(__dirname, '../node_modules/@scottish-government/design-system/dist'),
+	path.join(__dirname, '../public/design-system/'),
 );
 
 copyDir(
-	path.join(__dirname, '../node_modules/@scottish-government/pattern-library/src/images/documents/svg'),
+	path.join(__dirname, '../node_modules/@scottish-government/design-system/src/images/documents/svg'),
 	path.join(__dirname, '../public/images/documents/'),
 );

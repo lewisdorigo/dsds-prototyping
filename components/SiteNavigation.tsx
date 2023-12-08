@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import MobileMenu from '@scottish-government/pattern-library/src/components/site-navigation/site-navigation';
+import React, { useEffect, useRef } from 'react';
+import MobileMenu from '@scottish-government/design-system/src/components/site-navigation/site-navigation';
 
 import Link from './Link';
 import Icon from './Icon';
@@ -9,25 +9,25 @@ import Icon from './Icon';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteNavigation} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SiteNavigation: React.FC<WebFrontEnd.SiteNavigation> = function SiteNavigation({
+const SiteNavigation: React.FC<ScotGov.Component.SiteNavigation> = function SiteNavigation({
     id,
     className,
     'aria-label': ariaLabel = 'Top Level Navigation',
     menuItems,
     ...props
 }) {
-    const [menuId] = useState(id || 'site-navigation');
+    const menuId = id || 'site-navigation';
     const menuToggleId = `${menuId}-toggle`;
+    const mobileMenu = useRef(null);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const mobileMenu = document.getElementById(menuId);
-            new MobileMenu(mobileMenu).init();
+            new MobileMenu(mobileMenu.current).init();
         }
-    });
+    }, [mobileMenu]);
 
     if (!menuItems || menuItems.length < 1) {
         return null;
@@ -69,6 +69,7 @@ const SiteNavigation: React.FC<WebFrontEnd.SiteNavigation> = function SiteNaviga
                     className,
                 )}
                 aria-label={ariaLabel}
+                ref={mobileMenu}
                 {...props}
             >
                 <ul className="ds_site-navigation__list">

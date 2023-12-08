@@ -1,4 +1,4 @@
-declare namespace WebFrontEnd {
+declare namespace ScotGov.Component {
     interface Link extends React.PropsWithChildren, Partial<React.HTMLProps<HTMLAnchorElement>> {
         text?: string,
         href: string,

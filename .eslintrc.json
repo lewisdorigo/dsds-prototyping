@@ -60,7 +60,8 @@
         "react/no-danger": "off",
         "react-hooks/rules-of-hooks": "warn",
         "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".ts"] }],
-        "import/extensions": ["error", "never"]
+        "import/extensions": ["error", "never"],
+        "react/button-has-type": "off"
     },
     "parserOptions": {
         "sourceType": "module",

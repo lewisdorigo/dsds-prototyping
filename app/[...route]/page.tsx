@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import PageHeader from '@/components/PageHeader';
-import ComponentsHelper from '@/components/ComponentsHelper';
+import FieldsHelper from '@/components/FieldsHelper';
 import ButtonGroup from '@/components/ButtonGroup';
 import Button from '@/components/Button';
 import Wrapper from '@/components/Wrapper';
@@ -22,23 +22,25 @@ interface PageRoute {
  * @param {string[]} route - The route to get data for.
  * @returns {Promise} - The route data
  */
-async function getData(route:string[]):Promise<WebFrontEnd.Page> {
+async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
     const relPath = makePath(process.cwd(), 'routes', ...route, 'data.json');
 
     const fileContents = await readFile(relPath, { encoding: 'utf8' });
     return JSON.parse(fileContents);
 }
 
-export async function generateMetadata({
+/**
+ * @param {PageRoute} props - The page route parameters
+ * @returns {Promise<Metadata>}
+ */
+export function generateMetadata({
     params: {
         route,
     },
-}:PageRoute) {
-    const data = await getData(route).catch(() => notFound());
-
-    return {
+}:PageRoute):Promise<Metadata> {
+    return getData(route).then((data) => ({
         title: data.title.title,
-    };
+    })).catch(() => notFound());
 }
 
 /**
@@ -55,8 +57,8 @@ const Page:React.FC<PageRoute> = async function Page({
     const {
         title,
         components,
-        hasNextButton,
-        hasBackButton,
+        nextButton,
+        backButton,
     } = data;
 
     return (
@@ -65,11 +67,11 @@ const Page:React.FC<PageRoute> = async function Page({
                 <PageHeader {...title} />
             </Wrapper>
             <Wrapper>
-                <ComponentsHelper components={components} />
+                <FieldsHelper fields={components} />
 
-                { (hasNextButton || hasBackButton) && (
+                { (nextButton || backButton) && (
                     <ButtonGroup>
-                        { hasBackButton && (
+                        { backButton && (
                             <Button
                                 variants="cancel"
                                 icon="chevron_left"
@@ -79,7 +81,7 @@ const Page:React.FC<PageRoute> = async function Page({
                                 Back
                             </Button>
                         )}
-                        { hasNextButton && (
+                        { nextButton && (
                             <Button
                                 type="submit"
                                 icon="chevron_right"

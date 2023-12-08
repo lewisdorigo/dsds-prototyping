@@ -3,10 +3,10 @@ import React from 'react';
 /**
  * Wraps any given children in a given `tag`.
  *
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.WrapperTag} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const WrapperTag: React.FC<WebFrontEnd.WrapperTag> = function WrapperTag({
+const WrapperTag: React.FC<ScotGov.Component.WrapperTag> = function WrapperTag({
     tag = 'div',
     children,
     ...props

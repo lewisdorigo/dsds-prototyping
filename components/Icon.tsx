@@ -2,10 +2,10 @@ import React from 'react';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.Icon} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Icon: React.FC<WebFrontEnd.Icon> = function Icon({
+const Icon: React.FC<ScotGov.Component.Icon> = function Icon({
     icon,
     size,
     title = '',
@@ -26,7 +26,7 @@ const Icon: React.FC<WebFrontEnd.Icon> = function Icon({
             aria-hidden={!accessible}
             role="img"
         >
-            <use xlinkHref={`/pattern-library/images/icons/icons.stack.svg#${icon}`} />
+            <use xlinkHref={`/design-system/images/icons/icons.stack.svg#${icon}`} />
         </svg>
     );
 };

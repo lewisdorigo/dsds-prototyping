@@ -1,4 +1,4 @@
-const forms:WebFrontEnd.FormTypes = {
+const forms:ScotGov.FormTypes = {
     adp: {
         name: 'Adult Disability Payment',
         applyFor: 'Apply for Adult Disability Payment',
@@ -21,7 +21,7 @@ const forms:WebFrontEnd.FormTypes = {
     },
 };
 
-export const demoData:WebFrontEnd.DashboardItem[] = [
+export const demoData:ScotGov.DashboardItem[] = [
     {
         id: '50af26ce-9466-4a4a-8b55-9f5cbaab03b0',
         client: 'Lucia Arethusa',

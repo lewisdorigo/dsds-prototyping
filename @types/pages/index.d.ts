@@ -1,18 +1,16 @@
-namespace WebFrontEnd {
+declare namespace ScotGov {
     namespace Pages {
-        namespace FormPage {
-            interface Page extends Page {
-                nextButton?: boolean | string,
-                backButton?: boolean | string,
-                nextPage: string | {
-                    default: string,
-                    options: {
-                        field: string,
-                        value: string,
-                        page: string,
-                    }[],
-                },
-            }
+        interface FormPage extends Page {
+            nextButton?: boolean | string,
+            backButton?: boolean | string,
+            nextPage: string | {
+                default: string,
+                options: {
+                    field: string,
+                    value: string,
+                    page: string,
+                }[],
+            },
         }
     }
 

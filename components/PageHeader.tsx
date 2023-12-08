@@ -6,10 +6,10 @@ import Heading from './WrapperTag';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.PageHeader} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const PageHeader: React.FC<WebFrontEnd.PageHeader> = function PageHead({
+const PageHeader: React.FC<ScotGov.Component.PageHeader> = function PageHead({
     caption,
     title,
     metadata,

@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import classNames from '../lib/classNames';
+import Button from './Button';
 
 const allowedInputTypes = [
     'color',
@@ -19,7 +20,11 @@ const allowedInputTypes = [
     'week',
 ];
 
-const Input:React.FC<WebFrontEnd.Field.Input> = function Input({
+/**
+ * @param {ScotGov.Component.Field.Input} props - Properties for the element
+ * @returns {JSX.Element} - The element
+ */
+const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
     type: defaultType,
     inputMode: defaultMode,
     name,
@@ -28,12 +33,15 @@ const Input:React.FC<WebFrontEnd.Field.Input> = function Input({
     value,
     error,
     width = 'fixed-20',
-    onChange: defaultOnChange,
-    onBlur: defaultOnBlur,
+    onChange,
+    onBlur,
+    icon,
+    currency,
     ...props
 }) {
     let type = defaultType as React.HTMLInputTypeAttribute;
     let inputMode = defaultMode;
+    const inputRef = useRef(null);
 
     if (!allowedInputTypes.includes(type)) {
         type = 'text';
@@ -45,35 +53,59 @@ const Input:React.FC<WebFrontEnd.Field.Input> = function Input({
     }
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-        const defaultReturn = defaultOnChange ? defaultOnChange(event) : undefined;
-
-        return defaultReturn;
+        if (typeof onChange === 'function') {
+            onChange(event);
+        }
     };
 
     const handleBlur = (event:React.FocusEvent<HTMLInputElement>) => {
-        const defaultReturn = defaultOnBlur ? defaultOnBlur(event) : undefined;
+        const { target } = event;
+        target.value = target.value.trim();
 
-        event.target.value = event.target.value.trim();
-        return defaultReturn;
+        if (typeof onBlur === 'function') {
+            onBlur(event);
+        }
     };
 
     return (
-        <input
-            type={type}
-            inputMode={inputMode}
-            id={id}
-            name={name}
-            defaultValue={value}
+        <div
             className={classNames(
-                'ds_input',
-                width ? `ds_input--${width}` : '',
-                error ? 'ds_input--error' : '',
-                className,
+                icon ? 'ds_input__wrapper ds_input__wrapper--has-icon' : '',
+                currency ? 'ds_currency-wrapper' : '',
             )}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            {...props}
-        />
+            data-symbol={currency}
+        >
+            <input
+                type={type}
+                inputMode={inputMode}
+                id={id}
+                name={name}
+                defaultValue={value}
+                className={classNames(
+                    'ds_input',
+                    width ? `ds_input--${width}` : '',
+                    error ? 'ds_input--error' : '',
+                    className,
+                )}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                ref={inputRef}
+                {...props}
+            />
+            { icon && (
+                <Button
+                    iconSide="icon-only"
+                    icon={icon}
+                    onClick={() => {
+                        if (inputRef.current) {
+                            (inputRef.current as HTMLInputElement).focus();
+                        }
+                    }}
+                >
+                    { name }
+                </Button>
+            )}
+        </div>
     );
 };
 

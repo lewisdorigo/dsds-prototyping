@@ -1,9 +1,9 @@
 @import "./settings";
 @import "./fonts";
 
-@import '../node_modules/@scottish-government/pattern-library/src/pattern-library';
+@import '../node_modules/@scottish-government/design-system/src/design-system';
 @import './content-blocks.scss';
 
-@import "../components/SiteHeader";
-@import "../components/SiteNavigation";
-@import "../components/SiteFooter";
+@import "@/components/SiteHeader";
+@import "@/components/SiteNavigation";
+@import "@/components/SiteFooter";

@@ -1,32 +1,33 @@
+'use client';
+
 import React from 'react';
 
 import WrapperTag from './WrapperTag';
 
-import autop from '../lib/autop';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.Field.Group} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Error: React.FC<React.PropsWithChildren> = function Error({
-    children,
+const FieldGroup:React.FC<ScotGov.Component.Field.Group> = function FieldGroup({
+    tag = 'div',
     className,
-    text,
-    ...props
+    children,
+    inline,
 }) {
     return (
         <WrapperTag
+            tag={tag}
             className={classNames(
-                'ds_question__error-message',
+                'ds_field-group',
+                inline ? 'ds_field-group--inline' : '',
                 className,
             )}
-            dangerouslySetInnerHTML={{ __html: autop(text) }}
-            {...props}
         >
             { children }
         </WrapperTag>
     );
 };
 
-export default Error;
+export default FieldGroup;

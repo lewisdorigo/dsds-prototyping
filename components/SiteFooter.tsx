@@ -6,10 +6,12 @@ import Wrapper from './Wrapper';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteFooter.Links} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SiteFooterLinks: React.FC<WebFrontEnd.SiteFooter.Links> = function SiteFooterLinks({
+export const SiteFooterLinks: React.FC<
+    ScotGov.Component.SiteFooter.Links
+> = function SiteFooterLinks({
     links,
 }) {
     return (
@@ -31,11 +33,11 @@ export const SiteFooterLinks: React.FC<WebFrontEnd.SiteFooter.Links> = function 
 };
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteFooter.Copyright} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
 export const SiteFooterCopyright: React.FC<
-    WebFrontEnd.SiteFooter.Copyright
+    ScotGov.Component.SiteFooter.Copyright
 > = function SiteFooterCopyright({
     logo,
     link,
@@ -71,10 +73,12 @@ export const SiteFooterCopyright: React.FC<
 };
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteFooter.Organisation} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SiteFooterOrg: React.FC<WebFrontEnd.SiteFooter.Organisation> = function SiteFooterOrg({
+export const SiteFooterOrg: React.FC<
+    ScotGov.Component.SiteFooter.Organisation
+> = function SiteFooterOrg({
     logo,
     link,
 }) {
@@ -107,10 +111,10 @@ export const SiteFooterOrg: React.FC<WebFrontEnd.SiteFooter.Organisation> = func
 };
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.SiteFooter} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SiteFooter: React.FC<WebFrontEnd.SiteFooter> = function SiteFooter({
+const SiteFooter: React.FC<ScotGov.Component.SiteFooter> = function SiteFooter({
     links,
     copyright,
     org,

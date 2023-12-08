@@ -5,7 +5,7 @@ import WrapperTag from './WrapperTag';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {React.HTMLProps<HTMLDivElement>} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
 const ButtonGroup: React.FC<React.HTMLProps<HTMLDivElement>> = function ButtonGroup({

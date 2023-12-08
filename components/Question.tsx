@@ -4,23 +4,26 @@ import React from 'react';
 
 import Label from './Label';
 import HintText from './HintText';
-import Error from './Error';
+import ErrorMessage from './ErrorMessage';
 import WrapperTag from './WrapperTag';
 
 import classNames from '../lib/classNames';
 
-const Question:React.FC<WebFrontEnd.Field.Question> = function Question({
-    field,
+/**
+ * @param {ScotGov.Component.Field.Question} props - Properties for the element
+ * @returns {JSX.Element} - The element
+ */
+const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
     tag = 'div',
     className,
     children,
+    label,
+    id,
+    hintText,
+    text,
+    error,
 }) {
-    const {
-        name,
-        id,
-        hintText,
-        error,
-    } = field;
+    const errorText = typeof error === 'string' ? error : 'An error occurred.';
 
     return (
         <WrapperTag
@@ -34,11 +37,12 @@ const Question:React.FC<WebFrontEnd.Field.Question> = function Question({
         >
             {
                 tag === 'fieldset'
-                    ? <legend className="ds_label">{ name }</legend>
-                    : <Label htmlFor={id}>{ name }</Label>
+                    ? <legend className="ds_label">{ label }</legend>
+                    : <Label htmlFor={id}>{ label }</Label>
             }
             { hintText && <HintText text={hintText} /> }
-            { error && <Error text={error} /> }
+            { error && <ErrorMessage text={errorText} /> }
+            { text }
             { children }
         </WrapperTag>
     );

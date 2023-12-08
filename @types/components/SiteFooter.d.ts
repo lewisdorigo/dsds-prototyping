@@ -1,7 +1,7 @@
-declare namespace WebFrontEnd {
+declare namespace ScotGov.Component {
     namespace SiteFooter {
         interface Links {
-            links: WebFrontEnd.Link[],
+            links: ScotGov.Link[],
         }
 
         interface Copyright {

@@ -4,10 +4,10 @@ import NextLink from 'next/link';
 import classNames from '../lib/classNames';
 
 /**
- * @param {Object} props - Properties for the element
+ * @param {ScotGov.Component.Link} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Link: React.FC<WebFrontEnd.Link> = function Link({
+const Link: React.FC<ScotGov.Component.Link> = function Link({
     text,
     href,
     target,

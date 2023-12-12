@@ -9,6 +9,7 @@ import Question from '@/components/Question';
 import Input from '@/components/Input';
 import FieldGroup from '@/components/FieldGroup';
 import Pagination from '@/components/Pagination';
+import SequentialNavigation from '@/components/SequentialNavigation';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -245,6 +246,22 @@ const Page:React.FC = function Page() {
                     aria-label="Search result pages"
                     currentIndex={5}
                     pages={['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']}
+                />
+
+                <hr />
+
+                <h2>Paging</h2>
+                <SequentialNavigation
+                    prev={{
+                        type: 'prev',
+                        label: 'Apply for or renew a Blue Badge',
+                        link: '#',
+                    }}
+                    next={{
+                        type: 'next',
+                        label: 'Eligibility: who can have one?',
+                        link: '#',
+                    }}
                 />
             </Wrapper>
         </>

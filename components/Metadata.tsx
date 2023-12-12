@@ -35,7 +35,7 @@ const Metadata: React.FC<ScotGov.Component.Metadata> = function Metadata({
     ...props
 }) {
     return (
-        <dl className={`ds_metadata${className ? ` ${className}` : ''}`} {...props}>
+        <dl className={classNames('ds_metadata', className)} {...props}>
             { items && items.map((item, index) => {
                 const itemKey = `meta-data-${index}`;
                 return <MetadataItem key={itemKey} {...item} />;

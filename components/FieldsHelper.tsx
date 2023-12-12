@@ -2,6 +2,7 @@ import React from 'react';
 
 import Question from './Question';
 import Input from './Input';
+import Date from './Date';
 
 /**
  * @param {Object} props - Properties for the element
@@ -18,11 +19,28 @@ const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelpe
         throw new Error('Component does type have a type set.');
     }
 
+    const {
+        additional,
+        ...data
+    } = field;
+
+    const questionData = data;
+
+    if (typeof additional?.maxlength !== 'undefined') {
+        questionData['data-module'] = 'ds-character-count';
+    }
+
     switch (field.type) {
+        case 'date':
+            return (
+                <Question {...questionData}>
+                    <Date {...data} {...additional} />
+                </Question>
+            );
         default:
             return (
-                <Question {...field}>
-                    <Input {...field} />
+                <Question {...questionData}>
+                    <Input {...data} {...additional} />
                 </Question>
             );
             break;

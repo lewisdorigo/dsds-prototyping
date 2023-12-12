@@ -7,3 +7,12 @@
 @import "@/components/SiteHeader";
 @import "@/components/SiteNavigation";
 @import "@/components/SiteFooter";
+@import "@/components/Details";
+
+.ds_question {
+    @include ds_responsive-spacing(4, 'margin', bottom);
+
+    .ds_input__wrapper {
+        @include ds_responsive-spacing(1, 'margin', bottom);
+    }
+}

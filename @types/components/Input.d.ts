@@ -7,5 +7,6 @@ declare namespace ScotGov.Component.Field {
         width?: string,
         icon?: string,
         currency?: string,
+        wrap?: boolean,
     }
 }

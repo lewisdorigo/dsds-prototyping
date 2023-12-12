@@ -1,14 +1,18 @@
+import React from 'react';
 import { readFile } from 'node:fs/promises';
 import { join as makePath } from 'path';
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+// import handleSubmit from './submit-handler';
+
 import PageHeader from '@/components/PageHeader';
 import FieldsHelper from '@/components/FieldsHelper';
 import ButtonGroup from '@/components/ButtonGroup';
 import Button from '@/components/Button';
 import Wrapper from '@/components/Wrapper';
+import Details from '@/components/Details';
 
 interface PageRoute {
     params: {
@@ -61,45 +65,73 @@ const Page:React.FC<PageRoute> = async function Page({
         backButton,
     } = data;
 
+    async function handleSubmit(formData: FormData) {
+        'use server';
+
+        const rawFormData:{[key:string]: string} = {};
+        for (let i = 0; i < components.length; i += 1) {
+            const component = components[i];
+
+            if (
+                typeof component === 'string'
+                || !component.type
+                || !component.name
+                || !formData.has(component.name)
+            ) {
+                continue;
+            }
+
+            rawFormData[component.name] = formData.get(component.name) as string;
+        }
+
+        return {
+            message: 'Submitted',
+        };
+    }
+
     return (
         <>
             <Wrapper>
                 <PageHeader {...title} />
             </Wrapper>
             <Wrapper>
-                <FieldsHelper fields={components} />
+                <form action={handleSubmit}>
+                    <FieldsHelper fields={components} />
 
-                { (nextButton || backButton) && (
-                    <ButtonGroup>
-                        { backButton && (
-                            <Button
-                                variants="cancel"
-                                icon="chevron_left"
-                                iconSide="left"
-                                // onClick={() => window.history.back() }
-                            >
-                                Back
-                            </Button>
-                        )}
-                        { nextButton && (
-                            <Button
-                                type="submit"
-                                icon="chevron_right"
-                                iconSide="right"
-                            >
-                                Save and continue
-                            </Button>
-                        )}
-                    </ButtonGroup>
-                )}
+                    { (nextButton || backButton) && (
+                        <ButtonGroup className="ds_!_margin-top--8 ds_!_margin-bottom--0">
+                            { backButton && (
+                                <Button
+                                    variants="cancel"
+                                    icon="chevron_left"
+                                    iconSide="left"
+                                    // onClick={() => window.history.back() }
+                                >
+                                    Back
+                                </Button>
+                            )}
+                            { nextButton && (
+                                <Button
+                                    type="submit"
+                                    icon="chevron_right"
+                                    iconSide="right"
+                                >
+                                    Save and continue
+                                </Button>
+                            )}
+                        </ButtonGroup>
+                    )}
+                </form>
 
-                <pre>
-                    <code
-                        dangerouslySetInnerHTML={{
-                            __html: JSON.stringify(data, undefined, 4),
-                        }}
-                    />
-                </pre>
+                <Details label="View page details">
+                    <pre>
+                        <code
+                            dangerouslySetInnerHTML={{
+                                __html: JSON.stringify(data, undefined, 4),
+                            }}
+                        />
+                    </pre>
+                </Details>
             </Wrapper>
         </>
     );

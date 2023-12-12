@@ -35,8 +35,10 @@ const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
     width = 'fixed-20',
     onChange,
     onBlur,
+    autoComplete = false,
     icon,
     currency,
+    wrap = true,
     ...props
 }) {
     let type = defaultType as React.HTMLInputTypeAttribute;
@@ -70,7 +72,8 @@ const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
     return (
         <div
             className={classNames(
-                icon ? 'ds_input__wrapper ds_input__wrapper--has-icon' : '',
+                wrap ? 'ds_input__wrapper' : '',
+                wrap && icon ? 'ds_input__wrapper--has-icon' : '',
                 currency ? 'ds_currency-wrapper' : '',
             )}
             data-symbol={currency}
@@ -81,6 +84,7 @@ const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
                 id={id}
                 name={name}
                 defaultValue={value}
+                autoComplete={autoComplete ? 'true' : 'false'}
                 className={classNames(
                     'ds_input',
                     width ? `ds_input--${width}` : '',

@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import CharacterCount from '@scottish-government/design-system/src/forms/character-count/character-count';
 
 import Label from './Label';
 import HintText from './HintText';
 import ErrorMessage from './ErrorMessage';
 import WrapperTag from './WrapperTag';
 
+import autop from '../lib/autop';
 import classNames from '../lib/classNames';
 
 /**
@@ -22,8 +24,17 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
     hintText,
     text,
     error,
+    'data-module': module,
 }) {
+    const ref = useRef(null);
     const errorText = typeof error === 'string' ? error : 'An error occurred.';
+
+    useEffect(() => {
+        if (typeof window === 'undefined') { return; }
+
+        const characterCount = new CharacterCount(ref.current);
+        characterCount.init();
+    }, [ref]);
 
     return (
         <WrapperTag
@@ -34,15 +45,27 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
                 error ? 'ds_question--error' : '',
                 className,
             )}
+            data-module={module}
+            ref={ref}
         >
             {
                 tag === 'fieldset'
                     ? <legend className="ds_label">{ label }</legend>
                     : <Label htmlFor={id}>{ label }</Label>
             }
+            { text && (
+                <div
+                    dangerouslySetInnerHTML={(
+                        typeof text === 'string'
+                            ? { __html: autop(text) }
+                            : undefined
+                    )}
+                >
+                    { typeof text !== 'string' ? text : null }
+                </div>
+            )}
             { hintText && <HintText text={hintText} /> }
             { error && <ErrorMessage text={errorText} /> }
-            { text }
             { children }
         </WrapperTag>
     );

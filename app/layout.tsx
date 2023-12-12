@@ -8,7 +8,9 @@ import classNames from '@/lib/classNames';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import PhaseBanner from '@/components/PhaseBanner';
+import ArticleAside from '@/components/ArticleAside';
 import BackToTop from '@/components/BackToTop';
+import Link from '@/components/Link';
 
 export const viewport:Viewport = {
     themeColor: '#ffffff',
@@ -84,6 +86,14 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                         </main>
                     </div>
                     <div className="ds_page_bottom">
+                        <ArticleAside>
+                            <h2 className="delta">Service feedback</h2>
+                            <p>
+                                <Link href="#">Report a problem</Link>
+                                {' '}
+                                with this online form.
+                            </p>
+                        </ArticleAside>
                         <SiteFooter
                             links={[
                                 {

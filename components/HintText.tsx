@@ -24,7 +24,7 @@ const HintText: React.FC<ScotGov.Component.HintText> = function HintText({
             dangerouslySetInnerHTML={text ? { __html: text ? autop(text) : '' } : undefined}
             {...props}
         >
-            { children }
+            { !text ? children : null }
         </WrapperTag>
     );
 };

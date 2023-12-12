@@ -10,6 +10,7 @@ import Input from '@/components/Input';
 import FieldGroup from '@/components/FieldGroup';
 import Pagination from '@/components/Pagination';
 import SequentialNavigation from '@/components/SequentialNavigation';
+import SideNavigation from '@/components/SideNavigation';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -262,6 +263,50 @@ const Page:React.FC = function Page() {
                         label: 'Eligibility: who can have one?',
                         link: '#',
                     }}
+                />
+
+                <hr />
+                <h2>Side Navigation</h2>
+
+                <SideNavigation
+                    items={[
+                        {
+                            label: 'Apples',
+                            link: '#',
+                            items: [
+                                {
+                                    label: 'Green apples',
+                                    link: '#',
+                                    items: [
+                                        {
+                                            label: 'Bramley',
+                                            link: '#',
+                                        },
+                                        {
+                                            label: 'Granny smith',
+                                            link: '#',
+                                        },
+                                    ],
+                                },
+                                {
+                                    label: 'Red apples',
+                                    link: '#',
+                                },
+                            ],
+                        },
+                        {
+                            label: 'Bananas',
+                            link: '#',
+                        },
+                        {
+                            label: 'Cherries',
+                            link: '#',
+                        },
+                        {
+                            label: 'Dates',
+                            link: '#',
+                        },
+                    ]}
                 />
             </Wrapper>
         </>

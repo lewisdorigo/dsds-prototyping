@@ -8,7 +8,7 @@ declare namespace ScotGov.Component {
         }
     }
 
-    interface Metadata extends Partial<React.HTMLProps<HTMLDListElement>> {
+    interface Metadata extends React.AllHTMLAttributes<HTMLDListElement> {
         items: MetadataItem[],
         className?: string,
     }

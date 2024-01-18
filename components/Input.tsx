@@ -69,33 +69,42 @@ const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
         }
     };
 
+    const input = (
+        <input
+            type={type}
+            inputMode={inputMode}
+            id={id}
+            name={name}
+            defaultValue={value}
+            autoComplete={autoComplete ? 'true' : 'false'}
+            data-1p-ignore
+            className={classNames(
+                'ds_input',
+                width ? `ds_input--${width}` : '',
+                error ? 'ds_input--error' : '',
+                className,
+            )}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            ref={inputRef}
+            {...props}
+        />
+    );
+
+    if (!wrap) {
+        return input;
+    }
+
     return (
         <div
             className={classNames(
-                wrap ? 'ds_input__wrapper' : '',
+                'ds_input__wrapper',
                 wrap && icon ? 'ds_input__wrapper--has-icon' : '',
                 currency ? 'ds_currency-wrapper' : '',
             )}
             data-symbol={currency}
         >
-            <input
-                type={type}
-                inputMode={inputMode}
-                id={id}
-                name={name}
-                defaultValue={value}
-                autoComplete={autoComplete ? 'true' : 'false'}
-                className={classNames(
-                    'ds_input',
-                    width ? `ds_input--${width}` : '',
-                    error ? 'ds_input--error' : '',
-                    className,
-                )}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                ref={inputRef}
-                {...props}
-            />
+            { input }
             { icon && (
                 <Button
                     iconSide="icon-only"

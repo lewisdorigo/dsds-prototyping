@@ -10,7 +10,7 @@
             "type": "text",
             "label": "First Name",
             "additional": {
-                "maxlength": 20
+                "maxLength": 20
             }
         },
         {

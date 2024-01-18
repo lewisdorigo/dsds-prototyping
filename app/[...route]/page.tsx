@@ -65,6 +65,10 @@ const Page:React.FC<PageRoute> = async function Page({
         backButton,
     } = data;
 
+    /**
+     * @param {FormData} formData - data in the submitted form
+     * @returns {object} - Response data for the submission
+     */
     async function handleSubmit(formData: FormData) {
         'use server';
 
@@ -78,7 +82,7 @@ const Page:React.FC<PageRoute> = async function Page({
                 || !component.name
                 || !formData.has(component.name)
             ) {
-                continue;
+                continue; // eslint-disable-line no-continue
             }
 
             rawFormData[component.name] = formData.get(component.name) as string;

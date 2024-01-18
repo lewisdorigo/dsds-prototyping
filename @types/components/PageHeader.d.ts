@@ -1,5 +1,5 @@
 declare namespace ScotGov.Component {
-    interface PageHeader extends Title, Partial<React.HTMLProps<HTMLDivElement>> {
+    interface PageHeader extends Title, React.AllHTMLAttributes<HTMLDivElement> {
         title: string,
         caption?: string,
         metadata?: Metadata.Item[] | undefined,

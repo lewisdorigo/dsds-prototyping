@@ -6,14 +6,14 @@ import React, { forwardRef } from 'react';
  * @param {ScotGov.Component.WrapperTag} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const WrapperTag = forwardRef<React.FC, ScotGov.Component.WrapperTag>(function WrapperTag({
+// eslint-disable-next-line prefer-arrow-callback
+const WrapperTag = forwardRef<HTMLDivElement, ScotGov.Component.WrapperTag>(function WrapperTag({
     tag = 'div',
     children,
     ...props
 }, ref) {
-    const tagName:string = tag || 'div';
     return React.createElement(
-        tagName,
+        tag as string,
         {
             ...props,
             ref,

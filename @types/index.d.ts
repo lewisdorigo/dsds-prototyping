@@ -28,7 +28,7 @@ declare namespace ScotGov {
         [key:string]: FormTypes.Type,
     }
 
-    interface Field<Type = unknown, Items = undefined> {
+    interface Field<Type = unknown, Items = undefined, Additional = never> {
         type?: Type,
         name: string,
         id: string,
@@ -41,6 +41,7 @@ declare namespace ScotGov {
         className?: string,
         required?: boolean,
         items?: Items,
+        additional?: Additional,
         conditional?: {
             hidden: boolean,
             field: string | string[],

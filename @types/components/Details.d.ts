@@ -1,5 +1,5 @@
 declare namespace ScotGov.Component {
-    interface Details extends Partial<React.HTMLProps<HTMLDetailsElement>> {
+    interface Details extends React.AllHTMLAttributes<HTMLDetailsElement> {
         label: string,
     }
 }

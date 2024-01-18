@@ -13,7 +13,7 @@ declare namespace ScotGov.Component {
         }
     }
 
-    interface SideNavigation extends Partial<React.HTMLProps<HTMLDivElement>> {
+    interface SideNavigation extends React.AllHTMLAttributes<HTMLDivElement> {
         items:SideNavigation.Item[],
     }
 }

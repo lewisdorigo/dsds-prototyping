@@ -20,27 +20,29 @@ const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelpe
     }
 
     const {
-        additional,
+        type,
+        additional = {},
         ...data
     } = field;
-
-    const questionData = data;
-
-    if (typeof additional?.maxlength !== 'undefined') {
-        questionData['data-module'] = 'ds-character-count';
-    }
 
     switch (field.type) {
         case 'date':
             return (
-                <Question {...questionData}>
-                    <Date {...data} {...additional} />
+                <Question {...data} additional={additional}>
+                    <Date
+                        {...data}
+                        {...additional}
+                    />
                 </Question>
             );
         default:
             return (
-                <Question {...questionData}>
-                    <Input {...data} {...additional} />
+                <Question {...data} additional={additional}>
+                    <Input
+                        type={type as ScotGov.Component.Field.Input.Types}
+                        {...data}
+                        {...additional}
+                    />
                 </Question>
             );
             break;

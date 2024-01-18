@@ -1,5 +1,5 @@
 declare namespace ScotGov.Component {
-    interface Link extends React.PropsWithChildren, Partial<React.HTMLProps<HTMLAnchorElement>> {
+    interface Link extends React.PropsWithChildren, React.AllHTMLAttributes<HTMLAnchorElement> {
         text?: string,
         href: string,
         ref?: Ref<HTMLAnchorElement> | undefined,

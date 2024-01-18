@@ -16,7 +16,7 @@ declare namespace ScotGov.Component {
         }
     }
 
-    interface SiteFooter extends Partial<React.HTMLProps<HTMLDivElement>> {
+    interface SiteFooter extends React.AllHTMLAttributes<HTMLDivElement> {
         links?: Link[],
         copyright?: SiteFooter.Copyright,
         org?: SiteFooter.Organisation,

@@ -89,7 +89,7 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                         <ArticleAside>
                             <h2 className="delta">Service feedback</h2>
                             <p>
-                                <Link href="#">Report a problem</Link>
+                                <Link href="#page-top">Report a problem</Link>
                                 {' '}
                                 with this online form.
                             </p>

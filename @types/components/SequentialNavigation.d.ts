@@ -8,7 +8,7 @@ declare namespace ScotGov.Component {
         }
     }
 
-    interface SequentialNavigation extends Partial<React.HTMLProps<HTMLDivElement>> {
+    interface SequentialNavigation extends React.AllHTMLAttributes<HTMLDivElement> {
         next: MetadataItem,
         prev: MetadataItem,
     }

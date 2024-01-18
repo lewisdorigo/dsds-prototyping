@@ -24,17 +24,19 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
     hintText,
     text,
     error,
-    'data-module': module,
+    additional,
 }) {
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
     const errorText = typeof error === 'string' ? error : 'An error occurred.';
 
     useEffect(() => {
         if (typeof window === 'undefined') { return; }
 
-        const characterCount = new CharacterCount(ref.current);
-        characterCount.init();
-    }, [ref]);
+        if (additional?.maxLength) {
+            const characterCount = new CharacterCount(ref.current);
+            characterCount.init();
+        }
+    }, [ref, additional?.maxLength]);
 
     return (
         <WrapperTag
@@ -45,7 +47,9 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
                 error ? 'ds_question--error' : '',
                 className,
             )}
-            data-module={module}
+            data-module={classNames(
+                additional?.maxLength ? 'ds-character-count' : '',
+            )}
             ref={ref}
         >
             {

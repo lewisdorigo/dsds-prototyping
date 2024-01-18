@@ -5,7 +5,7 @@ declare namespace ScotGov.Component {
         }
     }
 
-    interface SiteHeader extends Partial<React.HTMLProps<HTMLDivElement>> {
+    interface SiteHeader extends React.AllHTMLAttributes<HTMLDivElement> {
         className?: string,
         'aria-label'?: string,
         menuItems?: Link[],

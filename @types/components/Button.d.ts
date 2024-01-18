@@ -5,7 +5,7 @@ declare namespace ScotGov.Component {
         type Size = 'small' | 'fixed' | 'max';
         type Type = 'submit' | 'reset' | 'button';
 
-        interface Base<T> extends React.HTMLProps<T> {
+        interface Base<T> extends React.AllHTMLAttributes<T> {
             icon?: string,
             iconSide?: IconSides,
             variants?: Variant | Variant[],

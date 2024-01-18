@@ -22,6 +22,10 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
     maxDate,
     minDate,
 }) {
+    /**
+     * @param {Date} date - The date string
+     * @returns {string} - The ISO date string, as a UTC date
+     */
     const dateToIsoString = (date:Date):string => {
         const offset = date.getTimezoneOffset();
         const newDate = new Date(date.getTime() - (offset * 60 * 1000));
@@ -55,6 +59,9 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
         const datePicker = new DatePicker(
             ref.current,
             {
+                /**
+                 * @param {Date} date - The date string
+                 */
                 dateSelectCallback(date:Date) {
                     setDateIso(dateToIsoString(date));
                 },
@@ -83,33 +90,50 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
                     multiple
                         ? (
                             <div className="ds_datepicker__input-wrapper">
-                                <Input
-                                    type="number"
-                                    name={`${name}-day`}
-                                    id={`${id}-day`}
-                                    width="fixed-2"
-                                    className="js-datepicker-date"
-                                    wrap={false}
-                                    defaultValue={defaultDay}
-                                />
-                                <Input
-                                    type="number"
-                                    name={`${name}-month`}
-                                    id={`${id}-month`}
-                                    width="fixed-2"
-                                    className="js-datepicker-month"
-                                    wrap={false}
-                                    defaultValue={defaultMonth}
-                                />
-                                <Input
-                                    type="number"
-                                    name={`${name}-year`}
-                                    id={`${id}-year`}
-                                    width="fixed-4"
-                                    className="js-datepicker-year"
-                                    wrap={false}
-                                    defaultValue={defaultYear}
-                                />
+                                <div>
+                                    <Label htmlFor={`${id}-day`}>
+                                        Day
+                                    </Label>
+                                    <Input
+                                        type="number"
+                                        name={`${name}-day`}
+                                        id={`${id}-day`}
+                                        width="fixed-2"
+                                        className="js-datepicker-date"
+                                        wrap={false}
+                                        defaultValue={defaultDay}
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label htmlFor={`${id}-month`}>
+                                        Month
+                                    </Label>
+                                    <Input
+                                        type="number"
+                                        name={`${name}-month`}
+                                        id={`${id}-month`}
+                                        width="fixed-2"
+                                        className="js-datepicker-month"
+                                        wrap={false}
+                                        defaultValue={defaultMonth}
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label htmlFor={`${id}-year`}>
+                                        Year
+                                    </Label>
+                                    <Input
+                                        type="number"
+                                        name={`${name}-year`}
+                                        id={`${id}-year`}
+                                        width="fixed-4"
+                                        className="js-datepicker-year"
+                                        wrap={false}
+                                        defaultValue={defaultYear}
+                                    />
+                                </div>
                             </div>
                         )
                         : (

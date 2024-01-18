@@ -17,7 +17,7 @@ declare namespace ScotGov.Component {
         }
     }
 
-    interface SummaryList<T = HTMLOListElement> extends React.HTMLProps<T> {
+    interface SummaryList<T = HTMLOListElement> extends React.AllHTMLAttributes<T> {
         items: SummaryList.Item[],
         borders?: boolean,
     }

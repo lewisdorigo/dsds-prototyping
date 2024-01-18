@@ -1,5 +1,5 @@
 declare namespace ScotGov.Component {
-    interface Wrapper extends React.PropsWithChildren, Partial<React.HTMLProps<HTMLDivElement>> {
+    interface Wrapper extends React.PropsWithChildren, React.AllHTMLAttributes<HTMLDivElement> {
         tag?: 'div',
         hasBackground?: boolean,
     }

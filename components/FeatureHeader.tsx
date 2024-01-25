@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from '../lib/classNames';
 import Image from 'next/image';
+import classNames from '../lib/classNames';
 
 /**
  * @param {ScotGov.Component.FeatureHeader} props - Properties for the element
@@ -17,11 +17,12 @@ const FeatureHeader: React.FC<ScotGov.Component.FeatureHeader> = function Featur
     ...props
 }) {
     return (
-        <header className={classNames(
-            'ds_feature-header',
-            background ? 'ds_feature-header--background' : null,
-            wideText ? 'ds_feature-header--wide' : null,
-            className
+        <header
+            className={classNames(
+                'ds_feature-header',
+                background ? 'ds_feature-header--background' : null,
+                wideText ? 'ds_feature-header--wide' : null,
+                className,
             )}
             aria-label={ariaLabel}
             {...props}
@@ -33,15 +34,16 @@ const FeatureHeader: React.FC<ScotGov.Component.FeatureHeader> = function Featur
                 )}
             </div>
             <div className="ds_feature-header__secondary">
-                { imageData &&
-                    <Image
-                        className="ds_feature-header__image"
-                        src={imageData.src}
-                        alt={imageData.alt}
-                        width={0}
-                        height={0}
-                    />
-                }
+                { imageData
+                    && (
+                        <Image
+                            className="ds_feature-header__image"
+                            src={imageData.src}
+                            alt={imageData.alt}
+                            width={0}
+                            height={0}
+                        />
+                    )}
             </div>
         </header>
     );

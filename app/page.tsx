@@ -311,30 +311,33 @@ const Page:React.FC = function Page() {
                 />
                 <hr />
                 <h2>Feature Headers</h2>
-                <FeatureHeader title='Design Standards'
-                    content='The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland.'
-                    imageData = {{
+                <FeatureHeader
+                    title="Design Standards"
+                    content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
+                    imageData={{
                         src: '/images/social-security-scotland-logo.svg',
-                        alt: 'Social Security Scotland logo'
+                        alt: 'Social Security Scotland logo',
                     }}
                 />
                 <h3>Coloured background</h3>
-                <FeatureHeader title='Design Standards'
-                    content='The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland.'
-                    imageData = {{
+                <FeatureHeader
+                    title="Design Standards"
+                    content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
+                    imageData={{
                         src: '/images/social-security-scotland-logo.svg',
-                        alt: 'Social Security Scotland logo'
+                        alt: 'Social Security Scotland logo',
                     }}
-                    background='grey'
+                    background="grey"
                 />
                 <h3>Wide text</h3>
-                <FeatureHeader title='Design Standards'
-                    content='The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland.'
-                    imageData = {{
+                <FeatureHeader
+                    title="Design Standards"
+                    content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
+                    imageData={{
                         src: '/images/social-security-scotland-logo.svg',
-                        alt: 'Social Security Scotland logo'
+                        alt: 'Social Security Scotland logo',
                     }}
-                    wideText={true}
+                    wideText
                 />
             </Wrapper>
         </>

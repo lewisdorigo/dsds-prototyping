@@ -12,6 +12,7 @@ import Pagination from '@/components/Pagination';
 import SequentialNavigation from '@/components/SequentialNavigation';
 import SideNavigation from '@/components/SideNavigation';
 import FeatureHeader from '@/components/FeatureHeader';
+import NotificationBanner from '@/components/NotificationBanner';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -339,6 +340,34 @@ const Page:React.FC = function Page() {
                     }}
                     wideText
                 />
+                <hr />
+                <h2>Notification Banners</h2>
+                <h3>Default</h3>
+                <NotificationBanner
+                    caption={{
+                        text: 'We need to tell you about something',
+                    }}
+                    hasClose
+                />
+                <h3>Success banner with link</h3>
+                <NotificationBanner
+                    caption={{
+                        text: 'We need to tell you about ',
+                        link: 'https://gov.scot/',
+                        linkText: 'something',
+                    }}
+                    hasClose
+                    success
+                />
+                <h3>With icon</h3>
+                <NotificationBanner
+                    caption={{
+                        text: 'We need to tell you about something',
+                    }}
+                    icon
+                    hasClose
+                />
+
             </Wrapper>
         </>
     );

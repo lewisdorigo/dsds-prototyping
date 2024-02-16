@@ -2,6 +2,7 @@ import React from 'react';
 
 import WrapperTag from './WrapperTag';
 import classNames from '../lib/classNames';
+import './Wrapper.scss';
 
 /**
  * DSDS `Wrapper` component

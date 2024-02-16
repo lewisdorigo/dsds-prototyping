@@ -347,6 +347,12 @@ const Page:React.FC = function Page() {
                     caption={{
                         text: 'We need to tell you about something',
                     }}
+                />
+                <h3>With close</h3>
+                <NotificationBanner
+                    caption={{
+                        text: 'We need to tell you about something',
+                    }}
                     hasClose
                 />
                 <h3>Success banner with link</h3>

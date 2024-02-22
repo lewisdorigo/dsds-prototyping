@@ -11,6 +11,7 @@ import PhaseBanner from '@/components/PhaseBanner';
 import ArticleAside from '@/components/ArticleAside';
 import BackToTop from '@/components/BackToTop';
 import Link from '@/components/Link';
+import SkipLinks from '@/components/SkipLink';
 
 export const viewport:Viewport = {
     themeColor: '#ffffff',
@@ -66,6 +67,7 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                     )}
                 >
                     <div className="ds_page_top">
+                        <SkipLinks id="main-content" />
                         <SiteHeader
                             menuItems={[
                                 {

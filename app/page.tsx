@@ -13,6 +13,8 @@ import SequentialNavigation from '@/components/SequentialNavigation';
 import SideNavigation from '@/components/SideNavigation';
 import FeatureHeader from '@/components/FeatureHeader';
 import NotificationBanner from '@/components/NotificationBanner';
+import DateInput from '@/components/Date';
+import Accordion, { AccordionItem } from '@/components/Accordion';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -227,6 +229,32 @@ const Page:React.FC = function Page() {
                     </FieldGroup>
                 </Question>
 
+                <h3>Date Picker</h3>
+                <Question
+                    id="dob-picker"
+                    label="Date of birth"
+                    tag="fieldset"
+                    hintText="For example, 04 02 1992"
+                >
+                    <DateInput
+                        name="dob-picker"
+                        id="dob-picker"
+                    />
+                </Question>
+
+                <Question
+                    id="dob-multi"
+                    label="Date of birth"
+                    tag="fieldset"
+                    hintText="For example, 04 02 1992"
+                >
+                    <DateInput
+                        name="dob-multi"
+                        id="dob-multi"
+                        multiple
+                    />
+                </Question>
+
                 <h3>Field Errors</h3>
 
                 <Question
@@ -374,6 +402,39 @@ const Page:React.FC = function Page() {
                     hasClose
                 />
 
+                <h2>Accordion</h2>
+                <Accordion id="accordion-example" toggleAll>
+                    <AccordionItem id="accordion-1" title="Healthcare for veterans">
+                        <p>
+                            Veterans are entitled to the same healthcare as any citizen. And there
+                            are health care options and support available specifically for veterans.
+                        </p>
+                        <p>
+                            If you have a health condition that’s related to your service, you’re
+                            entitled to priority treatment based on clinical need.
+                        </p>
+                    </AccordionItem>
+                    <AccordionItem id="accordion-2" title="Employability for veterans">
+                        <p>
+                            Veterans are entitled to the same healthcare as any citizen. And there
+                            are health care options and support available specifically for veterans.
+                        </p>
+                        <p>
+                            If you have a health condition that’s related to your service, you’re
+                            entitled to priority treatment based on clinical need.
+                        </p>
+                    </AccordionItem>
+                    <AccordionItem id="accordion-3" title="Housing for veterans">
+                        <p>
+                            Veterans are entitled to the same healthcare as any citizen. And there
+                            are health care options and support available specifically for veterans.
+                        </p>
+                        <p>
+                            If you have a health condition that’s related to your service, you’re
+                            entitled to priority treatment based on clinical need.
+                        </p>
+                    </AccordionItem>
+                </Accordion>
             </Wrapper>
         </>
     );

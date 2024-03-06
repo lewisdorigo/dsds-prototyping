@@ -98,7 +98,7 @@ const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
     return (
         <div
             className={classNames(
-                'ds_input__wrapper',
+                (wrap && icon) || wrap === 'class' ? 'ds_input__wrapper' : '',
                 wrap && icon ? 'ds_input__wrapper--has-icon' : '',
                 currency ? 'ds_currency-wrapper' : '',
             )}

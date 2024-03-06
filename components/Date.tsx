@@ -142,6 +142,7 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
                                 id={id}
                                 width="fixed-10"
                                 defaultValue={formatValue}
+                                wrap="class"
                             />
                         )
                 )}

@@ -66,7 +66,7 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                         'ds_page',
                     )}
                 >
-                    <div className="ds_page_top">
+                    <div className="ds_page_top" id="page-top">
                         <SkipLinks id="main-content" />
                         <SiteHeader
                             menuItems={[

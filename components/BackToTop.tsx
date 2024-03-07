@@ -13,11 +13,10 @@ const BackToTop: React.FC = function BackToTop() {
     const toTop = useRef(null);
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (toTop.current) {
             new ToTop(
                 toTop.current,
                 window,
-                { footerElSelector: '.ds_page__bottom' },
             ).init();
         }
     }, [toTop]);
@@ -26,6 +25,7 @@ const BackToTop: React.FC = function BackToTop() {
         <div
             className="ds_back-to-top"
             data-module="ds-back-to-top"
+            ref={toTop}
         >
             <a
                 href="#page-top"

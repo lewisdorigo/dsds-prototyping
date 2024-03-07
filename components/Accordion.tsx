@@ -82,7 +82,7 @@ const Accordion: React.FC<ScotGov.Component.Accordion> = function ArticleAside({
         if (ref.current) {
             new Accord(ref.current).init();
         }
-    });
+    }, [ref]);
 
     return (
         <section

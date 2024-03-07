@@ -5,7 +5,7 @@ import Wrapper from '@/components/Wrapper';
 import { TaskListGroup } from '@/components/TaskList';
 
 export const metadata:Metadata = {
-    title: 'Help',
+    title: 'Task Lists',
 };
 
 /**

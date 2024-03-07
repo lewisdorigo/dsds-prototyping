@@ -6,7 +6,7 @@ import SummaryList from '@/components/SummaryList';
 import SummaryCard from '@/components/SummaryCard';
 
 export const metadata:Metadata = {
-    title: 'Help',
+    title: 'Summary Lists',
 };
 
 /**

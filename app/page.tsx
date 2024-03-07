@@ -15,6 +15,7 @@ import FeatureHeader from '@/components/FeatureHeader';
 import NotificationBanner from '@/components/NotificationBanner';
 import DateInput from '@/components/Date';
 import Accordion, { AccordionItem } from '@/components/Accordion';
+import ContactDetails from '@/components/ContactDetails';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -435,6 +436,71 @@ const Page:React.FC = function Page() {
                         </p>
                     </AccordionItem>
                 </Accordion>
+
+                <h2>Contact Details</h2>
+                <ContactDetails
+                    columns={[
+                        [
+                            {
+                                title: 'Address',
+                                content: (
+                                    <>
+                                        Scottish Government
+                                        <br />
+                                        St Andrew’s House
+                                        <br />
+                                        Regent Road
+                                        <br />
+                                        Edinburgh
+                                        <br />
+                                        EH1 3DG
+                                    </>
+                                ),
+                            },
+                            {
+                                title: 'Email',
+                                content: <a href="mailto:email@gov.scot">email@gov.scot</a>,
+                            },
+                            {
+                                title: 'Phone',
+                                content: (
+                                    <>
+                                        0123 456 7000
+                                        <br />
+                                        Main line is open 8am-5pm
+                                        <br />
+                                        <a href="https://www.gov.uk/call-charges">Find out about call charges</a>
+                                    </>
+                                ),
+                            },
+                            {
+                                title: 'Out of hours',
+                                content: '0123 456 7001',
+                            },
+                            {
+                                title: 'Fax',
+                                content: '0123 456 7002',
+                            },
+                            {
+                                title: 'Website',
+                                content: <a href="https://www.gov.scot">www.gov.scot</a>,
+                            },
+                        ],
+                        [
+                            {
+                                title: 'Follow',
+                                socials: {
+                                    facebook: { link: '#', label: 'Facebook' },
+                                    twitter: { link: '#', label: 'Twitter' },
+                                    flickr: { link: '#', label: 'Flickr' },
+                                    linkedin: { link: '#', label: 'LinkedIn' },
+                                    instagram: { link: '#', label: 'Instagram' },
+                                    youtube: { link: '#', label: 'YouTube' },
+                                },
+                            },
+                        ],
+                    ]}
+                />
             </Wrapper>
         </>
     );

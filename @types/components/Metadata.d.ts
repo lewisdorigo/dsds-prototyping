@@ -9,7 +9,8 @@ declare namespace ScotGov.Component {
     }
 
     interface Metadata extends React.AllHTMLAttributes<HTMLDListElement> {
-        items: MetadataItem[],
+        inline?: boolean,
+        items: Metadata.Item[],
         className?: string,
     }
 }

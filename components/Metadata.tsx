@@ -20,6 +20,7 @@ export const MetadataItem: React.FC<ScotGov.Component.Metadata.Item> = function 
             {' '}
             <dd className={classNames('ds_metadata__value', isLabel ? 'ds_content-label' : '')}>
                 { value }
+                {' '}
             </dd>
         </div>
     );
@@ -32,10 +33,18 @@ export const MetadataItem: React.FC<ScotGov.Component.Metadata.Item> = function 
 const Metadata: React.FC<ScotGov.Component.Metadata> = function Metadata({
     items,
     className,
+    inline = false,
     ...props
 }) {
     return (
-        <dl className={classNames('ds_metadata', className)} {...props}>
+        <dl
+            className={classNames(
+                'ds_metadata',
+                inline ? 'ds_metadata--inline' : '',
+                className,
+            )}
+            {...props}
+        >
             { items && items.map((item, index) => {
                 const itemKey = `meta-data-${index}`;
                 return <MetadataItem key={itemKey} {...item} />;

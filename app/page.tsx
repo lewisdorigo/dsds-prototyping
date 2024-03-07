@@ -16,6 +16,7 @@ import NotificationBanner from '@/components/NotificationBanner';
 import DateInput from '@/components/Date';
 import Accordion, { AccordionItem } from '@/components/Accordion';
 import ContactDetails from '@/components/ContactDetails';
+import FileDownload from '@/components/FileDownload';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -499,6 +500,37 @@ const Page:React.FC = function Page() {
                                 },
                             },
                         ],
+                    ]}
+                />
+                <h2>File Download</h2>
+                <FileDownload
+                    link="#"
+                    title="Scotland's Artificial Intelligence Strategy - Trustworthy, Ethical and Inclusive"
+                    metadata={[
+                        {
+                            name: 'File type',
+                            value: '44 page PDF',
+                        },
+                        {
+                            name: 'File size',
+                            value: '7.2MB',
+                        },
+                    ]}
+                />
+                <FileDownload
+                    link="#"
+                    image="https://designsystem.gov.scot/binaries/content/gallery/designsystem/examples/ai-publication-cover-png"
+                    title="Scotland's Artificial Intelligence Strategy - Trustworthy, Ethical and Inclusive"
+                    highlight
+                    metadata={[
+                        {
+                            name: 'File type',
+                            value: '44 page PDF',
+                        },
+                        {
+                            name: 'File size',
+                            value: '7.2MB',
+                        },
                     ]}
                 />
             </Wrapper>

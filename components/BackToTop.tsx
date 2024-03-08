@@ -5,11 +5,18 @@ import ToTop from '@scottish-government/design-system/src/components/back-to-top
 
 import Icon from './Icon';
 
+import classNames from '../lib/classNames';
+
 /**
- * @param {ScotGov.Component.SiteNavigation} props - Properties for the element
+ * @param {ScotGov.Component.BackToTop} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const BackToTop: React.FC = function BackToTop() {
+const BackToTop: React.FC<ScotGov.Component.BackToTop> = function BackToTop({
+    label = 'Back to top',
+    link = '#page-top',
+    className,
+    ...props
+}) {
     const toTop = useRef(null);
 
     useEffect(() => {
@@ -23,15 +30,19 @@ const BackToTop: React.FC = function BackToTop() {
 
     return (
         <div
-            className="ds_back-to-top"
+            className={classNames(
+                'ds_back-to-top',
+                className,
+            )}
             data-module="ds-back-to-top"
             ref={toTop}
+            {...props}
         >
             <a
-                href="#page-top"
+                href={link}
                 className="ds_back-to-top__button"
             >
-                Back to top
+                { label }
                 <Icon
                     icon="arrow_upward"
                     className="ds_back-to-top__icon"

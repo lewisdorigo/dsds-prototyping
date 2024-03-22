@@ -1,0 +1,45 @@
+{
+    "title": {
+        "caption": "About you",
+        "title": "Your name and date of birth"
+    },
+    "components": [
+        {
+            "id": "first-name",
+            "name": "first-name",
+            "type": "text",
+            "label": "First Name",
+            "additional": {
+                "maxLength": 20
+            }
+        },
+        {
+            "id": "last-name",
+            "name": "last-name",
+            "type": "text",
+            "label": "Last Name"
+        },
+        {
+            "id": "date-of-birth",
+            "name": "date-of-birth",
+            "type": "date",
+            "label": "What is your date of birth?",
+            "hintText": "For example, 31 3 1980",
+            "additional": {
+                "multiple": true
+            }
+        }
+    ],
+    "nextButton": true,
+    "backButton": true,
+    "nextPage": {
+        "default": "/something/like/this",
+        "options": [
+            {
+                "field": "test",
+                "value": "lewis",
+                "page": "/super/secret/route"
+            }
+        ]
+    }
+}

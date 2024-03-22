@@ -1,0 +1,42 @@
+.ds_site-branding {
+    &__logo {
+        &::after { content: none; }
+
+        &-image {
+            width: auto;
+            max-width: 100%;
+        }
+
+        &,
+        &-image {
+            height: 48px;
+
+            @include ds_media-query(medium-to-large) {
+                height: 64px;
+            }
+
+            @include ds_media-query(large) {
+                height: 79px;
+            }
+        }
+    }
+}
+
+.ds_site-header {
+    &__content {
+        grid-template-areas: "branding controls"
+                             "nav      nav     ";
+        grid-template-columns: 1fr auto;
+        align-items: stretch;
+
+
+
+        @include ds_media-query(medium) {
+            grid-template-areas: "branding nav";
+        }
+    }
+
+    &__control-icon {
+        top: 0;
+    }
+}

@@ -1,0 +1,20 @@
+@import './imports';
+@import './fonts';
+
+@import '../node_modules/@scottish-government/design-system/src/design-system';
+
+@import './content-blocks.scss';
+
+@import '@/components/SiteHeader';
+@import '@/components/SiteNavigation';
+@import '@/components/SiteFooter';
+@import '@/components/Details';
+@import '@/components/Wrapper';
+
+.ds_question {
+    @include ds_responsive-spacing(4, 'margin', bottom);
+
+    .ds_input__wrapper {
+        @include ds_responsive-spacing(1, 'margin', bottom);
+    }
+}

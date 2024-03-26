@@ -17,6 +17,8 @@ import DateInput from '@/components/Date';
 import Accordion, { AccordionItem } from '@/components/Accordion';
 import ContactDetails from '@/components/ContactDetails';
 import FileDownload from '@/components/FileDownload';
+import Checkboxes from '@/components/Checkbox';
+import Radios from '@/components/Radio';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -106,34 +108,34 @@ const Page:React.FC = function Page() {
                 <hr />
 
                 <h2>Text Inputs</h2>
-                <Question id="field-1" label="Field">
-                    <Input name="field-1" id="field-1" />
+                <Question id="field-default" label="Field">
+                    <Input name="field-default" id="field-default" />
                 </Question>
 
                 <fieldset>
                     <legend>Fixed-width</legend>
 
-                    <Question id="field-1" label="20 characters">
+                    <Question id="field-fixed-20" label="20 characters">
                         <Input name="field-fixed-20" id="field-fixed-20" width="fixed-20" />
                     </Question>
 
-                    <Question id="field-1" label="10 characters">
+                    <Question id="field-fixed-10" label="10 characters">
                         <Input name="field-fixed-10" id="field-fixed-10" width="fixed-10" />
                     </Question>
 
-                    <Question id="field-1" label="5 characters">
+                    <Question id="field-fixed-5" label="5 characters">
                         <Input name="field-fixed-5" id="field-fixed-5" width="fixed-5" />
                     </Question>
 
-                    <Question id="field-1" label="4 characters">
+                    <Question id="field-fixed-4" label="4 characters">
                         <Input name="field-fixed-4" id="field-fixed-4" width="fixed-4" />
                     </Question>
 
-                    <Question id="field-1" label="3 characters">
+                    <Question id="field-fixed-3" label="3 characters">
                         <Input name="field-fixed-3" id="field-fixed-3" width="fixed-3" />
                     </Question>
 
-                    <Question id="field-1" label="2 characters">
+                    <Question id="field-fixed-2" label="2 characters">
                         <Input name="field-fixed-2" id="field-fixed-2" width="fixed-2" />
                     </Question>
                 </fieldset>
@@ -141,7 +143,7 @@ const Page:React.FC = function Page() {
                 <fieldset>
                     <legend>Fluid-width</legend>
 
-                    <Question id="field-1" label="Three Quarter">
+                    <Question id="field-fluid-three-quarters" label="Three Quarter">
                         <Input
                             name="field-fluid-three-quarters"
                             id="field-fluid-three-quarters"
@@ -149,7 +151,7 @@ const Page:React.FC = function Page() {
                         />
                     </Question>
 
-                    <Question id="field-1" label="Two Third">
+                    <Question id="field-fluid-two-thirds" label="Two Third">
                         <Input
                             name="field-fluid-two-thirds"
                             id="field-fluid-two-thirds"
@@ -157,7 +159,7 @@ const Page:React.FC = function Page() {
                         />
                     </Question>
 
-                    <Question id="field-1" label="Half">
+                    <Question id="field-fluid-half" label="Half">
                         <Input
                             name="field-fluid-half"
                             id="field-fluid-half"
@@ -165,7 +167,7 @@ const Page:React.FC = function Page() {
                         />
                     </Question>
 
-                    <Question id="field-1" label="One Third">
+                    <Question id="field-fluid-one-third" label="One Third">
                         <Input
                             name="field-fluid-one-third"
                             id="field-fluid-one-third"
@@ -173,7 +175,7 @@ const Page:React.FC = function Page() {
                         />
                     </Question>
 
-                    <Question id="field-1" label="One Quarter">
+                    <Question id="field-fluid-one-quarter" label="One Quarter">
                         <Input
                             name="field-fluid-one-quarter"
                             id="field-fluid-one-quarter"
@@ -183,19 +185,19 @@ const Page:React.FC = function Page() {
                 </fieldset>
 
                 <h3>Icon</h3>
-                <Question id="field-1" label="Search">
+                <Question id="field-search" label="Search">
                     <Input
-                        name="search"
-                        id="search"
+                        name="field-search"
+                        id="field-search"
                         icon="search"
                     />
                 </Question>
 
                 <h3>Currency</h3>
-                <Question id="field-1" label="Search">
+                <Question id="field-currency" label="Search">
                     <Input
-                        name="search"
-                        id="search"
+                        name="field-currency"
+                        id="field-currency"
                         type="number"
                         currency="£"
                     />
@@ -204,7 +206,7 @@ const Page:React.FC = function Page() {
                 <h3>Inline Fields</h3>
 
                 <Question
-                    id="dob"
+                    id="field-dob"
                     label="Date of birth"
                     tag="fieldset"
                     hintText="For example, 04 02 1992"
@@ -260,7 +262,7 @@ const Page:React.FC = function Page() {
                 <h3>Field Errors</h3>
 
                 <Question
-                    id="error"
+                    id="field-error"
                     label="Field Error"
                     error="This field is required"
                 >
@@ -270,6 +272,234 @@ const Page:React.FC = function Page() {
                         id="field-error"
                     />
                 </Question>
+
+                <hr />
+
+                <h2>Checkboxes</h2>
+                <Checkboxes
+                    name="checkboxes-default"
+                    id="checkboxes-default"
+                    label="What topics are you interested in?"
+                    hintText="Select as many as you like"
+                    items={[
+                        {
+                            label: 'Education',
+                            value: 'education',
+                        },
+                        {
+                            label: 'Housing',
+                            value: 'housing',
+                        },
+                        {
+                            label: 'Transport',
+                            value: 'transport',
+                        },
+                    ]}
+                />
+
+                <h3>Small checkboxes</h3>
+                <Checkboxes
+                    name="checkboxes-small"
+                    id="checkboxes-small"
+                    label="What topics are you interested in?"
+                    hintText="Select as many as you like"
+                    size="small"
+                    items={[
+                        {
+                            label: 'Education',
+                            value: 'education',
+                        },
+                        {
+                            label: 'Housing',
+                            value: 'housing',
+                        },
+                        {
+                            label: 'Transport',
+                            value: 'transport',
+                        },
+                    ]}
+                />
+
+                <h3>Field hint text</h3>
+                <Checkboxes
+                    name="checkboxes-hint"
+                    id="checkboxes-hint"
+                    label="What topics are you interested in?"
+                    items={[
+                        {
+                            label: 'Benefits and grants',
+                            value: 'benefits',
+                            hintText: 'Information on benefits, funds and grants, including Child Benefit and tax credits.',
+                        },
+                        {
+                            label: 'Environment, farming and marine',
+                            value: 'environment',
+                            hintText: 'Guidance on recycling, flooding, farming, fishing and conservation, including advice for businesses.',
+                        },
+                        {
+                            label: 'Living in and visiting Scotland',
+                            value: 'visiting',
+                            hintText: 'Voting, charities, tourism and life in Scotland.',
+                        },
+                    ]}
+                />
+
+                <h3>Exclusive</h3>
+                <Checkboxes
+                    name="checkboxes-exclusive"
+                    id="checkboxes-exclusive"
+                    label="Do you receive any of these benefits?"
+                    hintText="Select all that apply"
+                    items={[
+                        {
+                            label: 'Universal Credit',
+                            value: 'universal-credit',
+                        },
+                        {
+                            label: 'Pension Credit',
+                            value: 'pension-credit',
+                        },
+                        {
+                            label: "Income-based Job Seeker's Allowance",
+                            value: 'job-seekers',
+                        },
+                        {
+                            label: 'No, I do not receive any of these benefits',
+                            value: 'none',
+                            exclusive: true,
+                        },
+                    ]}
+                />
+
+                <h3>Errors</h3>
+                <Checkboxes
+                    name="checkboxes-errors"
+                    id="checkboxes-errors"
+                    label="What topics are you interested in?"
+                    hintText="Select as many as you like"
+                    error="This field is required"
+                    items={[
+                        {
+                            label: 'Education',
+                            value: 'education',
+                        },
+                        {
+                            label: 'Housing',
+                            value: 'housing',
+                        },
+                        {
+                            label: 'Transport',
+                            value: 'transport',
+                        },
+                    ]}
+                />
+
+                <hr />
+
+                <h2>Radio Buttons</h2>
+                <Radios
+                    name="radios-default"
+                    id="radios-default"
+                    label="Was this page useful?"
+                    hintText="Select an option"
+                    items={[
+                        {
+                            label: 'Yes',
+                            value: 'yes',
+                        },
+                        {
+                            label: 'No',
+                            value: 'no',
+                        },
+                        {
+                            label: 'Maybe',
+                            value: 'maybe',
+                        },
+                    ]}
+                />
+
+                <h3>Small radio buttons</h3>
+                <Radios
+                    name="radios-small"
+                    id="radios-small"
+                    label="Was this page useful?"
+                    hintText="Select an option"
+                    size="small"
+                    items={[
+                        {
+                            label: 'Yes',
+                            value: 'yes',
+                        },
+                        {
+                            label: 'No',
+                            value: 'no',
+                        },
+                        {
+                            label: 'Maybe',
+                            value: 'maybe',
+                        },
+                    ]}
+                />
+
+                <h3>Inline</h3>
+                <Radios
+                    name="radios-inline"
+                    id="radios-inline"
+                    label="Was this page useful?"
+                    hintText="Select an option"
+                    inline
+                    items={[
+                        {
+                            label: 'Yes',
+                            value: 'yes',
+                        },
+                        {
+                            label: 'No',
+                            value: 'no',
+                        },
+                    ]}
+                />
+
+                <h3>Hint text</h3>
+                <Radios
+                    name="radios-hint"
+                    id="radios-hint"
+                    label="How will the payments be paid in?"
+                    hintText="Select an option"
+                    items={[
+                        {
+                            label: 'Advance',
+                            value: 'advance',
+                            hintText: "This means you're paid for the period coming up, i.e. the month ahead",
+                        },
+                        {
+                            label: 'Arrears',
+                            value: 'arrears',
+                            hintText: "This means you're paid for the time that's just passed, i.e. for the last month",
+                        },
+                    ]}
+                />
+
+                <h3>Errors</h3>
+                <Radios
+                    name="radios-error"
+                    id="radios-error"
+                    label="How will the payments be paid in?"
+                    hintText="Select an option"
+                    error="This field is required"
+                    items={[
+                        {
+                            label: 'Advance',
+                            value: 'advance',
+                            hintText: "This means you're paid for the period coming up, i.e. the month ahead",
+                        },
+                        {
+                            label: 'Arrears',
+                            value: 'arrears',
+                            hintText: "This means you're paid for the time that's just passed, i.e. for the last month",
+                        },
+                    ]}
+                />
 
                 <hr />
 

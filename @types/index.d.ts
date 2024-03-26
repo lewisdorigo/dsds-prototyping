@@ -40,7 +40,7 @@ declare namespace ScotGov {
         value?: string,
         className?: string,
         required?: boolean,
-        items?: Items,
+        items?: Items[],
         additional?: Additional,
         conditional?: {
             hidden: boolean,

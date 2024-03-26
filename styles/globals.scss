@@ -18,3 +18,17 @@
         @include ds_responsive-spacing(1, 'margin', bottom);
     }
 }
+
+fieldset.ds_question {
+    & > legend.ds_label {
+        float: left;
+        display: block;
+        width: 100%;
+
+        & + *::before {
+            content: ' ';
+            display: block;
+            clear: both;
+        }
+    }
+}

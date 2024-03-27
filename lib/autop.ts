@@ -1,3 +1,5 @@
+import parse from 'html-react-parser';
+
 /**
  * Replaces double line-breaks with paragraph elements.
  *
@@ -108,4 +110,20 @@ const autop = function autop(text:string, br = true) {
     /* eslint-enable no-useless-escape */
 };
 
-export default autop;
+/**
+ * Replaces double line-breaks with paragraph elements.
+ *
+ * A group of regex replaces used to identify text formatted with newlines and
+ * replace double line-breaks with HTML paragraph tags. The remaining
+ * line-breaks after conversion become <<br />> tags, unless $br is set to '0'
+ * or 'false'.
+ *
+ * @param {string} text - The text which has to be formatted.
+ * @param {bool} [br=true] - If set, this will convert all remaining line-breaks after paragraphing.
+ * @returns {JSX.Element} - Text which has been converted into correct paragraph tags.
+ */
+const reactAutop = function reactAutop(text:string = '', br:boolean = true) {
+    return parse(autop(text, br));
+};
+
+export default reactAutop;

@@ -21,10 +21,9 @@ const ErrorMessage:React.FC<ScotGov.Component.ErrorMessage> = function ErrorMess
                 'ds_question__error-message',
                 className,
             )}
-            dangerouslySetInnerHTML={{ __html: text ? autop(text) : '' }}
             {...props}
         >
-            { children }
+            { text ? autop(text) : children }
         </WrapperTag>
     );
 };

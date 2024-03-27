@@ -21,10 +21,9 @@ const HintText:React.FC<ScotGov.Component.HintText> = function HintText({
                 'ds_hint-text',
                 className,
             )}
-            dangerouslySetInnerHTML={text ? { __html: text ? autop(text) : '' } : undefined}
             {...props}
         >
-            { !text ? children : null }
+            { text ? autop(text) : children }
         </WrapperTag>
     );
 };

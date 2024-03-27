@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import React, { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 
@@ -7,7 +9,6 @@ import classNames from '@/lib/classNames';
 
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
-import PhaseBanner from '@/components/PhaseBanner';
 import ArticleAside from '@/components/ArticleAside';
 import BackToTop from '@/components/BackToTop';
 import Link from '@/components/Link';
@@ -77,9 +78,6 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                                 },
                             ]}
                         />
-                        <PhaseBanner phase="alpha">
-                            This is a new service.
-                        </PhaseBanner>
                     </div>
                     <div className="ds_page_middle">
                         <main id="main-content">

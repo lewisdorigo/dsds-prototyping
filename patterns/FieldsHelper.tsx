@@ -7,6 +7,12 @@ import Date from '@/components/Date';
 import autop from '@/lib/autop';
 import Warning from '@/components/Warning';
 import WrapperTag from '@/components/WrapperTag';
+import Radios from '@/components/Radio';
+import Checkboxes from '@/components/Checkbox';
+import Details from '@/components/Details';
+import FileDownload from '@/components/FileDownload';
+import Pagination from '@/components/Pagination';
+import SequentialNavigation from '@/components/SequentialNavigation';
 
 /**
  * @param {Object} props - Properties for the element
@@ -40,38 +46,84 @@ const FieldHelper: React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper(
                     { field.items?.map((item, index) => {
                         const key = `${field.id}-list-${index}`;
                         return (
-                            <li key={key}>
-                                {item}
-                            </li>
+                            <li key={key}>{item as string}</li>
                         );
                     }) }
                 </WrapperTag>
             );
 
+        case 'radios':
+            return (
+                <Radios {...data as ScotGov.Component.Field.Radios} />
+            );
+
+        case 'checkboxes':
+            return (
+                <Checkboxes {...data as ScotGov.Component.Field.Checkboxes} />
+            );
+
+        case 'details':
+            return (
+                <Details
+                    id={data.id}
+                    label={data.label || ''}
+                >
+                    {data.text && (
+                        <div dangerouslySetInnerHTML={{ __html: autop(data.text)}} />
+                    )}
+                    {data.items && (
+                        <FieldsHelper
+                            fields={data.items as (ScotGov.Field<unknown, unknown, unknown>|string)[]}
+                        />
+                    )}
+                </Details>
+            );
+
+        case 'download':
+            return (
+                <FileDownload
+                    title={data.label || ''}
+                    metadata={data.metadata}
+                    link={data.link}
+                />
+            );
+
+        case 'pagination':
+            return (
+                <Pagination
+                    currentIndex={data.current}
+                    pages={data.items as string[]}
+                />
+            );
+
+        case 'sequential-navigation':
+            return (
+                <SequentialNavigation {...data as ScotGov.Component.SequentialNavigation} />
+            );
+
         case 'warning':
             return (
-                <Warning>{ field.text }</Warning>
+                <Warning>{field.text}</Warning>
             );
+
         case 'date':
             return (
-                <Question {...data} additional={additional}>
-                    <Date
-                        {...data}
-                        {...additional}
-                    />
+                <Question {...data as ScotGov.Component.Field.Date}>
+                    <Date {...data as ScotGov.Component.Field.Date} />
                 </Question>
             );
+
         default:
             return (
-                <Question {...data} additional={additional}>
+                <Question {...data as ScotGov.Component.Field.Input}>
                     <Input
                         type={type as ScotGov.Component.Field.Input.Types}
                         {...data}
-                        {...additional}
+                        items={undefined}
+                        {...additional as ScotGov.Component.Field.Input.Additional}
                     />
                 </Question>
             );
-            break;
     }
 };
 

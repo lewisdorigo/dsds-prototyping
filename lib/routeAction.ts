@@ -67,9 +67,11 @@ const handleSubmit = async function handleSubmit(
     const { components, nextPage } = await getData(route);
     const errors:ScotGov.Form.Error[] = [];
 
-    const rawFormData:{[key:string]: string} = {};
+    const rawFormData:{[key:string]: string|string[]} = {};
+    formData.forEach(console.log);
+
     components.forEach((rawComponent) => {
-        let formValue = '';
+        let formValue:string|string[] = '';
 
         if (
             typeof rawComponent === 'string'
@@ -112,13 +114,20 @@ const handleSubmit = async function handleSubmit(
                     formData.get(`${name}-day`),
                 ].join('-') as string;
             }
+        } else if (type === 'checkboxes') {
+            formValue = formData.getAll(name) as string[];
         } else {
             formValue = formData.get(name) as string;
         }
 
         rawFormData[name] = formValue;
 
-        if (required && !formValue) {
+        if (
+            required && (
+                (type === 'checkboxes' && formValue.length < 1)
+                || !formValue
+            )
+        ) {
             errors.push({
                 field: id,
                 href: fieldId !== id ? `#${fieldId}` : undefined,
@@ -127,6 +136,8 @@ const handleSubmit = async function handleSubmit(
             });
         }
     });
+
+    console.log({ rawFormData });
 
     if (errors.length > 0) {
         return {

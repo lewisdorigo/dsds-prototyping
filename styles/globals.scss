@@ -10,6 +10,7 @@
 @import '@/components/SiteFooter';
 @import '@/components/Details';
 @import '@/components/Wrapper';
+@import '@/components/SectionHeader';
 
 .ds_question {
     @include ds_responsive-spacing(4, 'margin', bottom);

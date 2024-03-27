@@ -19,6 +19,7 @@ import ContactDetails from '@/components/ContactDetails';
 import FileDownload from '@/components/FileDownload';
 import Checkboxes from '@/components/Checkbox';
 import Radios from '@/components/Radio';
+import SectionHeader from '@/components/SectionHeader';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -762,6 +763,16 @@ const Page:React.FC = function Page() {
                             value: '7.2MB',
                         },
                     ]}
+                />
+                <hr />
+                <h2>Section header</h2>
+                <SectionHeader
+                    link="/"
+                    title="Adult disability payment"
+                />
+                <h3>Without link</h3>
+                <SectionHeader
+                    title="Adult disability payment"
                 />
             </Wrapper>
         </>

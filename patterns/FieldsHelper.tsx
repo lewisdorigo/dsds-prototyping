@@ -1,8 +1,10 @@
 import React from 'react';
 
-import Question from './Question';
-import Input from './Input';
-import Date from './Date';
+import Question from '@/components/Question';
+import Input from '@/components/Input';
+import Date from '@/components/Date';
+
+import autop from '@/lib/autop';
 
 /**
  * @param {Object} props - Properties for the element
@@ -12,7 +14,9 @@ const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelpe
     field,
 }) {
     if (typeof field === 'string') {
-        return field;
+        return (
+            <div dangerouslySetInnerHTML={{__html: autop(field) }} />
+        );
     }
 
     if (typeof field.type !== 'string') {
@@ -55,10 +59,32 @@ const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelpe
  */
 const FieldsHelper: React.FC<ScotGov.Component.FieldsHelper> = function FieldsHelper({
     fields,
+    errors,
 }) {
     return fields.map((field, index) => {
         const key = `field-${index}`;
-        return <FieldHelper key={key} field={field} />;
+        const error = (
+            errors && typeof field !== 'string'
+                ? errors.filter(({ field: errorField }) => errorField === field.id)
+                : []
+        );
+
+        const fieldValue = (
+            field && typeof field === 'object'
+                ? {
+                    ...field,
+                    error: (
+                        error.length > 0
+                            ? error[0].fieldMessage || error[0].message
+                            : undefined
+                    ),
+                }
+                : field
+        );
+
+        console.log({ field, errors, error, fieldValue });
+
+        return <FieldHelper key={key} field={fieldValue} />;
     });
 };
 

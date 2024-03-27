@@ -4,20 +4,20 @@
         "title": "Your name and date of birth"
     },
     "components": [
+        "In this section, we want to find out more about you.",
         {
             "id": "first-name",
             "name": "first-name",
             "type": "text",
             "label": "First Name",
-            "additional": {
-                "maxLength": 20
-            }
+            "required": true
         },
         {
             "id": "last-name",
             "name": "last-name",
             "type": "text",
-            "label": "Last Name"
+            "label": "Last Name",
+            "required": true
         },
         {
             "id": "date-of-birth",
@@ -25,6 +25,9 @@
             "type": "date",
             "label": "What is your date of birth?",
             "hintText": "For example, 31 3 1980",
+            "required": true,
+            "maxDate": "+0 days",
+            "minDate": "-5 days",
             "additional": {
                 "multiple": true
             }
@@ -36,8 +39,8 @@
         "default": "/something/like/this",
         "options": [
             {
-                "field": "test",
-                "value": "lewis",
+                "field": "first-name",
+                "value": "Lewis",
                 "page": "/super/secret/route"
             }
         ]

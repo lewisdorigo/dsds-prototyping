@@ -5,7 +5,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.Icon} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Icon: React.FC<ScotGov.Component.Icon> = function Icon({
+const Icon:React.FC<ScotGov.Component.Icon> = function Icon({
     icon,
     size,
     title = '',

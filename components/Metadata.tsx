@@ -6,7 +6,7 @@ import classNames from '../lib/classNames';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const MetadataItem: React.FC<ScotGov.Component.Metadata.Item> = function MetadataItem({
+export const MetadataItem:React.FC<ScotGov.Component.Metadata.Item> = function MetadataItem({
     name,
     value,
     hideName,
@@ -30,7 +30,7 @@ export const MetadataItem: React.FC<ScotGov.Component.Metadata.Item> = function 
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Metadata: React.FC<ScotGov.Component.Metadata> = function Metadata({
+const Metadata:React.FC<ScotGov.Component.Metadata> = function Metadata({
     items,
     className,
     inline = false,

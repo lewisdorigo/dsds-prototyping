@@ -4,7 +4,7 @@ import React from 'react';
  * @param {ScotGov.Component.SkipLinks} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SkipLinks: React.FC<ScotGov.Component.SkipLinks> = function SkipLinks({
+const SkipLinks:React.FC<ScotGov.Component.SkipLinks> = function SkipLinks({
     id,
 }) {
     const href = `#${id}`;

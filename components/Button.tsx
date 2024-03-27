@@ -10,7 +10,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.Button} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Button: React.FC<ScotGov.Component.Button> = function Button({
+const Button:React.FC<ScotGov.Component.Button> = function Button({
     href,
     target,
     children,

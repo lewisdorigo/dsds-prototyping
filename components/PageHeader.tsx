@@ -9,7 +9,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.PageHeader} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const PageHeader: React.FC<ScotGov.Component.PageHeader> = function PageHead({
+const PageHeader:React.FC<ScotGov.Component.PageHeader> = function PageHead({
     caption,
     title,
     metadata,

@@ -6,7 +6,7 @@ import classNames from '../lib/classNames';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SequentialNavigationItem: React.FC<
+export const SequentialNavigationItem:React.FC<
     ScotGov.Component.SequentialNavigation.Item
 > = function SequentialNavigationItem({
     type = 'previous',

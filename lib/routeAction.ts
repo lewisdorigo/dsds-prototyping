@@ -4,13 +4,12 @@ import { redirect } from 'next/navigation';
 import { readFile, readdir } from 'node:fs/promises';
 import { basename, extname } from 'node:path';
 import { join as makePath, relative } from 'path';
-import parseComponentType from './parseComponentType';
 
 /**
  * Gets data for a given route.
  *
  * @param {string[]} route - The route to get data for.
- * @returns {Promise} - The route data
+ * @returns {Promise<ScotGov.Pages.FormPage>} - The route data
  */
 export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
     const last = route.pop();
@@ -23,6 +22,11 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
     };
 }
 
+/**
+ * Returns an array of all routes.
+ *
+ * @returns {Promise<string[]>} - The route data
+ */
 export async function getAllRoutes():Promise<string[]> {
     const relPath = makePath(process.cwd(), 'routes');
     return readdir(relPath, {
@@ -43,6 +47,8 @@ export async function getAllRoutes():Promise<string[]> {
 }
 
 /**
+ * Parses form submissions and validation.
+ *
  * @param {object} prevState - the previous state of the form
  * @param {FormData} formData - data in the submitted form
  * @returns {object} - Response data for the submission
@@ -67,21 +73,18 @@ const handleSubmit = async function handleSubmit(
     const { components, nextPage } = await getData(route);
     const errors:ScotGov.Form.Error[] = [];
 
-    const rawFormData:{[key:string]: string|string[]} = {};
-    formData.forEach(console.log);
+    const rawFormData:{[key:string]: ScotGov.Form.Value} = {};
 
-    components.forEach((rawComponent) => {
-        let formValue:string|string[] = '';
+    components.forEach((component) => {
+        let formValue:ScotGov.Form.Value = '';
 
         if (
-            typeof rawComponent === 'string'
-            || !rawComponent.type
-            || !rawComponent.name
+            typeof component === 'string'
+            || !component.type
+            || !component.name
         ) {
             return;
         }
-
-        const component = parseComponentType(rawComponent);
 
         const {
             id,
@@ -97,7 +100,7 @@ const handleSubmit = async function handleSubmit(
 
         if (
             type === 'date'
-            && component.multiple
+            && (component as ScotGov.Component.Field.Date).multiple
         ) {
             fieldId = `${id}-day`;
 
@@ -136,8 +139,6 @@ const handleSubmit = async function handleSubmit(
             });
         }
     });
-
-    console.log({ rawFormData });
 
     if (errors.length > 0) {
         return {

@@ -7,10 +7,12 @@ declare namespace ScotGov.Component.Field {
             size?: Size,
             hintText?: string,
             exclusive?: boolean,
+            value: string,
         }
     }
 
     interface Checkboxes extends Field<'checkbox', Checkboxes.Item, undefined> {
         size?: Checkboxes.Size,
+        value?: string[],
     }
 }

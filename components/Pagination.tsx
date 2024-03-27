@@ -7,7 +7,7 @@ import Icon from './Icon';
  * @param {ScotGov.Component.Pagination} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Pagination: React.FC<ScotGov.Component.Pagination> = function Pagination({
+const Pagination:React.FC<ScotGov.Component.Pagination> = function Pagination({
     currentIndex = 0,
     'aria-label': ariaLabel = 'Pages',
     eachSideOfCurrent = 1,

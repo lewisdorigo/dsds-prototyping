@@ -7,7 +7,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.Link} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Link: React.FC<ScotGov.Component.Link> = function Link({
+const Link:React.FC<ScotGov.Component.Link> = function Link({
     text,
     href,
     target,

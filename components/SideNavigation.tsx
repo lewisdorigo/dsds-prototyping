@@ -6,7 +6,7 @@ import classNames from '../lib/classNames';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SideNavigationList: React.FC<
+export const SideNavigationList:React.FC<
     ScotGov.Component.SideNavigation.List
 > = function SideNavigationList({
     id = 'side-navigation',
@@ -60,7 +60,7 @@ export const SideNavigationList: React.FC<
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SideNavigation: React.FC<ScotGov.Component.SideNavigation> = function SideNavigation({
+const SideNavigation:React.FC<ScotGov.Component.SideNavigation> = function SideNavigation({
     items,
     id = 'side-navigation',
     'aria-label': ariaLabel = 'Sections',

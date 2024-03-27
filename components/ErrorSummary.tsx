@@ -8,7 +8,7 @@ import classNames from '../lib/classNames';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const ErrorSummary: React.FC<ScotGov.Component.ErrorSummary> = function ErrorSummary({
+const ErrorSummary:React.FC<ScotGov.Component.ErrorSummary> = function ErrorSummary({
     errors,
     id = 'error-summary',
     title = 'There is a problem',

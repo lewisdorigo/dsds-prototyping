@@ -12,7 +12,7 @@ import JSEnabled from './JSEnabled';
  * @param {ScotGov.Component.NotificationBanner} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const NotificationBanner: React.FC<
+const NotificationBanner:React.FC<
     ScotGov.Component.NotificationBanner
 > = function NotificationBanner({
     caption,

@@ -11,7 +11,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.BackToTop} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const BackToTop: React.FC<ScotGov.Component.BackToTop> = function BackToTop({
+const BackToTop:React.FC<ScotGov.Component.BackToTop> = function BackToTop({
     label = 'Back to top',
     link = '#page-top',
     className,

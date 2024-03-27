@@ -9,7 +9,9 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.Column} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const ContactDetailsColumn: React.FC<ScotGov.Component.ContactDetails.Column> = function ContactDetailsColumn({
+const ContactDetailsColumn:React.FC<
+    ScotGov.Component.ContactDetails.Column
+> = function ContactDetailsColumn({
     items,
 }) {
     return (
@@ -71,7 +73,7 @@ const ContactDetailsColumn: React.FC<ScotGov.Component.ContactDetails.Column> = 
  * @param {ScotGov.Component.ContactDetails} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const ContactDetails: React.FC<ScotGov.Component.ContactDetails> = function Contact({
+const ContactDetails:React.FC<ScotGov.Component.ContactDetails> = function Contact({
     headingLevel: tag = 'h2',
     title = 'Contact',
     className,

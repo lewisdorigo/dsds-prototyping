@@ -6,6 +6,6 @@ declare namespace ScotGov.Pattern {
     interface FieldsHelper {
         fields: (string | ScotGov.Field<unknown, unknown, unknown>)[],
         errors?: ScotGov.Form.Error[],
-        values?: {[key: string]: string },
+        values?: {[key: string]: ScotGov.Form.Value },
     }
 }

@@ -11,6 +11,10 @@ import handleSubmit from '@/lib/routeAction';
 import Details from '@/components/Details';
 import ErrorSummary from '@/components/ErrorSummary';
 
+/**
+ * @param {ScotGov.Pages.FormPage} props - The page props
+ * @returns {JSX.Element} - The page
+ */
 const Form:React.FC<ScotGov.Pages.FormPage> = function Form({
     components,
     nextButton,

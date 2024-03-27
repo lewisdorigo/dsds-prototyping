@@ -58,7 +58,7 @@ const Page:React.FC<PageRoute> = async function Page({
     return (
         <>
             <Wrapper>
-                <SectionHeader {...partOf} />
+                {partOf && <SectionHeader {...partOf} />}
                 <PageHeader {...title} />
             </Wrapper>
             <Wrapper>

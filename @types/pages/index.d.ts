@@ -17,6 +17,7 @@ declare namespace ScotGov {
     interface Page {
         title: PageHeader,
         components: (string | Field)[],
+        partOf?: ScotGov.Component.SectionHeader,
         route?: string,
     }
 }

@@ -1,0 +1,42 @@
+{
+    "title": {
+        "caption": "About you",
+        "title": "What’s your National Insurance number?"
+    },
+    "components": [
+        "It’s on your:",
+        {
+            "type": "list",
+            "items": [
+                "National Insurance card",
+                "benefit letter",
+                "payslip",
+                "P60"
+            ]
+        },
+        {
+            "id": "national-insurance-warning",
+            "type": "warning",
+            "text": "You do not need to add your National Insurance number. If you do it helps us process your application as quickly as possible."
+        },
+        {
+            "id": "nino",
+            "name": "nino",
+            "type": "text",
+            "label": "National Insurance number (if you know it)",
+            "hintText": "For example, QQ 12 34 56 C"
+        }
+    ],
+    "nextButton": true,
+    "backButton": true,
+    "nextPage": {
+        "default": "/",
+        "options": [
+            {
+                "field": "nino",
+                "isNull": true,
+                "page": "/super/secret/route"
+            }
+        ]
+    }
+}

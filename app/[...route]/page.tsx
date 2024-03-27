@@ -12,6 +12,7 @@ import Details from '@/components/Details';
 import { getData, getAllRoutes } from '@/lib/routeAction';
 
 import Form from './form';
+import SectionHeader from '@/components/SectionHeader';
 
 interface PageRoute {
     params: {
@@ -52,11 +53,12 @@ const Page:React.FC<PageRoute> = async function Page({
     },
 }) {
     const data = await getData(route).catch(() => notFound());
-    const { title } = data;
+    const { title, partOf } = data;
 
     return (
         <>
             <Wrapper>
+                {partOf && <SectionHeader {...partOf} />}
                 <PageHeader {...title} />
             </Wrapper>
             <Wrapper>

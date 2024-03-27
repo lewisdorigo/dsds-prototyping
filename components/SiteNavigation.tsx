@@ -12,7 +12,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.SiteNavigation} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SiteNavigation: React.FC<ScotGov.Component.SiteNavigation> = function SiteNavigation({
+const SiteNavigation:React.FC<ScotGov.Component.SiteNavigation> = function SiteNavigation({
     id,
     className,
     'aria-label': ariaLabel = 'Top Level Navigation',

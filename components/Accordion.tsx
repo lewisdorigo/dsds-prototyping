@@ -11,7 +11,7 @@ let accordionItemCounter = 0;
  * @param {ScotGov.Component.Accordion} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const AccordionItem: React.FC<ScotGov.Component.Accordion.Item> = function AccordionItem({
+export const AccordionItem:React.FC<ScotGov.Component.Accordion.Item> = function AccordionItem({
     title,
     children,
     open = false,
@@ -71,7 +71,7 @@ export const AccordionItem: React.FC<ScotGov.Component.Accordion.Item> = functio
  * @param {ScotGov.Component.Accordion} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Accordion: React.FC<ScotGov.Component.Accordion> = function ArticleAside({
+const Accordion:React.FC<ScotGov.Component.Accordion> = function ArticleAside({
     children,
     toggleAll,
     ...props

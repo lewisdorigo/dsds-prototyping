@@ -8,7 +8,7 @@ import classNames from '../lib/classNames';
  * @param {React.AllHTMLAttributes<HTMLDivElement>} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SectionHeader: React.FC<ScotGov.Component.SectionHeader> = function SectionHeader({
+const SectionHeader:React.FC<ScotGov.Component.SectionHeader> = function SectionHeader({
     link,
     title = 'Your application',
     className,

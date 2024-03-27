@@ -9,7 +9,7 @@ import classNames from '../lib/classNames';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const HintText: React.FC<ScotGov.Component.HintText> = function HintText({
+const HintText:React.FC<ScotGov.Component.HintText> = function HintText({
     children,
     className,
     text,

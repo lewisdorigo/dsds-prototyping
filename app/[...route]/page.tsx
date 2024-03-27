@@ -8,11 +8,11 @@ import { notFound } from 'next/navigation';
 import PageHeader from '@/components/PageHeader';
 import Wrapper from '@/components/Wrapper';
 import Details from '@/components/Details';
+import SectionHeader from '@/components/SectionHeader';
 
 import { getData, getAllRoutes } from '@/lib/routeAction';
 
 import Form from './form';
-import SectionHeader from '@/components/SectionHeader';
 
 interface PageRoute {
     params: {
@@ -34,6 +34,9 @@ export function generateMetadata({
     })).catch(() => notFound());
 }
 
+/**
+ * @returns {(string[])[]}
+ */
 export async function generateStaticParams() {
     const routes = await getAllRoutes();
 

@@ -18,7 +18,7 @@ import SequentialNavigation from '@/components/SequentialNavigation';
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const FieldHelper: React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
+const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
     field,
 }) {
     if (typeof field === 'string') {
@@ -63,6 +63,7 @@ const FieldHelper: React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper(
             );
 
         case 'details':
+            /* eslint-disable @typescript-eslint/no-use-before-define */
             return (
                 <Details
                     id={data.id}
@@ -73,25 +74,28 @@ const FieldHelper: React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper(
                     )}
                     {data.items && (
                         <FieldsHelper
-                            fields={data.items as (ScotGov.Field<unknown, unknown, unknown>|string)[]}
+                            fields={(
+                                data.items as (ScotGov.Field<unknown, unknown, unknown>|string)[]
+                            )}
                         />
                     )}
                 </Details>
             );
+            /* eslint-enable @typescript-eslint/no-use-before-define */
 
         case 'download':
             return (
                 <FileDownload
                     title={data.label || ''}
-                    metadata={data.metadata}
-                    link={data.link}
+                    metadata={(data as ScotGov.Component.FileDownload).metadata}
+                    link={(data as ScotGov.Component.FileDownload).link}
                 />
             );
 
         case 'pagination':
             return (
                 <Pagination
-                    currentIndex={data.current}
+                    currentIndex={(data as ScotGov.Component.Pagination).currentIndex}
                     pages={data.items as string[]}
                 />
             );
@@ -131,7 +135,7 @@ const FieldHelper: React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper(
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const FieldsHelper: React.FC<ScotGov.Pattern.FieldsHelper> = function FieldsHelper({
+const FieldsHelper:React.FC<ScotGov.Pattern.FieldsHelper> = function FieldsHelper({
     fields,
     errors,
     values,
@@ -164,7 +168,7 @@ const FieldsHelper: React.FC<ScotGov.Pattern.FieldsHelper> = function FieldsHelp
                 : field
         );
 
-        return <FieldHelper key={key} field={fieldValue} />;
+        return <FieldHelper key={key} field={fieldValue as string|ScotGov.Field} />;
     });
 };
 

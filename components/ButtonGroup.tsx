@@ -8,7 +8,7 @@ import classNames from '../lib/classNames';
  * @param {React.AllHTMLAttributes<HTMLDivElement>} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const ButtonGroup: React.FC<React.AllHTMLAttributes<HTMLDivElement>> = function ButtonGroup({
+const ButtonGroup:React.FC<React.AllHTMLAttributes<HTMLDivElement>> = function ButtonGroup({
     className,
     children,
     ...props

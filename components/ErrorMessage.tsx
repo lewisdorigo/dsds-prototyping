@@ -9,7 +9,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.ErrorMessage} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const ErrorMessage: React.FC<ScotGov.Component.ErrorMessage> = function ErrorMessage({
+const ErrorMessage:React.FC<ScotGov.Component.ErrorMessage> = function ErrorMessage({
     children,
     className,
     text,

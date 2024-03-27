@@ -9,7 +9,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.SiteFooter.Links} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SiteFooterLinks: React.FC<
+export const SiteFooterLinks:React.FC<
     ScotGov.Component.SiteFooter.Links
 > = function SiteFooterLinks({
     links,
@@ -36,7 +36,7 @@ export const SiteFooterLinks: React.FC<
  * @param {ScotGov.Component.SiteFooter.Copyright} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SiteFooterCopyright: React.FC<
+export const SiteFooterCopyright:React.FC<
     ScotGov.Component.SiteFooter.Copyright
 > = function SiteFooterCopyright({
     logo,
@@ -76,7 +76,7 @@ export const SiteFooterCopyright: React.FC<
  * @param {ScotGov.Component.SiteFooter.Organisation} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const SiteFooterOrg: React.FC<
+export const SiteFooterOrg:React.FC<
     ScotGov.Component.SiteFooter.Organisation
 > = function SiteFooterOrg({
     logo,
@@ -114,7 +114,7 @@ export const SiteFooterOrg: React.FC<
  * @param {ScotGov.Component.SiteFooter} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SiteFooter: React.FC<ScotGov.Component.SiteFooter> = function SiteFooter({
+const SiteFooter:React.FC<ScotGov.Component.SiteFooter> = function SiteFooter({
     links,
     copyright,
     org,

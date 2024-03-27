@@ -6,7 +6,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.FeatureHeader} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const FeatureHeader: React.FC<ScotGov.Component.FeatureHeader> = function FeatureHead({
+const FeatureHeader:React.FC<ScotGov.Component.FeatureHeader> = function FeatureHead({
     title,
     content,
     imageData,

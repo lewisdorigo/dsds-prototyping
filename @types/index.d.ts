@@ -59,10 +59,12 @@ declare namespace ScotGov {
             fieldMessage?: string,
         }
 
+        type Value = string | string[];
+
         interface State {
             message: string,
             errors?: Error[],
-            values?: { [key:string]: string },
+            values?: { [key:string]: Value },
         }
     }
 }

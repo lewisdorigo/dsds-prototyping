@@ -6,7 +6,7 @@ import Link from './Link';
  * @param {ScotGov.Component.SummaryList.Actions} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SummaryListActions: React.FC<
+const SummaryListActions:React.FC<
     ScotGov.Component.SummaryList.Actions
 > = function SummaryListActions({
     actions,
@@ -37,7 +37,7 @@ const SummaryListActions: React.FC<
  * @param {ScotGov.Component.SummaryList.Item} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SummaryListItem: React.FC<ScotGov.Component.SummaryList.Item> = function SummaryListItem({
+const SummaryListItem:React.FC<ScotGov.Component.SummaryList.Item> = function SummaryListItem({
     label,
     answer,
     actions,
@@ -65,7 +65,7 @@ const SummaryListItem: React.FC<ScotGov.Component.SummaryList.Item> = function S
  * @param {ScotGov.Component.SummaryList} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const SummaryList: React.FC<ScotGov.Component.SummaryList> = function SummaryList({
+const SummaryList:React.FC<ScotGov.Component.SummaryList> = function SummaryList({
     className,
     borders = true,
     items = [],

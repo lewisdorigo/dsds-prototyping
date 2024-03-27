@@ -1,8 +1,10 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { readFile } from 'node:fs/promises';
-import { join as makePath } from 'path';
+import { readFile, readdir } from 'node:fs/promises';
+import { basename, extname } from 'node:path';
+import { join as makePath, relative } from 'path';
+import parseComponentType from './parseComponentType';
 
 /**
  * Gets data for a given route.
@@ -21,6 +23,25 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
     };
 }
 
+export async function getAllRoutes():Promise<string[]> {
+    const relPath = makePath(process.cwd(), 'routes');
+    return readdir(relPath, {
+        withFileTypes: true,
+        recursive: true,
+    }).then((fileList) => (
+        fileList
+            .filter((file) => file.isFile())
+            .map((file) => {
+                const { name, path } = file;
+                const ext = extname(name);
+                const baseName = basename(name, ext);
+                const relFilePath = relative(relPath, path);
+
+                return makePath(relFilePath, baseName);
+            })
+    ));
+}
+
 /**
  * @param {object} prevState - the previous state of the form
  * @param {FormData} formData - data in the submitted form
@@ -29,7 +50,7 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
 const handleSubmit = async function handleSubmit(
     prevState: ScotGov.Form.State,
     formData: FormData,
-) {
+):Promise<ScotGov.Form.State> {
     if (!formData.has('_form')) {
         return {
             message: 'error',
@@ -46,53 +67,62 @@ const handleSubmit = async function handleSubmit(
     const { components, nextPage } = await getData(route);
     const errors:ScotGov.Form.Error[] = [];
 
-    formData.forEach(console.log);
-
     const rawFormData:{[key:string]: string} = {};
-    components.forEach((component) => {
+    components.forEach((rawComponent) => {
         let formValue = '';
-        let id = component.id;
 
         if (
-            typeof component === 'string'
-            || !component.type
-            || !component.name
+            typeof rawComponent === 'string'
+            || !rawComponent.type
+            || !rawComponent.name
         ) {
             return;
         }
 
-        if (
-            component.type === 'date'
-            && component.additional?.multiple
-        ) {
-            id = `${component.id}-day`;
+        const component = parseComponentType(rawComponent);
 
-            if (formData.get(`${component.name}`)) {
-                formValue = formData.get(`${component.name}`) as string;
+        const {
+            id,
+            name,
+            type,
+            required,
+            label,
+        } = component;
+
+        let {
+            id: fieldId,
+        } = component;
+
+        if (
+            type === 'date'
+            && component.multiple
+        ) {
+            fieldId = `${id}-day`;
+
+            if (formData.get(`${name}`)) {
+                formValue = formData.get(`${name}`) as string;
             } else if (
-                formData.get(`${component.name}-day`)
-                && formData.get(`${component.name}-month`)
-                && formData.get(`${component.name}-year`)
+                formData.get(`${name}-day`)
+                && formData.get(`${name}-month`)
+                && formData.get(`${name}-year`)
             ) {
                 formValue = [
-                    formData.get(`${component.name}-year`),
-                    formData.get(`${component.name}-month`),
-                    formData.get(`${component.name}-day`),
+                    formData.get(`${name}-year`),
+                    formData.get(`${name}-month`),
+                    formData.get(`${name}-day`),
                 ].join('-') as string;
             }
         } else {
-            formValue = formData.get(component.name) as string;
+            formValue = formData.get(name) as string;
         }
 
-        rawFormData[component.name] = formValue;
+        rawFormData[name] = formValue;
 
-        console.log({ component, formValue, id });
-
-        if (component.required && !formValue) {
+        if (required && !formValue) {
             errors.push({
-                field: component.id,
-                href: `#${id}`,
-                message: `"${component.label}" is required`,
+                field: id,
+                href: fieldId !== id ? `#${fieldId}` : undefined,
+                message: `"${label}" is required`,
                 fieldMessage: 'This field is required.',
             });
         }
@@ -102,6 +132,7 @@ const handleSubmit = async function handleSubmit(
         return {
             message: 'error',
             errors,
+            values: rawFormData,
         };
     }
 

@@ -51,18 +51,6 @@ const FormNav:React.FC<ScotGov.Pattern.FormNav> = function FormNav({
             break;
     }
 
-    console.log({
-        next, back,
-    }, {
-        nextEnabled,
-        nextLabel,
-        nextHref,
-    }, {
-        backEnabled,
-        backLabel,
-        backHref,
-    });
-
     return (
         <ButtonGroup>
             { backEnabled && (

@@ -1,4 +1,4 @@
-// import types from '../data/forms';
+import types from '../data/forms';
 
 /**
  * Gets application data from `/prototype-data/application-types` for a given application.

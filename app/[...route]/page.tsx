@@ -9,7 +9,7 @@ import PageHeader from '@/components/PageHeader';
 import Wrapper from '@/components/Wrapper';
 import Details from '@/components/Details';
 
-import { getData } from '@/lib/routeAction';
+import { getData, getAllRoutes } from '@/lib/routeAction';
 
 import Form from './form';
 
@@ -31,6 +31,14 @@ export function generateMetadata({
     return getData(route).then((data) => ({
         title: data.title.title,
     })).catch(() => notFound());
+}
+
+export async function generateStaticParams() {
+    const routes = await getAllRoutes();
+
+    return routes.map((route) => ({
+        route: route.split('/'),
+    }));
 }
 
 /**

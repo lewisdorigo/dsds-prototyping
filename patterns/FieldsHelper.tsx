@@ -5,12 +5,14 @@ import Input from '@/components/Input';
 import Date from '@/components/Date';
 
 import autop from '@/lib/autop';
+import Warning from '@/components/Warning';
+import WrapperTag from '@/components/WrapperTag';
 
 /**
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelper({
+const FieldHelper: React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
     field,
 }) {
     if (typeof field === 'string') {
@@ -29,7 +31,27 @@ const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelpe
         ...data
     } = field;
 
-    switch (field.type) {
+    switch (type) {
+        case 'list':
+        case 'bullet-list':
+        case 'ordered-list':
+            return (
+                <WrapperTag tag={type === 'ordered-list' ? 'ol' : 'ul'}>
+                    { field.items?.map((item, index) => {
+                        const key = `${field.id}-list-${index}`;
+                        return (
+                            <li key={key}>
+                                {item}
+                            </li>
+                        );
+                    }) }
+                </WrapperTag>
+            );
+
+        case 'warning':
+            return (
+                <Warning>{ field.text }</Warning>
+            );
         case 'date':
             return (
                 <Question {...data} additional={additional}>
@@ -57,9 +79,10 @@ const FieldHelper: React.FC<ScotGov.Component.FieldHelper> = function FieldHelpe
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const FieldsHelper: React.FC<ScotGov.Component.FieldsHelper> = function FieldsHelper({
+const FieldsHelper: React.FC<ScotGov.Pattern.FieldsHelper> = function FieldsHelper({
     fields,
     errors,
+    values,
 }) {
     return fields.map((field, index) => {
         const key = `field-${index}`;
@@ -69,10 +92,17 @@ const FieldsHelper: React.FC<ScotGov.Component.FieldsHelper> = function FieldsHe
                 : []
         );
 
+        const value = (
+            typeof field !== 'string' && values
+                ? values[field.name]
+                : undefined
+        );
+
         const fieldValue = (
             field && typeof field === 'object'
                 ? {
                     ...field,
+                    value,
                     error: (
                         error.length > 0
                             ? error[0].fieldMessage || error[0].message
@@ -81,8 +111,6 @@ const FieldsHelper: React.FC<ScotGov.Component.FieldsHelper> = function FieldsHe
                 }
                 : field
         );
-
-        console.log({ field, errors, error, fieldValue });
 
         return <FieldHelper key={key} field={fieldValue} />;
     });

@@ -11,25 +11,22 @@ import handleSubmit from '@/lib/routeAction';
 import Details from '@/components/Details';
 import ErrorSummary from '@/components/ErrorSummary';
 
-const Form:React.FC = function Form({
-    title,
+const Form:React.FC<ScotGov.Pages.FormPage> = function Form({
     components,
     nextButton,
     backButton,
     route,
 }) {
-    const [state, formAction] = useFormState<ScotGov.Form.State>(
+    const [state, formAction] = useFormState<ScotGov.Form.State, FormData>(
         handleSubmit,
-        { message: '', errors: [] },
+        { message: '', errors: [], values: {} },
     );
     const status = useFormStatus();
-
-    console.log({ status });
 
     return (
         <form action={formAction} noValidate>
             { state.errors && state.errors.length > 0 && <ErrorSummary errors={state.errors} /> }
-            <FieldsHelper fields={components} errors={state.errors} />
+            <FieldsHelper fields={components} errors={state.errors} values={state.values} />
             <input type="hidden" name="_form" value={route} />
 
             { (nextButton || backButton) && (
@@ -39,7 +36,7 @@ const Form:React.FC = function Form({
                             variants="cancel"
                             icon="chevron_left"
                             iconSide="left"
-                            onClick={() => window.history.back() }
+                            onClick={() => window.history.back()}
                         >
                             Back
                         </Button>
@@ -49,6 +46,7 @@ const Form:React.FC = function Form({
                             type="submit"
                             icon="chevron_right"
                             iconSide="right"
+                            aria-disabled={status.pending}
                         >
                             Save and continue
                         </Button>

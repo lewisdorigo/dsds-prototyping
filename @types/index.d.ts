@@ -62,6 +62,7 @@ declare namespace ScotGov {
         interface State {
             message: string,
             errors?: Error[],
+            values?: { [key:string]: string },
         }
     }
 }

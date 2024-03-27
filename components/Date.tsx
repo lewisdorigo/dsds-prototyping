@@ -1,6 +1,11 @@
 'use client';
 
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, {
+    useEffect,
+    useState,
+    useRef,
+    useMemo,
+} from 'react';
 import DatePicker from '@scottish-government/design-system/src/components/date-picker/date-picker';
 
 import classNames from '../lib/classNames';
@@ -55,7 +60,7 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
         }
 
         const [
-            string,
+            ,
             operator,
             variable,
             period,
@@ -78,15 +83,6 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
             default:
         }
 
-        console.log({
-            d,
-            string,
-            operator,
-            variable,
-            modifier,
-            period,
-        });
-
         return d;
     };
 
@@ -107,8 +103,6 @@ const DateInput:React.FC<ScotGov.Component.Field.Date> = function DateInput({
             ? parseDateString(minDateRaw)
             : minDateRaw
     ), [minDateRaw]);
-
-    console.log({ maxDate, minDate });
 
     if (defaultValue) {
         const initialDate = new Date(defaultValue);

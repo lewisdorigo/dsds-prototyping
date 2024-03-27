@@ -2,7 +2,6 @@ import React from 'react';
 
 import WrapperTag from './WrapperTag';
 
-import autop from '../lib/autop';
 import classNames from '../lib/classNames';
 
 /**

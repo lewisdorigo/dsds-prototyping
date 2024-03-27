@@ -1,9 +1,7 @@
 declare namespace ScotGov.Component.Field {
-    interface Question extends ScotGov.Field, ScotGov.Component.WrapperTag {
+    interface Question extends ScotGov.Field<unknown, undefined, unknown>, ScotGov.Component.WrapperTag {
         name?: string,
         'data-module'?: string,
-        additional?: {
-            maxLength?: number,
-        },
+        maxLength?: number,
     }
 }

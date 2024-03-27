@@ -68,6 +68,7 @@ const Checkboxes:React.FC<ScotGov.Component.Field.Checkboxes> = function Checkbo
     items,
     label,
     error,
+    value = [],
 }) {
     const ref = useRef(null);
 
@@ -106,6 +107,7 @@ const Checkboxes:React.FC<ScotGov.Component.Field.Checkboxes> = function Checkbo
                                 name={name}
                                 id={key}
                                 size={size}
+                                defaultChecked={value.includes(item.value)}
                             />
                         </React.Fragment>
                     );

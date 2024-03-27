@@ -13,5 +13,6 @@ declare namespace ScotGov.Component.Field {
         icon?: string,
         currency?: string,
         wrap?: boolean | 'class',
+        maxLength?: number,
     }
 }

@@ -11,6 +11,7 @@
 @import '@/components/Details';
 @import '@/components/Wrapper';
 @import '@/components/SectionHeader';
+@import '@/components/Grid';
 
 .ds_question {
     @include ds_responsive-spacing(4, 'margin', bottom);
@@ -32,4 +33,10 @@ fieldset.ds_question {
             clear: both;
         }
     }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
 }

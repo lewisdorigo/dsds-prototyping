@@ -17,8 +17,15 @@ const Wrapper:React.FC<ScotGov.Component.Wrapper> = function Wrapper({
     ...props
 }) {
     if (hasBackground) {
+        const backgroundColor = typeof hasBackground === 'string' ? hasBackground : 'grey';
         return (
-            <div className="ds_cb ds_cb--cards ds_cb--bg-grey ds_cb--fullwidth">
+            <div
+                className={classNames(
+                    'sss_section',
+                    'sss_section--has-background',
+                    `sss_section--${backgroundColor}`,
+                )}
+            >
                 <WrapperTag
                     tag={tag}
                     className={classNames(
@@ -27,9 +34,7 @@ const Wrapper:React.FC<ScotGov.Component.Wrapper> = function Wrapper({
                     )}
                     {...props}
                 >
-                    <div className="ds_cb__inner">
-                        { children }
-                    </div>
+                    { children }
                 </WrapperTag>
             </div>
         );

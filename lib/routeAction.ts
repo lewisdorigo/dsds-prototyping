@@ -46,6 +46,12 @@ export async function getAllRoutes():Promise<string[]> {
     ));
 }
 
+const delay = function delay(ms:number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+};
+
 /**
  * Parses form submissions and validation.
  *
@@ -68,6 +74,8 @@ const handleSubmit = async function handleSubmit(
             ],
         };
     }
+
+    // await delay(2000);
 
     const route = (formData.get('_form') as string).split('/');
     const { components, nextPage } = await getData(route);
@@ -155,7 +163,28 @@ const handleSubmit = async function handleSubmit(
     } else {
         next = nextPage.default;
 
-        nextPage.options?.every(({ field, value, page }) => {
+        nextPage.options?.every(({
+            field,
+            value,
+            isNull,
+            method,
+            page,
+        }) => {
+            if (
+                isNull
+                && (
+                    (isNull && !rawFormData[field])
+                    || (!isNull && rawFormData[field])
+                )
+            ) {
+                next = page;
+                return false;
+            }
+
+            if (method && method(formData)) {
+                return
+            }
+
             if (rawFormData[field] === value) {
                 next = page;
                 return false;

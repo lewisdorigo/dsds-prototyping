@@ -20,6 +20,7 @@ import FileDownload from '@/components/FileDownload';
 import Checkboxes from '@/components/Checkbox';
 import Radios from '@/components/Radio';
 import SectionHeader from '@/components/SectionHeader';
+import Grid from '@/components/Grid';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -50,6 +51,18 @@ const Page:React.FC = function Page() {
                     ]}
                 />
             </Wrapper>
+
+            <Wrapper hasBackground="darkblue">
+                <p>
+                    This is something that you’ll be able to use to build up pages using the
+                    {' '}
+                    <a href="https://designsystem.gov.scot" target="_blank" rel="noopener noreferrer">
+                        Digital Scotland Design System
+                    </a>
+                    .
+                </p>
+            </Wrapper>
+
             <Wrapper>
                 <p>
                     This is something that you’ll be able to use to build up pages using the

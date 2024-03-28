@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Image from 'next/image';
+
 import Question from '@/components/Question';
 import Input from '@/components/Input';
 import Date from '@/components/Date';
@@ -13,6 +15,7 @@ import Details from '@/components/Details';
 import FileDownload from '@/components/FileDownload';
 import Pagination from '@/components/Pagination';
 import SequentialNavigation from '@/components/SequentialNavigation';
+import Grid from '@/components/Grid';
 
 /**
  * @param {Object} props - Properties for the element
@@ -111,6 +114,28 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
                 <Question {...data as ScotGov.Component.Field.Date}>
                     <Date {...data as ScotGov.Component.Field.Date} />
                 </Question>
+            );
+
+        case 'grid':
+            return (
+                <Grid columns={(data as ScotGov.Component.Grid).columns}>
+                    { data.items?.map((item, index) => {
+                        const key = `field-${data.id}-${index}`;
+                        return (
+                            <FieldHelper key={key} field={item as string|ScotGov.Field} />
+                        );
+                    })}
+                </Grid>
+            );
+
+        case 'image':
+            return (
+                <>
+                    {!data.alt && <Warning>Alt text is required for images.</Warning>}
+                    <img
+                        {...data}
+                    />
+                </>
             );
 
         default:

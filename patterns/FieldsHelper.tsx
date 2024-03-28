@@ -22,9 +22,7 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
     field,
 }) {
     if (typeof field === 'string') {
-        return (
-            <div dangerouslySetInnerHTML={{__html: autop(field) }} />
-        );
+        return autop(field);
     }
 
     if (typeof field.type !== 'string') {
@@ -69,9 +67,7 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
                     id={data.id}
                     label={data.label || ''}
                 >
-                    {data.text && (
-                        <div dangerouslySetInnerHTML={{ __html: autop(data.text)}} />
-                    )}
+                    {data.text && autop(data.text)}
                     {data.items && (
                         <FieldsHelper
                             fields={(
@@ -107,7 +103,7 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
 
         case 'warning':
             return (
-                <Warning>{field.text}</Warning>
+                <Warning>{autop(field.text)}</Warning>
             );
 
         case 'date':
@@ -123,8 +119,8 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
                     <Input
                         type={type as ScotGov.Component.Field.Input.Types}
                         {...data}
-                        items={undefined}
                         {...additional as ScotGov.Component.Field.Input.Additional}
+                        items={undefined}
                     />
                 </Question>
             );

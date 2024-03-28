@@ -57,17 +57,7 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
                     ? <legend className="ds_label">{ label }</legend>
                     : <Label htmlFor={id}>{ label }</Label>
             }
-            { text && (
-                <div
-                    dangerouslySetInnerHTML={(
-                        typeof text === 'string'
-                            ? { __html: autop(text) }
-                            : undefined
-                    )}
-                >
-                    { typeof text !== 'string' ? text : null }
-                </div>
-            )}
+            { text && autop(text)}
             { hintText && <HintText text={hintText} /> }
             { error && <ErrorMessage text={errorText} /> }
             { children }

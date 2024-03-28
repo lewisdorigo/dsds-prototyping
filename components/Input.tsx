@@ -39,6 +39,8 @@ const Input:React.FC<ScotGov.Component.Field.Input> = function Input({
     icon,
     currency,
     wrap = true,
+    label, // eslint-disable-line @typescript-eslint/no-unused-vars
+    hintText, // eslint-disable-line @typescript-eslint/no-unused-vars
     ...props
 }) {
     let type = defaultType as React.HTMLInputTypeAttribute;

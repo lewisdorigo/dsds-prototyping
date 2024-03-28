@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useFormStatus } from 'react-dom';
 
 import ButtonGroup from '@/components/ButtonGroup';
 import Button from '@/components/Button';
@@ -9,6 +10,8 @@ const FormNav:React.FC<ScotGov.Pattern.FormNav> = function FormNav({
     back = true,
     next = true,
 }) {
+    const status = useFormStatus();
+
     let backEnabled;
     let backLabel;
     let backHref;
@@ -20,7 +23,7 @@ const FormNav:React.FC<ScotGov.Pattern.FormNav> = function FormNav({
     switch (typeof back) {
         case 'string':
             backEnabled = true;
-            backHref = back;
+            backLabel = back;
             break;
 
         case 'object':
@@ -37,7 +40,7 @@ const FormNav:React.FC<ScotGov.Pattern.FormNav> = function FormNav({
     switch (typeof next) {
         case 'string':
             nextEnabled = true;
-            nextHref = next;
+            nextLabel = next;
             break;
 
         case 'object':
@@ -52,7 +55,7 @@ const FormNav:React.FC<ScotGov.Pattern.FormNav> = function FormNav({
     }
 
     return (
-        <ButtonGroup>
+        <ButtonGroup tag="nav">
             { backEnabled && (
                 <Button
                     variants="cancel"
@@ -73,6 +76,8 @@ const FormNav:React.FC<ScotGov.Pattern.FormNav> = function FormNav({
                     icon="chevron_right"
                     href={nextHref}
                     type={!nextHref ? 'submit' : undefined}
+                    aria-disabled={status?.pending}
+                    disabled={status?.pending}
                 >
                     { nextLabel || 'Save and continue' }
                 </Button>

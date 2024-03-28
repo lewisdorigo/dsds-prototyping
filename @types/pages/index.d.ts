@@ -1,15 +1,19 @@
 declare namespace ScotGov {
     namespace Pages {
+        interface NextPageOption {
+            field: string,
+            value?: string,
+            isNull?: boolean,
+            method?: (formData:FormData) => boolean,
+            page: string,
+        }
+
         interface FormPage extends Page {
             nextButton?: boolean | string,
             backButton?: boolean | string,
             nextPage: string | {
                 default: string,
-                options: {
-                    field: string,
-                    value: string,
-                    page: string,
-                }[],
+                options: NextPageOption[],
             },
         }
     }

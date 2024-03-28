@@ -1,15 +1,15 @@
 'use client';
 
-import React from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import React, { useEffect } from 'react';
+import { useFormState } from 'react-dom';
 
-import ButtonGroup from '@/components/ButtonGroup';
-import Button from '@/components/Button';
+import Details from '@/components/Details';
+import ErrorSummary from '@/components/ErrorSummary';
+
+import FormNav from '@/patterns/FormNav';
 import FieldsHelper from '@/patterns/FieldsHelper';
 
 import handleSubmit from '@/lib/routeAction';
-import Details from '@/components/Details';
-import ErrorSummary from '@/components/ErrorSummary';
 
 /**
  * @param {ScotGov.Pages.FormPage} props - The page props
@@ -25,7 +25,12 @@ const Form:React.FC<ScotGov.Pages.FormPage> = function Form({
         handleSubmit,
         { message: '', errors: [], values: {} },
     );
-    const status = useFormStatus();
+
+    useEffect(() => {
+        if (state.errors?.length) {
+            window.scrollTo({ top: 0, left: 0 });
+        }
+    }, [state.errors]);
 
     return (
         <form action={formAction} noValidate>
@@ -34,28 +39,7 @@ const Form:React.FC<ScotGov.Pages.FormPage> = function Form({
             <input type="hidden" name="_form" value={route} />
 
             { (nextButton || backButton) && (
-                <ButtonGroup className="ds_!_margin-top--8 ds_!_margin-bottom--0">
-                    { backButton && (
-                        <Button
-                            variants="cancel"
-                            icon="chevron_left"
-                            iconSide="left"
-                            onClick={() => window.history.back()}
-                        >
-                            Back
-                        </Button>
-                    )}
-                    { nextButton && (
-                        <Button
-                            type="submit"
-                            icon="chevron_right"
-                            iconSide="right"
-                            aria-disabled={status.pending}
-                        >
-                            Save and continue
-                        </Button>
-                    )}
-                </ButtonGroup>
+                <FormNav next={nextButton} back={backButton} />
             )}
             <Details label="View form state">
                 <output>

@@ -15,6 +15,27 @@
             ]
         },
         {
+            "type": "grid",
+            "columns": 2,
+            "items": [
+                {
+                    "type": "image",
+                    "src": "http://placehold.it/1280x720",
+                    "alt": "Hello"
+                },
+                {
+                    "type": "image",
+                    "src": "http://placehold.it/1280x720",
+                    "alt": "Hello"
+                },
+                {
+                    "type": "image",
+                    "src": "http://placehold.it/1280x720",
+                    "alt": "Hello"
+                }
+            ]
+        },
+        {
             "id": "national-insurance-warning",
             "type": "warning",
             "text": "You do not need to add your National Insurance number. If you do it helps us process your application as quickly as possible."

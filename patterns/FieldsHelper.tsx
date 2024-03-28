@@ -119,10 +119,8 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
                     <Input
                         type={type as ScotGov.Component.Field.Input.Types}
                         {...data}
-                        items={undefined}
                         {...additional as ScotGov.Component.Field.Input.Additional}
-                        hintText={undefined}
-                        label={undefined}
+                        items={undefined}
                     />
                 </Question>
             );

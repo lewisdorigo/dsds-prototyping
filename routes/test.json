@@ -116,15 +116,15 @@
             "hintText": "For example, QQ 12 34 56 C"
         }
     ],
-    "nextButton": false,
+    "nextButton": "Continue",
     "backButton": false,
     "nextPage": {
-        "default": "/",
+        "default": "/about-you/details",
         "options": [
             {
                 "field": "nino",
                 "isNull": true,
-                "page": "/super/secret/route"
+                "page": "/about-you/nino"
             }
         ]
     }

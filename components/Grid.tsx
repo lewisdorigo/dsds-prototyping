@@ -38,19 +38,17 @@ const Grid:React.FC<ScotGov.Component.Grid> = function Grid({
             )}
             {...props}
         >
-            { React.Children.map(children, (child) => {
-                return (
-                    <WrapperTag
-                        tag={tag === 'ol' || tag === 'ul' ? 'li' : 'div'}
-                        className={classNames(
-                            'sss_grid__item',
-                            ...widthClasses[columns],
-                        )}
-                    >
-                        {child}
-                    </WrapperTag>
-                );
-            })}
+            { React.Children.map(children, (child) => (
+                <WrapperTag
+                    tag={tag === 'ol' || tag === 'ul' ? 'li' : 'div'}
+                    className={classNames(
+                        'sss_grid__item',
+                        ...widthClasses[columns],
+                    )}
+                >
+                    {child}
+                </WrapperTag>
+            ))}
         </WrapperTag>
     );
 };

@@ -46,11 +46,11 @@ export async function getAllRoutes():Promise<string[]> {
     ));
 }
 
-const delay = function delay(ms:number) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-};
+// const delay = function delay(ms:number) {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// };
 
 /**
  * Parses form submissions and validation.
@@ -182,7 +182,7 @@ const handleSubmit = async function handleSubmit(
             }
 
             if (method && method(formData)) {
-                return
+                return false;
             }
 
             if (rawFormData[field] === value) {

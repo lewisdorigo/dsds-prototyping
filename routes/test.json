@@ -90,6 +90,13 @@
             ]
         },
         {
+            "id": "textarea",
+            "type": "textarea",
+            "name": "textarea",
+            "label": "Description",
+            "required": true
+        },
+        {
             "id": "details",
             "type": "details",
             "label": "I cannot sign in",

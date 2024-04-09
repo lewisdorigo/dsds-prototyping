@@ -22,6 +22,7 @@ import Radios from '@/components/Radio';
 import SectionHeader from '@/components/SectionHeader';
 import Grid from '@/components/Grid';
 import TextArea from '@/components/TextArea';
+import Select from '@/components/Select';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -335,6 +336,33 @@ const Page:React.FC = function Page() {
                         name="textarea-error"
                         id="textarea-error"
                         error
+                    />
+                </Question>
+
+                <hr />
+
+                <h2>Select</h2>
+                <Question
+                    id="select-dropdown"
+                    label="Select a component"
+                >
+                    <Select
+                        id="select-dropdown"
+                        name="select-dropdown"
+                        items={[
+                            {
+                                label: 'Accordion',
+                                value: 'accordion',
+                            },
+                            {
+                                label: 'Breadcrumbs',
+                                value: 'breadcrumbs',
+                            },
+                            {
+                                label: 'Button',
+                                value: 'button',
+                            },
+                        ]}
                     />
                 </Question>
 

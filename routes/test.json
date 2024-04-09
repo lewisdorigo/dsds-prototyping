@@ -137,6 +137,30 @@
             }
         },
         {
+            "id": "select",
+            "name": "select",
+            "type": "select",
+            "label": "Dropdown",
+            "items": [
+                {
+                    "label": "Universal credit",
+                    "value": "uc"
+                },
+                {
+                    "label": "Pension credit",
+                    "value": "pc"
+                },
+                {
+                    "label": "Income-based job seekers allowance",
+                    "value": "jsa"
+                },
+                {
+                    "label": "I do not recieve any of these benefits",
+                    "value": "none"
+                }
+            ]
+        },
+        {
             "id": "nino",
             "name": "nino",
             "type": "text",

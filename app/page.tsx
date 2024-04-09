@@ -21,6 +21,7 @@ import Checkboxes from '@/components/Checkbox';
 import Radios from '@/components/Radio';
 import SectionHeader from '@/components/SectionHeader';
 import Grid from '@/components/Grid';
+import TextArea from '@/components/TextArea';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -284,6 +285,56 @@ const Page:React.FC = function Page() {
                         error
                         name="field-error"
                         id="field-error"
+                    />
+                </Question>
+
+                <hr />
+
+                <h2>Textarea</h2>
+                <Question
+                    id="textarea"
+                    label="Description"
+                >
+                    <TextArea
+                        name="textarea"
+                        id="textarea"
+                    />
+                </Question>
+
+                <h3>Long textarea</h3>
+                <Question
+                    id="textarea-long"
+                    label="Description"
+                >
+                    <TextArea
+                        name="textarea-long"
+                        id="textarea-long"
+                        rows={7}
+                    />
+                </Question>
+
+                <h3>Short textarea</h3>
+                <Question
+                    id="textarea-short"
+                    label="Description"
+                >
+                    <TextArea
+                        name="textarea-short"
+                        id="textarea-short"
+                        rows={2}
+                    />
+                </Question>
+
+                <h3>Field errors</h3>
+                <Question
+                    id="textarea-error"
+                    label="Description"
+                    error="This field is required"
+                >
+                    <TextArea
+                        name="textarea-error"
+                        id="textarea-error"
+                        error
                     />
                 </Question>
 

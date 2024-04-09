@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Image from 'next/image';
+// import Image from 'next/image';
 
 import Question from '@/components/Question';
 import Input from '@/components/Input';
+import TextArea from '@/components/TextArea';
 import Date from '@/components/Date';
-
-import autop from '@/lib/autop';
 import Warning from '@/components/Warning';
 import WrapperTag from '@/components/WrapperTag';
 import Radios from '@/components/Radio';
@@ -16,6 +15,8 @@ import FileDownload from '@/components/FileDownload';
 import Pagination from '@/components/Pagination';
 import SequentialNavigation from '@/components/SequentialNavigation';
 import Grid from '@/components/Grid';
+
+import autop from '@/lib/autop';
 
 /**
  * @param {Object} props - Properties for the element
@@ -136,6 +137,16 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
                         {...data}
                     />
                 </>
+            );
+
+        case 'textarea':
+            return (
+                <Question {...data as ScotGov.Component.Field.TextArea}>
+                    <TextArea
+                        {...data}
+                        items={undefined}
+                    />
+                </Question>
             );
 
         default:

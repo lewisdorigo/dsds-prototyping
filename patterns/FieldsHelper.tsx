@@ -17,6 +17,7 @@ import SequentialNavigation from '@/components/SequentialNavigation';
 import Grid from '@/components/Grid';
 
 import autop from '@/lib/autop';
+import Select from '@/components/Select';
 
 /**
  * @param {Object} props - Properties for the element
@@ -137,6 +138,15 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
                         {...data}
                     />
                 </>
+            );
+
+        case 'select':
+            return (
+                <Question {...data as ScotGov.Component.Field.Select} items={undefined}>
+                    <Select
+                        {...data as ScotGov.Component.Field.Select}
+                    />
+                </Question>
             );
 
         case 'textarea':

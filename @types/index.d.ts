@@ -28,6 +28,8 @@ declare namespace ScotGov {
         [key:string]: FormTypes.Type,
     }
 
+    type FormValidation = (value:unknown, formData?:FormData) => boolean | string;
+
     interface Field<Type = unknown, Items = undefined, Additional = never> {
         type?: Type,
         name: string,
@@ -49,6 +51,7 @@ declare namespace ScotGov {
             type?: string,
         },
         error?: string | boolean,
+        validation?: FormValidation[],
     }
 
     namespace Form {

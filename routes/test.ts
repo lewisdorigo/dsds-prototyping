@@ -1,3 +1,5 @@
+import * as validation from '@/lib/validation';
+
 const data = {
     title: {
         caption: 'Test Page',
@@ -166,6 +168,10 @@ const data = {
             type: 'text',
             label: 'National Insurance number (if you know it)',
             hintText: 'For example, QQ 12 34 56 C',
+            validation: [
+                validation.isValidNino(),
+                validation.maxLength(4),
+            ],
         },
     ],
     nextButton: 'Continue',

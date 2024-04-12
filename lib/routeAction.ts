@@ -121,6 +121,7 @@ const handleSubmit = async function handleSubmit(
             type,
             required,
             label,
+            validation,
         } = component;
 
         let {
@@ -154,6 +155,40 @@ const handleSubmit = async function handleSubmit(
 
         rawFormData[name] = formValue;
 
+        if (validation && validation.length > 0) {
+            validation.forEach((valid) => {
+                const isValid = valid(formValue, formData);
+
+                if (!isValid) {
+                    errors.push({
+                        field: id,
+                        href: fieldId !== id ? `#${fieldId}` : undefined,
+                        message: `The value for “${label}” is invalid`,
+                        fieldMessage: 'This field is invalid',
+                    });
+                } else if (typeof isValid === 'string') {
+                    const errorMessage = (
+                        isValid
+                            .replace(/\{\s*label\s*\}/gi, label || '')
+                            .replace(
+                                /\{\s*value\s*\}/gi,
+                                (
+                                    Array.isArray(formValue)
+                                        ? formValue.join(', ')
+                                        : formValue
+                                ),
+                            )
+                    );
+                    errors.push({
+                        field: id,
+                        href: fieldId !== id ? `#${fieldId}` : undefined,
+                        message: errorMessage,
+                        fieldMessage: errorMessage,
+                    });
+                }
+            });
+        }
+
         if (
             required && (
                 (type === 'checkboxes' && formValue.length < 1)
@@ -163,8 +198,8 @@ const handleSubmit = async function handleSubmit(
             errors.push({
                 field: id,
                 href: fieldId !== id ? `#${fieldId}` : undefined,
-                message: `"${label}" is required`,
-                fieldMessage: 'This field is required.',
+                message: `“${label}” is required`,
+                fieldMessage: 'This field is required',
             });
         }
     });

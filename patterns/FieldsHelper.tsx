@@ -132,12 +132,9 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
 
         case 'image':
             return (
-                <>
-                    {!data.alt && <Warning>Alt text is required for images.</Warning>}
-                    <img
-                        {...data}
-                    />
-                </>
+                <img
+                    {...data}
+                />
             );
 
         case 'select':

@@ -5,7 +5,7 @@ import classNames from '../lib/classNames';
  * @param {ScotGov.Component.Field.Select} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-export const Select:React.FC<ScotGov.Component.Field.Select> = function Select({
+const Select:React.FC<ScotGov.Component.Field.Select> = function Select({
     name,
     id,
     className,

@@ -1,9 +1,17 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { readFile, readdir } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import { basename, extname } from 'node:path';
 import { join as makePath, relative } from 'path';
+
+const allowedFileTypes = [
+    'json',
+    'ts',
+    'js',
+    'tsx',
+    'jsx',
+];
 
 /**
  * Gets data for a given route.
@@ -12,14 +20,14 @@ import { join as makePath, relative } from 'path';
  * @returns {Promise<ScotGov.Pages.FormPage>} - The route data
  */
 export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
-    const last = route.pop();
-    const relPath = makePath(process.cwd(), 'routes', ...route, `${last}.json`);
+    const relPath = makePath(...route);
 
-    const fileContents = await readFile(relPath, { encoding: 'utf8' });
-    return {
-        ...JSON.parse(fileContents),
-        route: makePath(...route, `${last}`),
-    };
+    return import(`../routes/${relPath}`)
+        .then((data) => (data && data.default ? data.default : {}))
+        .then((data) => ({
+            ...data,
+            route: relPath,
+        }));
 }
 
 /**
@@ -29,12 +37,25 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
  */
 export async function getAllRoutes():Promise<string[]> {
     const relPath = makePath(process.cwd(), 'routes');
+
     return readdir(relPath, {
         withFileTypes: true,
         recursive: true,
     }).then((fileList) => (
         fileList
-            .filter((file) => file.isFile())
+            /**
+             * Filter the list to only include files that have a file extension that's in the
+             * array of allowed file types.
+             */
+            .filter((file) => (
+                file.isFile()
+                && allowedFileTypes.includes(extname(file.name).replace(/^\./, ''))
+            ))
+            /**
+             * For each file we have, remove the file extension, and build the url path.
+             *
+             * E.g., the file `./routes/about-you/nino.ts` will result in `about-you/nino`.
+             */
             .map((file) => {
                 const { name, path } = file;
                 const ext = extname(name);

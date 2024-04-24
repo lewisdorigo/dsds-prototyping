@@ -57,6 +57,18 @@ const Page:React.FC<PageRoute> = async function Page({
 }) {
     const data = await getData(route).catch(() => notFound());
     const { title, partOf } = data;
+    const components = data.components.map((item) => {
+        if (typeof item !== 'string' && item.validation) {
+            const {
+                validation, // eslint-disable-line @typescript-eslint/no-unused-vars
+                ...field
+            } = item;
+
+            return field;
+        }
+
+        return item;
+    });
 
     return (
         <>
@@ -65,7 +77,7 @@ const Page:React.FC<PageRoute> = async function Page({
                 <PageHeader {...title} />
             </Wrapper>
             <Wrapper>
-                <Form {...data} />
+                <Form {...data} components={components} />
 
                 <Details label="View page details">
                     <pre>

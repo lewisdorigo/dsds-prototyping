@@ -18,12 +18,13 @@ import Grid from '@/components/Grid';
 
 import autop from '@/lib/autop';
 import Select from '@/components/Select';
+import Conditional from '@/components/Conditional';
 
 /**
  * @param {Object} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
+export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
     field,
 }) {
     if (typeof field === 'string') {
@@ -36,9 +37,23 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
 
     const {
         type,
+        conditional,
         additional = {},
         ...data
     } = field;
+
+    if (conditional) {
+        return (
+            <Conditional conditional={conditional}>
+                <FieldHelper
+                    field={{
+                        ...field,
+                        conditional: undefined,
+                    }}
+                />
+            </Conditional>
+        );
+    }
 
     switch (type) {
         case 'list':
@@ -132,12 +147,9 @@ const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldHelper({
 
         case 'image':
             return (
-                <>
-                    {!data.alt && <Warning>Alt text is required for images.</Warning>}
-                    <img
-                        {...data}
-                    />
-                </>
+                <img
+                    {...data}
+                />
             );
 
         case 'select':

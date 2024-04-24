@@ -22,8 +22,10 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
     label,
     id,
     hintText,
+    optional,
     text,
     error,
+    required,
     maxLength,
 }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -37,6 +39,24 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
             characterCount.init();
         }
     }, [ref, maxLength]);
+
+    const labelText = (
+        <>
+            { label }
+            { (!required || optional) && (
+                <>
+                    {' '}
+                    <span className="sss_optional-label">
+                        {`(${
+                            typeof optional === 'string'
+                                ? optional
+                                : 'optional'
+                        })`}
+                    </span>
+                </>
+            )}
+        </>
+    );
 
     return (
         <WrapperTag
@@ -54,8 +74,8 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
         >
             {
                 tag === 'fieldset'
-                    ? <legend className="ds_label">{ label }</legend>
-                    : <Label htmlFor={id}>{ label }</Label>
+                    ? <legend className="ds_label">{ labelText }</legend>
+                    : <Label htmlFor={id}>{ labelText }</Label>
             }
             { text && autop(text)}
             { hintText && <HintText text={hintText} /> }

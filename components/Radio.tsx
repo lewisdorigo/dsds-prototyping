@@ -1,6 +1,10 @@
-import React from 'react';
+'use client';
 
-import classNames from '../lib/classNames';
+import React, { useContext } from 'react';
+
+import FormContext from '@/patterns/FormContext';
+import classNames from '@/lib/classNames';
+
 import FieldGroup from './FieldGroup';
 import Question from './Question';
 import HintText from './HintText';
@@ -18,8 +22,21 @@ export const Radio:React.FC<ScotGov.Component.Field.Radios.Item> = function Radi
     checked,
     size,
     hintText,
+    onChange,
     ...props
 }) {
+    const { setFormState } = useContext(FormContext);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.checked && name) {
+            setFormState(name, event.target.value);
+        }
+
+        if (typeof onChange === 'function') {
+            onChange(event);
+        }
+    };
+
     return (
         <div
             className={classNames(
@@ -38,6 +55,7 @@ export const Radio:React.FC<ScotGov.Component.Field.Radios.Item> = function Radi
                     className,
                 )}
                 aria-describedby={hintText ? `${id}-hint` : undefined}
+                onChange={handleChange}
                 {...props}
             />
             <label
@@ -66,6 +84,8 @@ const Radios:React.FC<ScotGov.Component.Field.Radios> = function Checkboxes({
     label,
     inline,
     error,
+    required,
+    optional,
 }) {
     return (
         <Question
@@ -75,6 +95,8 @@ const Radios:React.FC<ScotGov.Component.Field.Radios> = function Checkboxes({
             error={error}
             text={text}
             hintText={hintText}
+            required={required}
+            optional={optional}
         >
             <FieldGroup inline={inline} className={className}>
                 {items?.map((item, index) => {

@@ -1,9 +1,19 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { readFile, readdir } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import { basename, extname } from 'node:path';
 import { join as makePath, relative } from 'path';
+
+import { parseConditional } from './conditional';
+
+const allowedFileTypes = [
+    'json',
+    'ts',
+    'js',
+    'tsx',
+    'jsx',
+];
 
 /**
  * Gets data for a given route.
@@ -12,14 +22,14 @@ import { join as makePath, relative } from 'path';
  * @returns {Promise<ScotGov.Pages.FormPage>} - The route data
  */
 export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
-    const last = route.pop();
-    const relPath = makePath(process.cwd(), 'routes', ...route, `${last}.json`);
+    const relPath = makePath(...route);
 
-    const fileContents = await readFile(relPath, { encoding: 'utf8' });
-    return {
-        ...JSON.parse(fileContents),
-        route: makePath(...route, `${last}`),
-    };
+    return import(`../routes/${relPath}`)
+        .then((data) => (data && data.default ? data.default : {}))
+        .then((data) => ({
+            ...data,
+            route: relPath,
+        }));
 }
 
 /**
@@ -29,12 +39,25 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
  */
 export async function getAllRoutes():Promise<string[]> {
     const relPath = makePath(process.cwd(), 'routes');
+
     return readdir(relPath, {
         withFileTypes: true,
         recursive: true,
     }).then((fileList) => (
         fileList
-            .filter((file) => file.isFile())
+            /**
+             * Filter the list to only include files that have a file extension that's in the
+             * array of allowed file types.
+             */
+            .filter((file) => (
+                file.isFile()
+                && allowedFileTypes.includes(extname(file.name).replace(/^\./, ''))
+            ))
+            /**
+             * For each file we have, remove the file extension, and build the url path.
+             *
+             * E.g., the file `./routes/about-you/nino.ts` will result in `about-you/nino`.
+             */
             .map((file) => {
                 const { name, path } = file;
                 const ext = extname(name);
@@ -51,6 +74,100 @@ export async function getAllRoutes():Promise<string[]> {
 //         setTimeout(resolve, ms);
 //     });
 // };
+
+const handleValidation = function handleValidation(
+    components:(string | ScotGov.Field<unknown, unknown, unknown>)[],
+    formValues:{[key:string]: ScotGov.Form.Value},
+    formData:FormData,
+) {
+    const errors:ScotGov.Form.Error[] = [];
+
+    components.forEach((component) => {
+        if (
+            typeof component === 'string'
+            || !component.type
+            || !component.name
+        ) {
+            return;
+        }
+
+        const {
+            id,
+            name,
+            type,
+            required,
+            label,
+            validation,
+            conditional,
+        } = component;
+
+        const formValue = formValues[name];
+
+        let {
+            id: fieldId,
+        } = component;
+
+        if (conditional && !parseConditional(conditional, formValues)) {
+            return;
+        }
+        if (
+            type === 'date'
+            && (component as ScotGov.Component.Field.Date).multiple
+        ) {
+            fieldId = `${id}-day`;
+        }
+
+        if (validation && validation.length > 0) {
+            validation.forEach((valid) => {
+                const isValid = valid(formValue, formData);
+
+                if (!isValid) {
+                    errors.push({
+                        field: id,
+                        href: fieldId !== id ? `#${fieldId}` : undefined,
+                        message: `The value for “${label}” is invalid`,
+                        fieldMessage: 'This field is invalid',
+                    });
+                } else if (typeof isValid === 'string') {
+                    const errorMessage = (
+                        isValid
+                            .replace(/\{\s*label\s*\}/gi, label || '')
+                            .replace(
+                                /\{\s*value\s*\}/gi,
+                                (
+                                    Array.isArray(formValue)
+                                        ? formValue.join(', ')
+                                        : formValue
+                                ),
+                            )
+                    );
+                    errors.push({
+                        field: id,
+                        href: fieldId !== id ? `#${fieldId}` : undefined,
+                        message: errorMessage,
+                        fieldMessage: errorMessage,
+                    });
+                }
+            });
+        }
+
+        if (
+            required && (
+                (type === 'checkboxes' && formValue.length < 1)
+                || !formValue
+            )
+        ) {
+            errors.push({
+                field: id,
+                href: fieldId !== id ? `#${fieldId}` : undefined,
+                message: `“${label}” is required`,
+                fieldMessage: 'This field is required',
+            });
+        }
+    });
+
+    return errors;
+};
 
 /**
  * Parses form submissions and validation.
@@ -79,7 +196,7 @@ const handleSubmit = async function handleSubmit(
 
     const route = (formData.get('_form') as string).split('/');
     const { components, nextPage } = await getData(route);
-    const errors:ScotGov.Form.Error[] = [];
+    // const errors:ScotGov.Form.Error[] = [];
 
     const rawFormData:{[key:string]: ScotGov.Form.Value} = {};
 
@@ -95,23 +212,14 @@ const handleSubmit = async function handleSubmit(
         }
 
         const {
-            id,
             name,
             type,
-            required,
-            label,
-        } = component;
-
-        let {
-            id: fieldId,
         } = component;
 
         if (
             type === 'date'
             && (component as ScotGov.Component.Field.Date).multiple
         ) {
-            fieldId = `${id}-day`;
-
             if (formData.get(`${name}`)) {
                 formValue = formData.get(`${name}`) as string;
             } else if (
@@ -132,21 +240,13 @@ const handleSubmit = async function handleSubmit(
         }
 
         rawFormData[name] = formValue;
-
-        if (
-            required && (
-                (type === 'checkboxes' && formValue.length < 1)
-                || !formValue
-            )
-        ) {
-            errors.push({
-                field: id,
-                href: fieldId !== id ? `#${fieldId}` : undefined,
-                message: `"${label}" is required`,
-                fieldMessage: 'This field is required.',
-            });
-        }
     });
+
+    const errors = handleValidation(
+        components,
+        rawFormData,
+        formData,
+    );
 
     if (errors.length > 0) {
         return {

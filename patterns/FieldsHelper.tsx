@@ -212,7 +212,7 @@ const FieldsHelper:React.FC<ScotGov.Pattern.FieldsHelper> = function FieldsHelpe
             field && typeof field === 'object'
                 ? {
                     ...field,
-                    value,
+                    value: value || field.value,
                     error: (
                         error.length > 0
                             ? error[0].fieldMessage || error[0].message

@@ -45,6 +45,10 @@ export async function generateStaticParams() {
     }));
 }
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 /**
  * The document structure
  *

@@ -6,6 +6,7 @@ import { basename, extname } from 'node:path';
 import { join as makePath, relative } from 'path';
 
 import { parseConditional } from './conditional';
+import getSession from './getSession';
 
 const allowedFileTypes = [
     'json',
@@ -22,13 +23,35 @@ const allowedFileTypes = [
  * @returns {Promise<ScotGov.Pages.FormPage>} - The route data
  */
 export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
-    const relPath = makePath(...route);
+    const routePath = makePath(...route);
+    const session = await getSession();
 
-    return import(`../routes/${relPath}`)
-        .then((data) => (data && data.default ? data.default : {}))
+    const routeData = session[routePath];
+
+    return import(`../routes/${routePath}`)
+        .then((data) => (data && data.default ? data.default : {}) as ScotGov.Pages.FormPage)
+        .then(({ components, ...data }) => ({
+            ...data,
+            components: (
+                routeData
+                    ? components.map((component) => {
+                        if (typeof component === 'string') { return component; }
+
+                        return {
+                            ...component,
+                            value: (
+                                typeof routeData[component.name] !== 'undefined'
+                                    ? String(routeData[component.name])
+                                    : undefined
+                            ),
+                        };
+                    })
+                    : components
+            ),
+        }))
         .then((data) => ({
             ...data,
-            route: relPath,
+            route: routePath,
         }));
 }
 
@@ -37,8 +60,8 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
  *
  * @returns {Promise<string[]>} - The route data
  */
-export async function getAllRoutes():Promise<string[]> {
-    const relPath = makePath(process.cwd(), 'routes');
+export async function getAllRoutes(route:string = ''):Promise<string[]> {
+    const relPath = makePath(process.cwd(), 'routes', route);
 
     return readdir(relPath, {
         withFileTypes: true,
@@ -192,9 +215,14 @@ const handleSubmit = async function handleSubmit(
         };
     }
 
+    const session = await getSession();
+
+    console.log({ session });
+
     // await delay(2000);
 
-    const route = (formData.get('_form') as string).split('/');
+    const routePath = formData.get('_form') as string;
+    const route = routePath.split('/');
     const { components, nextPage } = await getData(route);
     // const errors:ScotGov.Form.Error[] = [];
 
@@ -293,6 +321,9 @@ const handleSubmit = async function handleSubmit(
             return true;
         });
     }
+
+    session[routePath] = rawFormData;
+    await session.save();
 
     return redirect(next);
 };

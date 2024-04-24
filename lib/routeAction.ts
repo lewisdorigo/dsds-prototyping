@@ -5,6 +5,8 @@ import { readdir } from 'node:fs/promises';
 import { basename, extname } from 'node:path';
 import { join as makePath, relative } from 'path';
 
+import { parseConditional } from './conditional';
+
 const allowedFileTypes = [
     'json',
     'ts',
@@ -73,40 +75,14 @@ export async function getAllRoutes():Promise<string[]> {
 //     });
 // };
 
-/**
- * Parses form submissions and validation.
- *
- * @param {object} prevState - the previous state of the form
- * @param {FormData} formData - data in the submitted form
- * @returns {object} - Response data for the submission
- */
-const handleSubmit = async function handleSubmit(
-    prevState: ScotGov.Form.State,
-    formData: FormData,
-):Promise<ScotGov.Form.State> {
-    if (!formData.has('_form')) {
-        return {
-            message: 'error',
-            errors: [
-                {
-                    field: '',
-                    message: 'There was an error with form data. Please try again later.',
-                },
-            ],
-        };
-    }
-
-    // await delay(2000);
-
-    const route = (formData.get('_form') as string).split('/');
-    const { components, nextPage } = await getData(route);
+const handleValidation = function handleValidation(
+    components:(string | ScotGov.Field<unknown, unknown, unknown>)[],
+    formValues:{[key:string]: ScotGov.Form.Value},
+    formData:FormData,
+) {
     const errors:ScotGov.Form.Error[] = [];
 
-    const rawFormData:{[key:string]: ScotGov.Form.Value} = {};
-
     components.forEach((component) => {
-        let formValue:ScotGov.Form.Value = '';
-
         if (
             typeof component === 'string'
             || !component.type
@@ -122,38 +98,24 @@ const handleSubmit = async function handleSubmit(
             required,
             label,
             validation,
+            conditional,
         } = component;
+
+        const formValue = formValues[name];
 
         let {
             id: fieldId,
         } = component;
 
+        if (conditional && !parseConditional(conditional, formValues)) {
+            return;
+        }
         if (
             type === 'date'
             && (component as ScotGov.Component.Field.Date).multiple
         ) {
             fieldId = `${id}-day`;
-
-            if (formData.get(`${name}`)) {
-                formValue = formData.get(`${name}`) as string;
-            } else if (
-                formData.get(`${name}-day`)
-                && formData.get(`${name}-month`)
-                && formData.get(`${name}-year`)
-            ) {
-                formValue = [
-                    formData.get(`${name}-year`),
-                    formData.get(`${name}-month`),
-                    formData.get(`${name}-day`),
-                ].join('-') as string;
-            }
-        } else if (type === 'checkboxes') {
-            formValue = formData.getAll(name) as string[];
-        } else {
-            formValue = formData.get(name) as string;
         }
-
-        rawFormData[name] = formValue;
 
         if (validation && validation.length > 0) {
             validation.forEach((valid) => {
@@ -203,6 +165,88 @@ const handleSubmit = async function handleSubmit(
             });
         }
     });
+
+    return errors;
+};
+
+/**
+ * Parses form submissions and validation.
+ *
+ * @param {object} prevState - the previous state of the form
+ * @param {FormData} formData - data in the submitted form
+ * @returns {object} - Response data for the submission
+ */
+const handleSubmit = async function handleSubmit(
+    prevState: ScotGov.Form.State,
+    formData: FormData,
+):Promise<ScotGov.Form.State> {
+    if (!formData.has('_form')) {
+        return {
+            message: 'error',
+            errors: [
+                {
+                    field: '',
+                    message: 'There was an error with form data. Please try again later.',
+                },
+            ],
+        };
+    }
+
+    // await delay(2000);
+
+    const route = (formData.get('_form') as string).split('/');
+    const { components, nextPage } = await getData(route);
+    // const errors:ScotGov.Form.Error[] = [];
+
+    const rawFormData:{[key:string]: ScotGov.Form.Value} = {};
+
+    components.forEach((component) => {
+        let formValue:ScotGov.Form.Value = '';
+
+        if (
+            typeof component === 'string'
+            || !component.type
+            || !component.name
+        ) {
+            return;
+        }
+
+        const {
+            name,
+            type,
+        } = component;
+
+        if (
+            type === 'date'
+            && (component as ScotGov.Component.Field.Date).multiple
+        ) {
+            if (formData.get(`${name}`)) {
+                formValue = formData.get(`${name}`) as string;
+            } else if (
+                formData.get(`${name}-day`)
+                && formData.get(`${name}-month`)
+                && formData.get(`${name}-year`)
+            ) {
+                formValue = [
+                    formData.get(`${name}-year`),
+                    formData.get(`${name}-month`),
+                    formData.get(`${name}-day`),
+                ].join('-') as string;
+            }
+        } else if (type === 'checkboxes') {
+            formValue = formData.getAll(name) as string[];
+        } else {
+            formValue = formData.get(name) as string;
+        }
+
+        rawFormData[name] = formValue;
+    });
+
+    const errors = handleValidation(
+        components,
+        rawFormData,
+        formData,
+    );
 
     if (errors.length > 0) {
         return {

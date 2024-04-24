@@ -97,6 +97,21 @@ const data = {
             name: 'textarea',
             label: 'Description',
             required: true,
+            conditional: {
+                type: 'or',
+                conditions: [
+                    {
+                        field: 'checkboxes',
+                        value: 'uc',
+                        operator: 'contains',
+                    },
+                    {
+                        field: 'radios',
+                        value: 'yes',
+                        operator: 'equals',
+                    },
+                ]
+            },
         },
         {
             id: 'details',
@@ -166,11 +181,13 @@ const data = {
             id: 'nino',
             name: 'nino',
             type: 'text',
-            label: 'National Insurance number (if you know it)',
+            label: 'National Insurance number',
             hintText: 'For example, QQ 12 34 56 C',
+            optional: 'if you know it',
             validation: [
                 validation.isValidNino(),
                 validation.maxLength(4),
+                validation.pattern(/^[A-Z]+$/i),
             ],
         },
     ],

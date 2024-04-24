@@ -28,6 +28,26 @@ declare namespace ScotGov {
         [key:string]: FormTypes.Type,
     }
 
+    interface FormConditionItem {
+        field: string,
+        value: string | number,
+        operator?: (
+            '===' | 'equals'
+            | '>' | 'gt'
+            | '<' | 'lt'
+            | '>=' | 'gte'
+            | '<=' | 'lte'
+            | 'contains' | 'includes'
+        ),
+    }
+
+    type FormConditions = (FormConditionItem|FormCondition)[];
+
+    interface FormCondition {
+        type?: 'and' | 'or',
+        conditions: FormConditions,
+    }
+
     type FormValidation = (value:unknown, formData?:FormData) => boolean | string;
 
     interface Field<Type = unknown, Items = undefined, Additional = never> {
@@ -41,15 +61,11 @@ declare namespace ScotGov {
         hintText?: string,
         value?: string,
         className?: string,
+        optional?: boolean | string,
         required?: boolean,
         items?: Items[],
         additional?: Additional,
-        conditional?: {
-            hidden: boolean,
-            field: string | string[],
-            value: string | string[],
-            type?: string,
-        },
+        conditional?: FormCondition | FormConditions,
         error?: string | boolean,
         validation?: FormValidation[],
     }

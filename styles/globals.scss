@@ -21,6 +21,12 @@
     }
 }
 
+.sss_optional-label {
+    font-weight: 400;
+    color: $ds_colour__text--secondary;
+    font-size: 1rem;
+}
+
 fieldset.ds_question {
     & > legend.ds_label {
         float: left;

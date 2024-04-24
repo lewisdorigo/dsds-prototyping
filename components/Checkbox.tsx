@@ -1,8 +1,12 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
+
 import Checks from '@scottish-government/design-system/src/forms/checkbox/checkboxes';
-import classNames from '../lib/classNames';
+
+import classNames from '@/lib/classNames';
+import FormContext from '@/patterns/FormContext';
+
 import Question from './Question';
 import HintText from './HintText';
 
@@ -20,8 +24,30 @@ export const Checkbox:React.FC<ScotGov.Component.Field.Checkboxes.Item> = functi
     size,
     hintText,
     exclusive,
+    onChange,
     ...props
 }) {
+    const { setFormState } = useContext(FormContext);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (typeof onChange === 'function') {
+            onChange(event);
+        }
+
+        if (name) {
+            const values:string[] = [];
+
+            if (exclusive) {
+                values.push(value);
+            } else {
+                document.querySelectorAll<HTMLInputElement>(`input[name=${name}]:checked:not([data-behaviour="exclusive"])`)
+                    .forEach((input) => values.push(input.value));
+            }
+
+            setFormState(name, values);
+        }
+    };
+
     return (
         <div
             className={classNames(
@@ -41,6 +67,7 @@ export const Checkbox:React.FC<ScotGov.Component.Field.Checkboxes.Item> = functi
                 )}
                 aria-describedby={hintText ? `${id}-hint` : undefined}
                 data-behaviour={exclusive ? 'exclusive' : undefined}
+                onChange={handleChange}
                 {...props}
             />
             <label
@@ -68,6 +95,8 @@ const Checkboxes:React.FC<ScotGov.Component.Field.Checkboxes> = function Checkbo
     items,
     label,
     error,
+    required,
+    optional,
     value = [],
 }) {
     const ref = useRef(null);
@@ -86,6 +115,8 @@ const Checkboxes:React.FC<ScotGov.Component.Field.Checkboxes> = function Checkbo
             error={error}
             text={text}
             hintText={hintText}
+            required={required}
+            optional={optional}
             data-module="ds-checkboxes"
         >
             <div

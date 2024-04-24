@@ -8,6 +8,7 @@ import ErrorSummary from '@/components/ErrorSummary';
 
 import FormNav from '@/patterns/FormNav';
 import FieldsHelper from '@/patterns/FieldsHelper';
+import { Provider as FormProvider } from '@/patterns/FormContext';
 
 import handleSubmit from '@/lib/routeAction';
 
@@ -33,26 +34,30 @@ const Form:React.FC<ScotGov.Pages.FormPage> = function Form({
     }, [state.errors]);
 
     return (
-        <form action={formAction} noValidate>
-            { state.errors && state.errors.length > 0 && <ErrorSummary errors={state.errors} /> }
-            <FieldsHelper fields={components} errors={state.errors} values={state.values} />
-            <input type="hidden" name="_form" value={route} />
+        <FormProvider>
+            <form action={formAction} noValidate>
+                { state.errors && state.errors.length > 0 && (
+                    <ErrorSummary errors={state.errors} />
+                ) }
+                <FieldsHelper fields={components} errors={state.errors} values={state.values} />
+                <input type="hidden" name="_form" value={route} />
 
-            { (nextButton || backButton) && (
-                <FormNav next={nextButton} back={backButton} />
-            )}
-            <Details label="View form state">
-                <output>
-                    <pre>
-                        <code
-                            dangerouslySetInnerHTML={{
-                                __html: JSON.stringify(state, undefined, 4),
-                            }}
-                        />
-                    </pre>
-                </output>
-            </Details>
-        </form>
+                { (nextButton || backButton) && (
+                    <FormNav next={nextButton} back={backButton} />
+                )}
+                <Details label="View form state">
+                    <output>
+                        <pre>
+                            <code
+                                dangerouslySetInnerHTML={{
+                                    __html: JSON.stringify(state, undefined, 4),
+                                }}
+                            />
+                        </pre>
+                    </output>
+                </Details>
+            </form>
+        </FormProvider>
     );
 };
 

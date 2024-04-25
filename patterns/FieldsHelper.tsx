@@ -20,6 +20,8 @@ import autop from '@/lib/autop';
 import Select from '@/components/Select';
 import Conditional from '@/components/Conditional';
 import Image from '@/components/Image';
+import CategoryList, { CategoryItem } from '@/components/CategoryList';
+import Card from '@/components/Card';
 
 /**
  * @param {Object} props - Properties for the element
@@ -33,6 +35,11 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
     }
 
     if (typeof field.type !== 'string') {
+        console.error(
+            'Component does type have a type set.',
+            field,
+        );
+
         throw new Error('Component does type have a type set.');
     }
 
@@ -168,6 +175,58 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
                         items={undefined}
                     />
                 </Question>
+            );
+
+        case 'category-list':
+            return (
+                <CategoryList {...data} items={undefined}>
+                    { data.items?.map((item, index) => {
+                        const key = `field-${data.id}-${index}`;
+
+                        if (typeof item === 'string') {
+                            return (
+                                <li key={key}>
+                                    { item }
+                                </li>
+                            );
+                        }
+
+                        if (!item) { return ''; }
+
+                        const {
+                            type: itemType,
+                            ...itemProps
+                        } = item as ScotGov.Field<unknown, unknown, unknown>;
+
+                        if (itemType === 'card') {
+                            return (
+                                <Card
+                                    key={key}
+                                    tag="li"
+                                    {...itemProps as unknown as ScotGov.Component.Card}
+                                />
+                            );
+                        }
+
+                        if (itemType) {
+                            return (
+                                <li key={key}>
+                                    <FieldHelper
+                                        key={key}
+                                        field={{ type: itemType, ...itemProps }}
+                                    />
+                                </li>
+                            );
+                        }
+
+                        return (
+                            <CategoryItem
+                                key={key}
+                                {...itemProps as unknown as ScotGov.Component.CategoryItem}
+                            />
+                        );
+                    }) }
+                </CategoryList>
             );
 
         default:

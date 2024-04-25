@@ -22,6 +22,8 @@ import Radios from '@/components/Radio';
 import SectionHeader from '@/components/SectionHeader';
 import TextArea from '@/components/TextArea';
 import Select from '@/components/Select';
+import CategoryList, { CategoryItem } from '@/components/CategoryList';
+import Card from '@/components/Card';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -865,6 +867,120 @@ const Page:React.FC = function Page() {
                 <SectionHeader
                     title="Adult disability payment"
                 />
+
+                <h2>Category List</h2>
+                <CategoryList>
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                </CategoryList>
+
+                <h3>Category List (Grid)</h3>
+                <CategoryList layout="grid">
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <CategoryItem
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                </CategoryList>
+            </Wrapper>
+
+            <Wrapper hasBackground="grey">
+                <h3>Category List (Cards)</h3>
+                <CategoryList layout="grid" spacing="narrow">
+                    <Card
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <Card
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <Card
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <Card
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                </CategoryList>
+
+                <h3>Category List (Image Cards)</h3>
+                <CategoryList layout="grid" spacing="narrow">
+                    <Card
+                        image={{
+                            src: '//picsum.photos/1280/720',
+                            alt: '',
+                        }}
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <Card
+                        image={{
+                            src: '//picsum.photos/1280/720',
+                            alt: '',
+                        }}
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <Card
+                        image={{
+                            src: '//picsum.photos/1280/720',
+                            alt: '',
+                        }}
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                    <Card
+                        image={{
+                            src: '//picsum.photos/1280/720',
+                            alt: '',
+                        }}
+                        title="Environment and countryside"
+                        text="Access to and protection of the countryside and managing wildlife on your land"
+                        link="#"
+                    />
+                </CategoryList>
             </Wrapper>
         </>
     );

@@ -1,7 +1,3 @@
-.ds_cb__inner {
-    position: relative;
-}
-
 // colors
 $colors: (
     'white'     $ds_colour__white       'normal',
@@ -19,6 +15,7 @@ $colors: (
     'brown'     $ds_colour__brown       'reversed',
     'black'     $ds_colour__black       'black'
 );
+
 %texttheme-reversed {
     color: white;
 

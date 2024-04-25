@@ -24,6 +24,7 @@ const data = {
                     type: 'image',
                     src: 'http://placehold.it/1280x720',
                     alt: 'Hello',
+                    caption: 'This is a caption',
                 },
                 {
                     type: 'image',

@@ -12,6 +12,7 @@
 @import '@/components/Wrapper';
 @import '@/components/SectionHeader';
 @import '@/components/Grid';
+@import '@/components/Image';
 
 .ds_question {
     @include ds_responsive-spacing(4, 'margin', bottom);

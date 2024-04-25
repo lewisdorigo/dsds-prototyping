@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import classNames from '../lib/classNames';
 
 /**
@@ -36,12 +35,10 @@ const FeatureHeader:React.FC<ScotGov.Component.FeatureHeader> = function Feature
             <div className="ds_feature-header__secondary">
                 { imageData
                     && (
-                        <Image
+                        <img
                             className="ds_feature-header__image"
                             src={imageData.src}
                             alt={imageData.alt}
-                            width={0}
-                            height={0}
                         />
                     )}
             </div>

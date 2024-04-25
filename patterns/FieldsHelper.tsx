@@ -19,6 +19,7 @@ import Grid from '@/components/Grid';
 import autop from '@/lib/autop';
 import Select from '@/components/Select';
 import Conditional from '@/components/Conditional';
+import Image from '@/components/Image';
 
 /**
  * @param {Object} props - Properties for the element
@@ -147,9 +148,7 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
 
         case 'image':
             return (
-                <img
-                    {...data}
-                />
+                <Image {...data} />
             );
 
         case 'select':
@@ -212,7 +211,7 @@ const FieldsHelper:React.FC<ScotGov.Pattern.FieldsHelper> = function FieldsHelpe
             field && typeof field === 'object'
                 ? {
                     ...field,
-                    value,
+                    value: value || field.value,
                     error: (
                         error.length > 0
                             ? error[0].fieldMessage || error[0].message

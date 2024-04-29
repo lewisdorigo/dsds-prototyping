@@ -21,13 +21,16 @@ export const SiteBranding:React.FC<ScotGov.Component.SiteHeader.Branding> = func
                 href="/"
                 aria-label="Return to home page"
             >
-                <Image
-                    className="ds_site-branding__logo-image"
-                    src="/images/social-security-scotland-logo.svg"
-                    alt="Social Security Scotland"
-                    width={228}
-                    height={79}
-                />
+                <picture>
+                    <source srcSet="/images/logo.svg" media="(min-width: 768px)" />
+                    <Image
+                        className="ds_site-branding__logo-image"
+                        src="/images/logo-small.svg"
+                        alt="Social Security Scotland"
+                        width={284}
+                        height={126}
+                    />
+                </picture>
             </Link>
             {title && (
                 <div className="ds_site-branding__title">

@@ -127,9 +127,14 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                     </div>
                     <div className="ds_page_bottom">
                         <ArticleAside>
-                            <h2 className="delta">Service feedback</h2>
+                            <h2 className="gamma">Service feedback</h2>
                             <p>
-                                <Link href="#page-top">Report a problem</Link>
+                                <Link
+                                    href="https://github.com/lewisdorigoSoSec/dsds-prototyping/issues/new"
+                                    target="_blank"
+                                >
+                                    Report a problem
+                                </Link>
                                 {' '}
                                 with this online form.
                             </p>

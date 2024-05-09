@@ -6,9 +6,10 @@ import { notFound } from 'next/navigation';
 // import handleSubmit from './submit-handler';
 
 import PageHeader from '@/components/PageHeader';
-import Wrapper from '@/components/Wrapper';
+import Layout from '@/components/Layout';
 import Details from '@/components/Details';
 import SectionHeader from '@/components/SectionHeader';
+import Wrapper from '@/components/Wrapper';
 
 import { getData, getAllRoutes } from '@/lib/routeAction';
 
@@ -76,23 +77,31 @@ const Page:React.FC<PageRoute> = async function Page({
 
     return (
         <>
-            <Wrapper>
-                {partOf && <SectionHeader {...partOf} />}
-                <PageHeader {...title} />
-            </Wrapper>
-            <Wrapper>
+            {partOf && (
+                <Wrapper>
+                    <SectionHeader {...partOf} />
+                </Wrapper>
+            )}
+
+            <Layout
+                header={(
+                    <PageHeader {...title} />
+                )}
+            >
                 <Form {...data} components={components} />
 
-                <Details label="View page details">
-                    <pre>
-                        <code
-                            dangerouslySetInnerHTML={{
-                                __html: JSON.stringify(data, undefined, 4),
-                            }}
-                        />
-                    </pre>
-                </Details>
-            </Wrapper>
+                { process.env.NODE_ENV === 'development' && (
+                    <Details label="View page details">
+                        <pre>
+                            <code
+                                dangerouslySetInnerHTML={{
+                                    __html: JSON.stringify(data, undefined, 4),
+                                }}
+                            />
+                        </pre>
+                    </Details>
+                )}
+            </Layout>
         </>
     );
 };

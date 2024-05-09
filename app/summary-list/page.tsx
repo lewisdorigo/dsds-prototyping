@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageHeader from '@/components/PageHeader';
-import Wrapper from '@/components/Wrapper';
+import Layout from '@/components/Layout';
 import SummaryList from '@/components/SummaryList';
 import SummaryCard from '@/components/SummaryCard';
 
@@ -65,41 +65,40 @@ const Page:React.FC = function Page() {
     ];
 
     return (
-        <>
-            <Wrapper>
+        <Layout
+            header={(
                 <PageHeader
                     title={pageTitle}
                 />
-            </Wrapper>
-            <Wrapper>
-                <h2>Summary list</h2>
-                <SummaryList
-                    items={listItems}
-                />
+            )}
+        >
+            <h2>Summary list</h2>
+            <SummaryList
+                items={listItems}
+            />
 
-                <h2>Summary list without borders</h2>
-                <SummaryList
-                    items={listItems}
-                    borders={false}
-                />
+            <h2>Summary list without borders</h2>
+            <SummaryList
+                items={listItems}
+                borders={false}
+            />
 
-                <h2>Summary Cards</h2>
-                <SummaryCard
-                    title="Joe Bloggs"
-                    items={listItems}
-                    actions={[
-                        {
-                            label: 'Delete',
-                            action: '#',
-                        },
-                        {
-                            label: 'Change',
-                            action: '#',
-                        },
-                    ]}
-                />
-            </Wrapper>
-        </>
+            <h2>Summary Cards</h2>
+            <SummaryCard
+                title="Joe Bloggs"
+                items={listItems}
+                actions={[
+                    {
+                        label: 'Delete',
+                        action: '#',
+                    },
+                    {
+                        label: 'Change',
+                        action: '#',
+                    },
+                ]}
+            />
+        </Layout>
     );
 };
 

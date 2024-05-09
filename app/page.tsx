@@ -668,7 +668,7 @@ const Page:React.FC = function Page() {
                     title="Design Standards"
                     content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
                     imageData={{
-                        src: '/images/social-security-scotland-logo.svg',
+                        src: '/images/logo.svg',
                         alt: 'Social Security Scotland logo',
                     }}
                 />
@@ -677,7 +677,7 @@ const Page:React.FC = function Page() {
                     title="Design Standards"
                     content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
                     imageData={{
-                        src: '/images/social-security-scotland-logo.svg',
+                        src: '/images/logo.svg',
                         alt: 'Social Security Scotland logo',
                     }}
                     background="grey"
@@ -687,7 +687,7 @@ const Page:React.FC = function Page() {
                     title="Design Standards"
                     content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
                     imageData={{
-                        src: '/images/social-security-scotland-logo.svg',
+                        src: '/images/logo.svg',
                         alt: 'Social Security Scotland logo',
                     }}
                     wideText

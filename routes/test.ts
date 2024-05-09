@@ -17,6 +17,34 @@ const data = {
             ],
         },
         {
+            type: 'category-list',
+            layout: 'grid',
+            spacing: 'narrow',
+            items: [
+                {
+                    type: 'card',
+                    title: 'Environment',
+                    link: '#',
+                    text: 'Access to and protection of the countryside and managing wildlife on your land',
+                    image: {
+                        src: 'http://placehold.it/1280x720',
+                        alt: 'Hello',
+                    },
+                },
+                {
+                    type: 'card',
+                    title: 'Environment',
+                    link: '#',
+                    text: 'Access to and protection of the countryside and managing wildlife on your land',
+                },
+                {
+                    title: 'Environment',
+                    link: '#',
+                    text: 'Access to and protection of the countryside and managing wildlife on your land',
+                },
+            ],
+        },
+        {
             type: 'grid',
             columns: 2,
             items: [

@@ -25,7 +25,7 @@ declare namespace ScotGov.Component {
     }
 
     interface ContactDetails extends React.AllHTMLAttributes<HTMLDivElement> {
-        headingLevel?: keyof JSX.IntrinsicElements,
+        headingLevel?: ScotGov.HeadingLevel,
         title?: string,
         items?: ContactDetails.Items,
         columns?: ContactDetails.Items[],

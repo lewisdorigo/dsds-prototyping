@@ -2,6 +2,8 @@ declare namespace ScotGov {
     type BenefitNames = 'pip' | 'pipsrti' | 'dla' | 'srti' | 'ra' | 'common';
     type RAAppliedBenefits = 'raadp' | 'racdp';
 
+    type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
     interface Title {
         title: string,
         caption?: string,

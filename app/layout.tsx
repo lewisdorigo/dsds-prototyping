@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { cookies } from 'next/headers';
 
 import '@/styles/globals.scss';
 
@@ -12,6 +13,8 @@ import ArticleAside from '@/components/ArticleAside';
 import BackToTop from '@/components/BackToTop';
 import Link from '@/components/Link';
 import SkipLinks from '@/components/SkipLink';
+import CookieBanner from '@/components/CookieBanner';
+import JSEnabled from '@/components/JSEnabled';
 
 export const viewport:Viewport = {
     themeColor: '#0065bd',
@@ -96,16 +99,39 @@ export const metadata:Metadata = {
 const Layout:React.FC<PropsWithChildren> = function Layout({
     children,
 }) {
+    const cookieStore = cookies();
+    const seenCookieNotice = cookieStore.get('cookie-notification-acknowledged');
+
     return (
         <html lang="en-GB">
             <body>
+                <JSEnabled />
+                <SkipLinks id="main-content" />
                 <div
                     className={classNames(
                         'ds_page',
                     )}
                 >
                     <div className="ds_page_top" id="page-top">
-                        <SkipLinks id="main-content" />
+                        { !seenCookieNotice && (
+                            <CookieBanner>
+                                <p>
+                                    We use
+                                    {' '}
+                                    <a href="/cookies/">cookies</a>
+                                    {' '}
+                                    to collect anonymous data to help us improve your site browsing
+                                    experience.
+                                </p>
+                                <p>
+                                    Click &apos;Accept all cookies&apos; to agree to all cookies
+                                    that collect anonymous data. To only allow the cookies that make
+                                    the site work, click &apos;Use essential cookies only.&apos;
+                                    Visit &apos;Set cookie preferences&apos; to control specific
+                                    cookies.
+                                </p>
+                            </CookieBanner>
+                        )}
                         <SiteHeader
                             menuItems={[
                                 {

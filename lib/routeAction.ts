@@ -217,8 +217,6 @@ const handleSubmit = async function handleSubmit(
 
     const session = await getSession();
 
-    console.log({ session });
-
     // await delay(2000);
 
     const routePath = formData.get('_form') as string;

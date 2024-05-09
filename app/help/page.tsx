@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageHeader from '@/components/PageHeader';
-import Wrapper from '@/components/Wrapper';
+import Layout from '@/components/Layout';
 
 export const metadata:Metadata = {
     title: 'Help',
@@ -20,19 +20,18 @@ const Page:React.FC = function Page() {
     );
 
     return (
-        <>
-            <Wrapper>
+        <Layout
+            header={(
                 <PageHeader
                     title={pageTitle}
                 />
-            </Wrapper>
-            <Wrapper>
-                <p>
-                    Using the prototype toolkit can be a bit daunting at first. So here’s how to get
-                    started.
-                </p>
-            </Wrapper>
-        </>
+            )}
+        >
+            <p>
+                Using the prototype toolkit can be a bit daunting at first. So here’s how to get
+                started.
+            </p>
+        </Layout>
     );
 };
 

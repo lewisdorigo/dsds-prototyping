@@ -45,17 +45,20 @@ const Form:React.FC<ScotGov.Pages.FormPage> = function Form({
                 { (nextButton || backButton) && (
                     <FormNav next={nextButton} back={backButton} />
                 )}
-                <Details label="View form state">
-                    <output>
-                        <pre>
-                            <code
-                                dangerouslySetInnerHTML={{
-                                    __html: JSON.stringify(state, undefined, 4),
-                                }}
-                            />
-                        </pre>
-                    </output>
-                </Details>
+
+                { process.env.NODE_ENV === 'development' && (
+                    <Details label="View form state">
+                        <output>
+                            <pre>
+                                <code
+                                    dangerouslySetInnerHTML={{
+                                        __html: JSON.stringify(state, undefined, 4),
+                                    }}
+                                />
+                            </pre>
+                        </output>
+                    </Details>
+                )}
             </form>
         </FormProvider>
     );

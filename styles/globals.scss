@@ -47,3 +47,65 @@ img {
     height: auto;
     vertical-align: middle;
 }
+
+.ds_layout--full-width {
+    @extend .ds_layout--category-list;
+}
+
+@media (min-width: 768px) {
+    .ds_layout--pl-component > .ds_layout__header {
+        float: left;
+        width:calc(66.6666666667% - 32px)
+    }
+
+    .ds_layout--pl-component > .ds_layout__content {
+        float: left;
+        width:calc(58.3333333333% - 32px)
+    }
+
+    .ds_layout--pl-component > .ds_layout__sidebar {
+        clear: left;
+        float: left;
+        width:calc(25% - 32px)
+    }
+}
+
+@supports (display: grid) {
+    .ds_layout--pl-component {
+        grid-template-areas: "h h" "s s" "c c" "f f"
+    }
+
+    .ds_layout--pl-component:not(:has(.ds_layout__sidebar)) {
+        grid-template-areas: "h h" "c c" "f f"
+    }
+
+    @media (min-width: 480px) {
+        .ds_layout--pl-component {
+            grid-template-areas: "h h h h h h" "s s s s s s" "c c c c c c" "f f f f f f"
+        }
+
+        .ds_layout--pl-component:not(:has(.ds_layout__sidebar)) {
+            grid-template-areas: "h h h h h h" "c c c c c c" "f f f f f f"
+        }
+    }
+
+    @media (min-width: 768px) {
+        .ds_layout--pl-component {
+            grid-template-areas: "s s s h h h h h h h h h" "s s s c c c c c c c c c" ". . . f f f f f f f f f"
+        }
+
+        .ds_layout--pl-component:not(:has(.ds_layout__sidebar)) {
+            grid-template-areas: "h h h h h h h h h h h h" "c c c c c c c c c c c c" "f f f f f f f f f f f f"
+        }
+    }
+
+    @media (min-width: 992px) {
+        .ds_layout--pl-component {
+            grid-template-areas: "s s s h h h h h h h . ." "s s s c c c c c c c . ." ". . . f f f f f f f . ."
+        }
+
+        .ds_layout--pl-component:not(:has(.ds_layout__sidebar)) {
+            grid-template-areas: "h h h h h h h . . . . ." "c c c c c c c . . . . ." "f f f f f f f . . . . ."
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageHeader from '@/components/PageHeader';
-import Wrapper from '@/components/Wrapper';
+import Layout from '@/components/Layout';
 import { TaskListGroup } from '@/components/TaskList';
 
 export const metadata:Metadata = {
@@ -77,21 +77,20 @@ const Page:React.FC = function Page() {
     ];
 
     return (
-        <>
-            <Wrapper>
+        <Layout
+            header={(
                 <PageHeader
                     title={pageTitle}
                 />
-            </Wrapper>
-            <Wrapper>
-                <TaskListGroup
-                    heading="Application Incomplete"
-                    summary="Test"
-                    ordered
-                    groups={groups}
-                />
-            </Wrapper>
-        </>
+            )}
+        >
+            <TaskListGroup
+                heading="Application Incomplete"
+                summary="Test"
+                ordered
+                groups={groups}
+            />
+        </Layout>
     );
 };
 

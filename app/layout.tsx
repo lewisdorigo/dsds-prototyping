@@ -14,35 +14,73 @@ import Link from '@/components/Link';
 import SkipLinks from '@/components/SkipLink';
 
 export const viewport:Viewport = {
-    themeColor: '#ffffff',
+    themeColor: '#0065bd',
     colorScheme: 'light',
 };
 
 export const metadata:Metadata = {
     title: {
         default: 'Social Security Scotland',
-        template: '%s | Prototype Toolkit | Social Security Scotland',
+        template: '%s — Prototype Toolkit — Social Security Scotland',
+    },
+    openGraph: {
+        title: 'Prototype Toolkit',
+        description: '',
+        siteName: 'Prototype Toolkit',
+        locale: 'en_GB',
+        type: 'website',
     },
     icons: {
-        icon: '/images/favicon.ico',
+        icon: [
+            {
+                url: '/images/favicon.png',
+                sizes: '16x16',
+                type: 'image/png',
+            },
+            {
+                url: '/images/favicon@2x.png',
+                sizes: '32x32',
+                type: 'image/png',
+            },
+            {
+                url: '/images/favicon@3x.png',
+                sizes: '48x48',
+                type: 'image/png',
+            },
+            {
+                url: '/images/favicon.ico',
+                sizes: '16x16 32x32 48x48',
+                type: 'image/x-icon',
+            },
+        ],
         apple: [
             {
-                url: '/images/scotgov-apple-touch-icon-180x180.png',
+                url: '/images/touch-icon/ipad@3x.png',
+                sizes: '228x228',
+                type: 'image/png',
+            },
+            {
+                url: '/images/touch-icon/iphone@3x.png',
                 sizes: '180x180',
                 type: 'image/png',
             },
             {
-                url: '/images/scotgov-apple-touch-icon-180x180.png',
-                sizes: '167x167',
-                type: 'image/png',
-            },
-            {
-                url: '/images/scotgov-apple-touch-icon-152x152.png',
+                url: '/images/touch-icon/ipad@2x.png',
                 sizes: '152x152',
                 type: 'image/png',
             },
             {
-                url: '/images/scotgov-apple-touch-icon.png',
+                url: '/images/touch-icon/iphone@2x.png',
+                sizes: '120x120',
+                type: 'image/png',
+            },
+            {
+                url: '/images/touch-icon/ipad.png',
+                sizes: '76x76',
+                type: 'image/png',
+            },
+            {
+                url: '/images/touch-icon/iphone.png',
                 type: 'image/png',
             },
         ],

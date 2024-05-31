@@ -4,6 +4,7 @@ declare namespace ScotGov.Component {
             title: string,
             open?: boolean,
             id: string,
+            headingLevel: ScotGov.HeadingLevels,
         }
     }
 

@@ -25,6 +25,7 @@ import TextArea from '@/components/TextArea';
 import Select from '@/components/Select';
 import CategoryList, { CategoryItem } from '@/components/CategoryList';
 import Card from '@/components/Card';
+import ConfirmationMessage from '@/components/ConfirmationMessage';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -114,6 +115,10 @@ const Page:React.FC = function Page() {
                         {
                             label: 'Section Header',
                             link: '#component-section-header',
+                        },
+                        {
+                            label: 'Confirmation Message',
+                            link: '#confirmation-message',
                         },
                         {
                             label: 'Category Lists',
@@ -915,6 +920,17 @@ const Page:React.FC = function Page() {
             <h3>Without link</h3>
             <SectionHeader
                 title="Adult disability payment"
+            />
+
+            <h2 id="confirmation-message">Confirmation Message</h2>
+            <ConfirmationMessage
+                title="Landlord added successfully"
+                content="You have added the landlord <strong>John Smith</strong> to the application."
+                headingLevel="h3"
+            />
+            <ConfirmationMessage
+                title="Deleted"
+                headingLevel="h3"
             />
 
             <h2 id="category-list">Category List</h2>

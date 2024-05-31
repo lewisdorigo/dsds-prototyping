@@ -5,6 +5,6 @@ declare namespace ScotGov.Component {
         metadata?: Metadata.Item[] | undefined,
         className?: string,
         'aria-label'?: string,
-        headingLevel?: keyof JSX.IntrinsicElements,
+        headingLevel?: ScotGov.HeadingLevels,
     }
 }

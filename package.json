@@ -9,10 +9,10 @@
         "lint": "next lint --no-cache",
         "tsc": "tsc --skipLibCheck --noEmit",
         "pre-commit": "npm run lint && npm run tsc",
-        "postinstall": "git config core.hooksPath .githooks"
+        "postinstall": "git config core.hooksPath .githooks && rm -fr ./public/design-system && cp -r ./node_modules/@scottish-government/design-system/dist/ ./public/design-system"
     },
     "dependencies": {
-        "@scottish-government/design-system": "^1.0.0",
+        "@scottish-government/design-system": "^2.0.0",
         "@types/node": "^20.2.5",
         "@types/react": "^18.2.8",
         "@types/react-dom": "^18.2.4",

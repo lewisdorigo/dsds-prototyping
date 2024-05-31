@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
+import dynamic from 'next/dynamic';
 
 import '@/styles/globals.scss';
 
@@ -13,8 +14,12 @@ import ArticleAside from '@/components/ArticleAside';
 import BackToTop from '@/components/BackToTop';
 import Link from '@/components/Link';
 import SkipLinks from '@/components/SkipLink';
-import CookieBanner from '@/components/CookieBanner';
+// import CookieBanner from '@/components/CookieBanner';
 import JSEnabled from '@/components/JSEnabled';
+
+const CookieBanner = dynamic(() => import('@/components/CookieBanner'), {
+    ssr: false,
+});
 
 export const viewport:Viewport = {
     themeColor: '#0065bd',

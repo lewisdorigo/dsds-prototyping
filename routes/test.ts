@@ -17,6 +17,11 @@ const data = {
             ],
         },
         {
+            type: 'confirmation-message',
+            title: 'Landlord added successfully',
+            content: 'You have added the landlord <strong>John Smith</strong> to the application.',
+        },
+        {
             type: 'category-list',
             layout: 'grid',
             spacing: 'narrow',

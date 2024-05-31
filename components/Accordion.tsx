@@ -3,7 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Accord from '@scottish-government/design-system/src/components/accordion/accordion';
 
-import classNames from '../lib/classNames';
+import classNames from '@/lib/classNames';
+
+import WrapperTag from './WrapperTag';
 
 let accordionItemCounter = 0;
 
@@ -16,6 +18,7 @@ export const AccordionItem:React.FC<ScotGov.Component.Accordion.Item> = function
     children,
     open = false,
     id: rawId,
+    headingLevel = 'h2',
     ...props
 }) {
     const [id] = useState<string>(rawId || `accordion-item-${accordionItemCounter += 1}`);
@@ -42,14 +45,15 @@ export const AccordionItem:React.FC<ScotGov.Component.Accordion.Item> = function
                     'ds_accordion-item__header',
                 )}
             >
-                <h3
+                <WrapperTag
+                    tag={headingLevel}
                     id={`${id}-heading`}
                     className={classNames(
                         'ds_accordion-item__title',
                     )}
                 >
                     { title }
-                </h3>
+                </WrapperTag>
                 <span className="ds_accordion-item__indicator" />
                 { /* eslint-disable jsx-a11y/label-has-associated-control */}
                 <label

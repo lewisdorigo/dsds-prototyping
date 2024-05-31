@@ -22,6 +22,7 @@ import Conditional from '@/components/Conditional';
 import Image from '@/components/Image';
 import CategoryList, { CategoryItem } from '@/components/CategoryList';
 import Card from '@/components/Card';
+import ConfirmationMessage from '@/components/ConfirmationMessage';
 
 /**
  * @param {Object} props - Properties for the element
@@ -76,6 +77,11 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
                         );
                     }) }
                 </WrapperTag>
+            );
+
+        case 'confirmation-message':
+            return (
+                <ConfirmationMessage {...data as ScotGov.Component.ConfirmationMessage} />
             );
 
         case 'radios':

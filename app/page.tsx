@@ -26,6 +26,7 @@ import Select from '@/components/Select';
 import CategoryList, { CategoryItem } from '@/components/CategoryList';
 import Card from '@/components/Card';
 import ConfirmationMessage from '@/components/ConfirmationMessage';
+import Tabs from '@/components/Tabs';
 
 export const metadata:Metadata = {
     title: 'Prototype Toolkit',
@@ -105,8 +106,12 @@ const Page:React.FC = function Page() {
                             link: '#component-accordion',
                         },
                         {
+                            label: 'Tabs',
+                            link: '#component-tabs',
+                        },
+                        {
                             label: 'Contact Details',
-                            link: '#component-accordion',
+                            link: '#component-contact-details',
                         },
                         {
                             label: 'File Download',
@@ -815,6 +820,57 @@ const Page:React.FC = function Page() {
                     </p>
                 </AccordionItem>
             </Accordion>
+
+            <h2 id="component-tabs">Tabs</h2>
+            <Tabs
+                id="tabs"
+                items={[
+                    {
+                        id: 'courses-funding',
+                        title: 'Courses and funding',
+                        text: (
+                            <>
+                                <h2>Search for training courses and funding</h2>
+                                <p>
+                                    A wide range of training courses for your employees are
+                                    available.
+                                </p>
+                            </>
+                        ),
+                    },
+                    {
+                        id: 'choosing-apprenticeships',
+                        title: 'Choosing apprenticeships',
+                        text: (
+                            <>
+                                <h2>Choosing an apprenticeship for your business</h2>
+                                <p>
+                                    Apprenticeships can help you address skills gaps in your
+                                    business. The government provides help with the cost of
+                                    training an apprentice.
+                                </p>
+                            </>
+                        ),
+                    },
+                    {
+                        id: 'extra-skills-support',
+                        title: 'Extra skills support',
+                        text: (
+                            <>
+                                <h2>Extra skills support</h2>
+                                <p>
+                                    The
+                                    {' '}
+                                    <a href="#top">Skills for Growth</a>
+                                    {' '}
+                                    service can offer skills advice to businesses with fewer
+                                    than 250 employees.
+                                </p>
+                            </>
+                        ),
+                    },
+                ]}
+            />
 
             <h2 id="component-contact-detail">Contact Details</h2>
             <ContactDetails

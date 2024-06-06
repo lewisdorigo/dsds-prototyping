@@ -23,6 +23,8 @@ import Image from '@/components/Image';
 import CategoryList, { CategoryItem } from '@/components/CategoryList';
 import Card from '@/components/Card';
 import ConfirmationMessage from '@/components/ConfirmationMessage';
+import Accordion, { AccordionItem } from '@/components/Accordion';
+import Tabs from '@/components/Tabs';
 
 /**
  * @param {Object} props - Properties for the element
@@ -181,6 +183,33 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
                         items={undefined}
                     />
                 </Question>
+            );
+
+        case 'accordion':
+            return (
+                <Accordion
+                    id={data.id}
+                    toggleAll={(data as ScotGov.Component.Accordion).toggleAll}
+                >
+                    { data.items?.map((rawItem) => {
+                        const item = rawItem as ScotGov.Component.Tabs.Item;
+
+                        return (
+                            <AccordionItem
+                                id={item.id}
+                                title={item.title}
+                                key={item.id}
+                            >
+                                { typeof item.text === 'string' ? autop(item.text) : item.text }
+                            </AccordionItem>
+                        );
+                    })}
+                </Accordion>
+            );
+
+        case 'tabs':
+            return (
+                <Tabs {...data as ScotGov.Component.Tabs} />
             );
 
         case 'category-list':

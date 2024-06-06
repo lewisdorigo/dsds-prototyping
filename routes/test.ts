@@ -22,6 +22,38 @@ const data = {
             content: 'You have added the landlord <strong>John Smith</strong> to the application.',
         },
         {
+            type: 'accordion',
+            id: 'accordion',
+            items: [
+                {
+                    id: 'accordion-1',
+                    title: 'Accordion 1',
+                    text: '<p>Accordion 1 paragraph</p>',
+                },
+                {
+                    id: 'accordion-2',
+                    title: 'Accordion 2',
+                    text: '<p>Accordion 2 paragraph</p>',
+                },
+            ],
+        },
+        {
+            type: 'tabs',
+            id: 'tabs',
+            items: [
+                {
+                    id: 'tabs-1',
+                    title: 'Accordion 1',
+                    text: '<p>Tab 1 paragraph</p>',
+                },
+                {
+                    id: 'tabs-2',
+                    title: 'Accordion 2',
+                    text: '<p>Tab 2 paragraph</p>',
+                },
+            ],
+        },
+        {
             type: 'category-list',
             layout: 'grid',
             spacing: 'narrow',

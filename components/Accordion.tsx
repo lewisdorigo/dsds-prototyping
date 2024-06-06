@@ -75,7 +75,7 @@ export const AccordionItem:React.FC<ScotGov.Component.Accordion.Item> = function
  * @param {ScotGov.Component.Accordion} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const Accordion:React.FC<ScotGov.Component.Accordion> = function ArticleAside({
+const Accordion:React.FC<ScotGov.Component.Accordion> = function Accordion({
     children,
     toggleAll,
     ...props

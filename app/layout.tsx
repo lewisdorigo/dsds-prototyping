@@ -17,9 +17,10 @@ import SkipLinks from '@/components/SkipLink';
 // import CookieBanner from '@/components/CookieBanner';
 import JSEnabled from '@/components/JSEnabled';
 
-const CookieBanner = dynamic(() => import('@/components/CookieBanner'), {
-    ssr: false,
-});
+const CookieBanner = dynamic<ScotGov.Component.WrapperTag>(
+    () => import('@/components/CookieBanner'),
+    { ssr: false },
+);
 
 export const viewport:Viewport = {
     themeColor: '#0065bd',

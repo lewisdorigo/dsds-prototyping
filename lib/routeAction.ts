@@ -58,6 +58,7 @@ export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
 /**
  * Returns an array of all routes.
  *
+ * @param {string} route - the path to file in the `routes` directory
  * @returns {Promise<string[]>} - The route data
  */
 export async function getAllRoutes(route:string = ''):Promise<string[]> {
@@ -98,9 +99,17 @@ export async function getAllRoutes(route:string = ''):Promise<string[]> {
 //     });
 // };
 
+/**
+ * Handles validation fo rfields
+ *
+ * @param {(string|ScotGov.Field)[]} components - An array of components
+ * @param {Record<string, ScotGov.Form.Value>} formValues - Key/Value pairs of form data
+ * @param {FormData} formData - The submitted form data
+ * @returns {ScotGov.Form.Error[]} - An array of errors
+ */
 const handleValidation = function handleValidation(
     components:(string | ScotGov.Field<unknown, unknown, unknown>)[],
-    formValues:{[key:string]: ScotGov.Form.Value},
+    formValues:Record<string, ScotGov.Form.Value>,
     formData:FormData,
 ) {
     const errors:ScotGov.Form.Error[] = [];

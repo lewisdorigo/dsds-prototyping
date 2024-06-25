@@ -38,12 +38,13 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
     }
 
     if (typeof field.type !== 'string') {
+        //  eslint-disable-next-line no-console
         console.error(
-            'Component does type have a type set.',
+            'Component type is not set.',
             field,
         );
 
-        throw new Error('Component does type have a type set.');
+        throw new Error('Component type is not set.');
     }
 
     const {
@@ -103,7 +104,7 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
                     id={data.id}
                     label={data.label || ''}
                 >
-                    {data.text && autop(data.text)}
+                    { autop(data.text) }
                     {data.items && (
                         <FieldsHelper
                             fields={(
@@ -200,7 +201,7 @@ export const FieldHelper:React.FC<ScotGov.Pattern.FieldHelper> = function FieldH
                                 title={item.title}
                                 key={item.id}
                             >
-                                { typeof item.text === 'string' ? autop(item.text) : item.text }
+                                { autop(item.text) }
                             </AccordionItem>
                         );
                     })}

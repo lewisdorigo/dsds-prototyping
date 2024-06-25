@@ -3,6 +3,10 @@ import React, { useContext, useMemo } from 'react';
 import FormContext from '@/patterns/FormContext';
 import { parseConditional } from '@/lib/conditional';
 
+/**
+ * @param {ScotGov.Component.Conditional} props - Properties for the element
+ * @returns {JSX.Element} - The element
+ */
 const Conditional:React.FC<ScotGov.Component.Conditional> = function Conditional({
     conditional,
     children,

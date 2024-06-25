@@ -28,6 +28,11 @@ export const viewport:Viewport = {
 };
 
 export const metadata:Metadata = {
+    metadataBase: (
+        process.env.BASE_URL
+            ? new URL(process.env.BASE_URL)
+            : undefined
+    ),
     title: {
         default: 'Social Security Scotland',
         template: '%s — Prototype Toolkit — Social Security Scotland',

@@ -77,7 +77,7 @@ const Question:React.FC<ScotGov.Component.Field.Question> = function Question({
                     ? <legend className="ds_label">{ labelText }</legend>
                     : <Label htmlFor={id}>{ labelText }</Label>
             }
-            { text && autop(text)}
+            { autop(text)}
             { hintText && <HintText text={hintText} /> }
             { error && <ErrorMessage text={errorText} /> }
             { children }

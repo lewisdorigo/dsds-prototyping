@@ -23,7 +23,8 @@ const ErrorMessage:React.FC<ScotGov.Component.ErrorMessage> = function ErrorMess
             )}
             {...props}
         >
-            { text ? autop(text) : children }
+            { autop(text) }
+            { children }
         </WrapperTag>
     );
 };

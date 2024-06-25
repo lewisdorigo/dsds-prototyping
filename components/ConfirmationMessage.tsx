@@ -40,7 +40,7 @@ const ConfirmationMessage:React.FC<ScotGov.Component.ConfirmationMessage> = (
                 </WrapperTag>
                 { content && (
                     <div className="ds_confirmation-message__body">
-                        { typeof content === 'string' ? autop(content) : content }
+                        { autop(content) }
                     </div>
                 )}
             </div>

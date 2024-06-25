@@ -320,7 +320,6 @@ const Page:React.FC = function Page() {
             <Question
                 id="dob-picker"
                 label="Date of birth"
-                tag="fieldset"
                 hintText="For example, 04 02 1992"
             >
                 <DateInput

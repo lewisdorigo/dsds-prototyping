@@ -1,6 +1,6 @@
 declare namespace ScotGov.Component {
     interface Image extends Partial<React.HTMLProps<HTMLImageElement>> {
-        caption?: string,
+        caption?: React.ReactNode,
         ratio?: true | AspectBox.Ratio,
     }
 }

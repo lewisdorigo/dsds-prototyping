@@ -23,7 +23,8 @@ const HintText:React.FC<ScotGov.Component.HintText> = function HintText({
             )}
             {...props}
         >
-            { text ? autop(text) : children }
+            { autop(text) }
+            { children }
         </WrapperTag>
     );
 };

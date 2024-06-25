@@ -60,7 +60,7 @@ const Tabs:React.FC<ScotGov.Component.Tabs> = function Tabs({
                     ))}
                 </ul>
             </nav>
-            { items.map(({ id: itemId, text }) => (
+            { items.map(({ id: itemId, text, children }) => (
                 <div
                     className={classNames(
                         'ds_tabs__content',
@@ -69,7 +69,8 @@ const Tabs:React.FC<ScotGov.Component.Tabs> = function Tabs({
                     id={`${id}-${itemId}`}
                     key={`${id}-${itemId}`}
                 >
-                    { typeof text === 'string' ? autop(text) : text }
+                    { autop(text) }
+                    { children }
                 </div>
             ))}
         </div>

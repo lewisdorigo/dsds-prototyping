@@ -118,12 +118,16 @@ const autop = function autop(text:string, br = true) {
  * line-breaks after conversion become <<br />> tags, unless $br is set to '0'
  * or 'false'.
  *
- * @param {string} text - The text which has to be formatted.
+ * @param {React.ReactNode} text - The text which has to be formatted.
  * @param {bool} [br=true] - If set, this will convert all remaining line-breaks after paragraphing.
  * @returns {JSX.Element} - Text which has been converted into correct paragraph tags.
  */
-const reactAutop = function reactAutop(text:string = '', br:boolean = true) {
-    return parse(autop(text, br));
+const reactAutop = function reactAutop(text:React.ReactNode = '', br:boolean = true) {
+    if (typeof text === 'string') {
+        return parse(autop(text, br));
+    }
+
+    return text;
 };
 
 export default reactAutop;

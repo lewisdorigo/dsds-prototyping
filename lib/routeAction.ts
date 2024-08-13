@@ -1,11 +1,19 @@
 'use server';
 
+import { isValidElement } from 'react';
+import type { Components, FormComponent } from 'dsds-react/dist/utils/types';
+import type { DatePicker } from 'dsds-react/dist/components/DatePicker/DatePicker.type';
+import { DatePickerFormat } from 'dsds-react/dist/components/DatePicker/DatePicker.type';
+import type { Page as FormPage } from 'dsds-react/dist/utils/types/page';
+import type { Value as FormValue } from 'dsds-react/dist/utils/types/meta';
+import type { Error as FormError } from 'dsds-react/dist/utils/types/validation';
+
 import { redirect } from 'next/navigation';
 import { readdir } from 'node:fs/promises';
 import { basename, extname } from 'node:path';
 import { join as makePath, relative } from 'path';
 
-import { parseConditional } from './conditional';
+import { parseConditions } from 'dsds-react/dist/lib/conditional';
 import getSession from './getSession';
 
 const allowedFileTypes = [
@@ -20,33 +28,43 @@ const allowedFileTypes = [
  * Gets data for a given route.
  *
  * @param {string[]} route - The route to get data for.
- * @returns {Promise<ScotGov.Pages.FormPage>} - The route data
+ * @returns {Promise<FormPage>} - The route data
  */
-export async function getData(route:string[]):Promise<ScotGov.Pages.FormPage> {
+export async function getData(route:string[]):Promise<FormPage> {
     const routePath = makePath(...route);
     const session = await getSession();
 
     const routeData = session[routePath];
 
     return import(`../routes/${routePath}`)
-        .then((data) => (data && data.default ? data.default : {}) as ScotGov.Pages.FormPage)
-        .then(({ components, ...data }) => ({
+        .then((data) => (data && data.default ? data.default : {}) as FormPage)
+        .then(({ content, ...data }) => ({
             ...data,
-            components: (
+            content: (
                 routeData
-                    ? components.map((component) => {
-                        if (typeof component === 'string') { return component; }
+                    ? content.map((component) => {
+                        if (
+                            !component
+                            || typeof component !== 'object'
+                            || !Object.prototype.hasOwnProperty.call(component, 'type')
+                            || !Object.prototype.hasOwnProperty.call(component, 'name')
+                            || isValidElement(component)
+                        ) {
+                            return component;
+                        }
+
+                        const field = component as FormComponent;
 
                         return {
-                            ...component,
+                            ...field,
                             value: (
-                                typeof routeData[component.name] !== 'undefined'
-                                    ? String(routeData[component.name])
+                                typeof routeData[field.name] !== 'undefined'
+                                    ? String(routeData[field.name])
                                     : undefined
                             ),
-                        };
+                        } as FormComponent;
                     })
-                    : components
+                    : content
             ),
         }))
         .then((data) => ({
@@ -102,23 +120,25 @@ export async function getAllRoutes(route:string = ''):Promise<string[]> {
 /**
  * Handles validation fo rfields
  *
- * @param {(string|ScotGov.Field)[]} components - An array of components
- * @param {Record<string, ScotGov.Form.Value>} formValues - Key/Value pairs of form data
+ * @param {Components} components - An array of components
+ * @param {Record<string, FormValue>} formValues - Key/Value pairs of form data
  * @param {FormData} formData - The submitted form data
- * @returns {ScotGov.Form.Error[]} - An array of errors
+ * @returns {FormError[]} - An array of errors
  */
 const handleValidation = function handleValidation(
-    components:(string | ScotGov.Field<unknown, unknown, unknown>)[],
-    formValues:Record<string, ScotGov.Form.Value>,
+    components:Components,
+    formValues:Record<string, FormValue | FormValue[]>,
     formData:FormData,
 ) {
-    const errors:ScotGov.Form.Error[] = [];
+    const errors:FormError[] = [];
 
     components.forEach((component) => {
         if (
-            typeof component === 'string'
-            || !component.type
-            || !component.name
+            !component
+            || typeof component !== 'object'
+            || !Object.prototype.hasOwnProperty.call(component, 'type')
+            || !Object.prototype.hasOwnProperty.call(component, 'name')
+            || isValidElement(component)
         ) {
             return;
         }
@@ -130,23 +150,21 @@ const handleValidation = function handleValidation(
             required,
             label,
             validation,
-            conditional,
-        } = component;
+            conditions,
+        } = component as FormComponent;
+
+        let { id: fieldId } = component as FormComponent;
 
         const formValue = formValues[name];
 
-        let {
-            id: fieldId,
-        } = component;
-
-        if (conditional && !parseConditional(conditional, formValues)) {
+        if (conditions && !parseConditions(conditions, formValues)) {
             return;
         }
         if (
             type === 'date'
-            && (component as ScotGov.Component.Field.Date).multiple
+            && (component as DatePicker).multiple
         ) {
-            fieldId = `${id}-day`;
+            fieldId = `${id}`;
         }
 
         if (validation && validation.length > 0) {
@@ -155,15 +173,21 @@ const handleValidation = function handleValidation(
 
                 if (!isValid) {
                     errors.push({
-                        field: id,
+                        fieldId,
                         href: fieldId !== id ? `#${fieldId}` : undefined,
                         message: `The value for “${label}” is invalid`,
                         fieldMessage: 'This field is invalid',
                     });
                 } else if (typeof isValid === 'string') {
+                    const fieldLabel = (
+                        typeof label === 'string'
+                            ? label
+                            : 'the field'
+                    );
+
                     const errorMessage = (
                         isValid
-                            .replace(/\{\s*label\s*\}/gi, label || '')
+                            .replace(/\{\s*label\s*\}/gi, fieldLabel)
                             .replace(
                                 /\{\s*value\s*\}/gi,
                                 (
@@ -174,7 +198,7 @@ const handleValidation = function handleValidation(
                             )
                     );
                     errors.push({
-                        field: id,
+                        fieldId,
                         href: fieldId !== id ? `#${fieldId}` : undefined,
                         message: errorMessage,
                         fieldMessage: errorMessage,
@@ -190,7 +214,7 @@ const handleValidation = function handleValidation(
             )
         ) {
             errors.push({
-                field: id,
+                fieldId,
                 href: fieldId !== id ? `#${fieldId}` : undefined,
                 message: `“${label}” is required`,
                 fieldMessage: 'This field is required',
@@ -217,7 +241,7 @@ const handleSubmit = async function handleSubmit(
             message: 'error',
             errors: [
                 {
-                    field: '',
+                    fieldId: '',
                     message: 'There was an error with form data. Please try again later.',
                 },
             ],
@@ -230,18 +254,20 @@ const handleSubmit = async function handleSubmit(
 
     const routePath = formData.get('_form') as string;
     const route = routePath.split('/');
-    const { components, nextPage } = await getData(route);
+    const { content, nextPage } = await getData(route);
     // const errors:ScotGov.Form.Error[] = [];
 
-    const rawFormData:{[key:string]: ScotGov.Form.Value} = {};
+    const rawFormData:Record<string, FormValue | FormValue[]> = {};
 
-    components.forEach((component) => {
-        let formValue:ScotGov.Form.Value = '';
+    content.forEach((component) => {
+        let formValue:FormValue | FormValue[] = '';
 
         if (
-            typeof component === 'string'
-            || !component.type
-            || !component.name
+            !component
+            || typeof component !== 'object'
+            || !Object.prototype.hasOwnProperty.call(component, 'type')
+            || !Object.prototype.hasOwnProperty.call(component, 'name')
+            || isValidElement(component)
         ) {
             return;
         }
@@ -249,11 +275,14 @@ const handleSubmit = async function handleSubmit(
         const {
             name,
             type,
-        } = component;
+        } = component as FormComponent;
 
         if (
-            type === 'date'
-            && (component as ScotGov.Component.Field.Date).multiple
+            (
+                type === 'date'
+                || type === 'date-picker'
+            )
+            && (component as DatePicker).multiple
         ) {
             if (formData.get(`${name}`)) {
                 formValue = formData.get(`${name}`) as string;
@@ -262,11 +291,25 @@ const handleSubmit = async function handleSubmit(
                 && formData.get(`${name}-month`)
                 && formData.get(`${name}-year`)
             ) {
-                formValue = [
-                    formData.get(`${name}-year`),
-                    formData.get(`${name}-month`),
-                    formData.get(`${name}-day`),
-                ].join('-') as string;
+                const dayValue:string = (formData.get(`${name}-day`) as string).padStart(2, '0');
+                const monthValue:string = (formData.get(`${name}-month`) as string).padStart(2, '0');
+                const yearValue:string = (formData.get(`${name}-year`) as string).padStart(4, '0');
+
+                const { dateFormat } = component as DatePicker;
+
+                switch (dateFormat) {
+                    case DatePickerFormat.MonthDayYear:
+                        formValue = `${monthValue}/${dayValue}/${yearValue}`;
+                        break;
+
+                    case DatePickerFormat.YearMonthDay:
+                        formValue = `${yearValue}/${monthValue}/${dayValue}`;
+                        break;
+
+                    default:
+                        formValue = `${dayValue}/${monthValue}/${yearValue}`;
+                        break;
+                }
             }
         } else if (type === 'checkboxes') {
             formValue = formData.getAll(name) as string[];
@@ -278,7 +321,7 @@ const handleSubmit = async function handleSubmit(
     });
 
     const errors = handleValidation(
-        components,
+        content,
         rawFormData,
         formData,
     );
@@ -291,36 +334,48 @@ const handleSubmit = async function handleSubmit(
         };
     }
 
+    session[routePath] = rawFormData;
+    await session.save();
+
     let next = '';
 
-    if (typeof nextPage === 'string') {
+    if (!nextPage) {
+        return {
+            message: 'success',
+            values: rawFormData,
+        };
+    } if (typeof nextPage === 'string') {
         next = nextPage;
     } else {
         next = nextPage.default;
 
         nextPage.options?.every(({
-            field,
-            value,
+            fieldName,
+            page,
             isNull,
             method,
-            page,
+            value,
         }) => {
             if (
                 isNull
                 && (
-                    (isNull && !rawFormData[field])
-                    || (!isNull && rawFormData[field])
+                    (isNull && !rawFormData[fieldName])
+                    || (!isNull && rawFormData[fieldName])
                 )
             ) {
                 next = page;
                 return false;
             }
 
-            if (method && method(formData)) {
+            if (
+                method
+                && typeof method === 'function'
+                && method(formData)
+            ) {
                 return false;
             }
 
-            if (rawFormData[field] === value) {
+            if (rawFormData[fieldName] === value) {
                 next = page;
                 return false;
             }
@@ -328,9 +383,6 @@ const handleSubmit = async function handleSubmit(
             return true;
         });
     }
-
-    session[routePath] = rawFormData;
-    await session.save();
 
     return redirect(next);
 };

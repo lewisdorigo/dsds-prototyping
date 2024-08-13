@@ -5,14 +5,8 @@
 
 @import './content-blocks.scss';
 
-@import '@/components/SiteHeader';
-@import '@/components/SiteNavigation';
-@import '@/components/SiteFooter';
-@import '@/components/Details';
-@import '@/components/Wrapper';
-@import '@/components/SectionHeader';
-@import '@/components/Grid';
-@import '@/components/Image';
+@import '@/components/SectionHeader/SectionHeader';
+@import '@/components/Grid/Grid';
 
 .ds_question {
     @include ds_responsive-spacing(4, 'margin', bottom);
@@ -40,6 +34,10 @@ fieldset.ds_question {
             clear: both;
         }
     }
+}
+
+.ds_wrapper .ds_wrapper {
+    width: auto !important;
 }
 
 img {

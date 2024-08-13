@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 
-import PageHeader from '@/components/PageHeader';
-import Layout from '@/components/Layout';
-import { TaskListGroup } from '@/components/TaskList';
+import PageHeader from '@dsds-react/components/PageHeader';
+import Layout from '@dsds-react/layout/Layout';
+
+import TaskListGroup from '@dsds-react/components/TaskListGroup';
+import { TaskListStatus } from 'dsds-react/dist/components/TaskList/TaskList.type';
 
 export const metadata:Metadata = {
     title: 'Task Lists',
@@ -20,37 +22,49 @@ const Page:React.FC = function Page() {
             : 'Social Security Scotland'
     );
 
-    const groups:ScotGov.Component.TaskList[] = [
+    const groups = [
         {
             label: 'Provide your health details',
-            summary: 'Some extra content',
-            sections: [
+            content: (
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo sed
+                    orci tincidunt commodo. Ut dapibus ut urna sodales tristique. Phasellus ut
+                    auctor massa. Cras nunc purus, congue sit amet ultricies non, egestas sed arcu.
+                    Integer egestas nulla et libero gravida malesuada.
+                </p>
+            ),
+            items: [
                 {
                     id: 'conditions',
                     label: 'Conditions',
-                    summary: 'Tell us about your conditions, symptoms and any sensory issues you have.',
-                    status: 'complete',
+                    content: 'Tell us about your conditions, symptoms and any sensory issues you have.',
+                    status: TaskListStatus.Complete,
                     link: '#',
                 },
                 {
                     id: 'medications',
                     label: 'Medications',
-                    summary: 'Tell us about any medication you need.',
-                    status: 'in-progress',
+                    content: 'Tell us about any medication you need.',
+                    status: TaskListStatus.InProgress,
                     link: '#',
                 },
                 {
                     id: 'treatments',
                     label: 'Treatments and therapies',
-                    summary: 'Tell us about any treatments and therapies you need.',
-                    status: 'not-started',
+                    content: 'Tell us about any treatments and therapies you need.',
+                    status: TaskListStatus.NotStarted,
                     link: '#',
                 },
                 {
                     id: 'contacts',
                     label: 'Contacts and supporting information',
-                    summary: 'Share any supporting documents and provide details of people we can talk to about you.',
-                    status: 'not-started',
+                    content: (
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo
+                            sed orci tincidunt commodo. Ut dapibus ut urna sodales tristique.
+                        </p>
+                    ),
+                    status: TaskListStatus.NotStarted,
                     link: '#',
                 },
             ],
@@ -58,18 +72,26 @@ const Page:React.FC = function Page() {
         },
         {
             label: 'Review and submit',
-            sections: [
+            content: (
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo sed
+                    orci tincidunt commodo. Ut dapibus ut urna sodales tristique. Phasellus ut
+                    auctor massa. Cras nunc purus, congue sit amet ultricies non, egestas sed arcu.
+                    Integer egestas nulla et libero gravida malesuada.
+                </p>
+            ),
+            items: [
                 {
                     id: 'check-answers',
                     label: 'Check your answers',
-                    summary: 'Review all your answers before submission.',
-                    status: 'cannot-start',
+                    content: 'Review all your answers before submission.',
+                    status: TaskListStatus.CannotStart,
                     link: '#',
                 },
                 {
                     id: 'submit',
                     label: 'Submit your application',
-                    status: 'cannot-start',
+                    status: TaskListStatus.CannotStart,
                     link: '#',
                 },
             ],
@@ -85,10 +107,17 @@ const Page:React.FC = function Page() {
             )}
         >
             <TaskListGroup
-                heading="Application Incomplete"
-                summary="Test"
+                label="Application Incomplete"
+                content={(
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo sed
+                        orci tincidunt commodo. Ut dapibus ut urna sodales tristique. Phasellus ut
+                        auctor massa. Cras nunc purus, congue sit amet ultricies non, egestas sed
+                        arcu. Integer egestas nulla et libero gravida malesuada.
+                    </p>
+                )}
                 ordered
-                groups={groups}
+                items={groups}
             />
         </Layout>
     );

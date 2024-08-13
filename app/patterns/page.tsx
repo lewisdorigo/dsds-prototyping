@@ -1,10 +1,14 @@
+import React from 'react';
+
 import type { Metadata } from 'next';
 
 import PageHeader from '@dsds-react/components/PageHeader';
 import Layout from '@dsds-react/layout/Layout';
 
+import Address from './Address';
+
 export const metadata:Metadata = {
-    title: 'Help',
+    title: 'Patterns',
 };
 
 /**
@@ -27,10 +31,7 @@ const Page:React.FC = function Page() {
                 />
             )}
         >
-            <p>
-                Using the prototype toolkit can be a bit daunting at first. So here’s how to get
-                started.
-            </p>
+            <Address />
         </Layout>
     );
 };

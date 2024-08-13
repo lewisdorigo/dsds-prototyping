@@ -1,3 +1,7 @@
+import type {
+    Validation as ValidationFunction,
+} from 'dsds-react/dist/utils/types/validation';
+
 /**
  * Validates based on a regular expression pattern
  *
@@ -9,7 +13,7 @@
 export const pattern = function pattern(
     regex:RegExp,
     message:string = '',
-):ScotGov.FormValidation {
+):ValidationFunction {
     return (value) => {
         if (!value || typeof value !== 'string') { return true; }
 
@@ -33,7 +37,7 @@ export const pattern = function pattern(
  */
 export const isValidNino = function isValidNino(
     message:string = '',
-):ScotGov.FormValidation {
+):ValidationFunction {
     return pattern(
         /^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}([A-D]|\s)$/,
         message || 'Please enter a valid national insurance number',
@@ -51,7 +55,7 @@ export const isValidNino = function isValidNino(
 export const maxLength = function maxLength(
     length:number,
     message:string = '',
-):ScotGov.FormValidation {
+):ValidationFunction {
     return (value) => {
         if (!value || typeof value !== 'string') { return true; }
 
@@ -77,7 +81,7 @@ export const maxLength = function maxLength(
 export const minLength = function minLength(
     length:number,
     message:string = '',
-):ScotGov.FormValidation {
+):ValidationFunction {
     return (value) => {
         if (!value || typeof value !== 'string') { return true; }
 

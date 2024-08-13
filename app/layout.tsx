@@ -5,19 +5,13 @@ import dynamic from 'next/dynamic';
 
 import '@/styles/globals.scss';
 
-import classNames from '@/lib/classNames';
+import type { WrapperTag } from 'dsds-react/dist/components/WrapperTag/WrapperTag.type';
 
-import SiteHeader from '@/components/SiteHeader';
-import SiteFooter from '@/components/SiteFooter';
-import PhaseBanner from '@/components/PhaseBanner';
-import ArticleAside from '@/components/ArticleAside';
-import BackToTop from '@/components/BackToTop';
-import Link from '@/components/Link';
-import SkipLinks from '@/components/SkipLink';
-// import CookieBanner from '@/components/CookieBanner';
-import JSEnabled from '@/components/JSEnabled';
+import PageLayout from '@dsds-react/layout/Page';
+import SiteHeader from '@dsds-react/components/SiteHeader';
+import SiteFooter from '@dsds-react/components/SiteFooter';
 
-const CookieBanner = dynamic<ScotGov.Component.WrapperTag>(
+const CookieBanner = dynamic<WrapperTag>(
     () => import('@/components/CookieBanner'),
     { ssr: false },
 );
@@ -116,95 +110,103 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
     return (
         <html lang="en-GB">
             <body>
-                <JSEnabled />
-                <SkipLinks id="main-content" />
-                <div
-                    className={classNames(
-                        'ds_page',
+                <PageLayout
+                    top={(
+                        <>
+                            { !seenCookieNotice && (
+                                <CookieBanner>
+                                    <p>
+                                        We use
+                                        {' '}
+                                        <a href="/cookies/">cookies</a>
+                                        {' '}
+                                        to collect anonymous data to help us improve your site
+                                        browsing experience.
+                                    </p>
+                                    <p>
+                                        Click &apos;Accept all cookies&apos; to agree to all cookies
+                                        that collect anonymous data. To only allow the cookies that
+                                        make the site work, click &apos;Use essential cookies
+                                        only.&apos; Visit &apos;Set cookie preferences&apos; to
+                                        control specific cookies.
+                                    </p>
+                                </CookieBanner>
+                            )}
+                            <SiteHeader
+                                branding={{
+                                    siteName: 'Social Security Scotland',
+                                    title: 'Prototype Toolkit',
+                                    logo: '/images/logo.svg',
+                                    smallLogo: '/images/logo-small.svg',
+                                }}
+                                menuItems={[
+                                    {
+                                        content: 'Test Page',
+                                        href: '/test',
+                                    },
+                                    {
+                                        content: 'About You',
+                                        href: '/about-you/details',
+                                    },
+                                    {
+                                        content: 'Help',
+                                        href: '/help',
+                                    },
+                                    {
+                                        content: 'Summary List',
+                                        href: '/summary-list',
+                                    },
+                                    {
+                                        content: 'Task List',
+                                        href: '/task-list',
+                                    },
+                                    {
+                                        content: 'Patterns',
+                                        href: '/patterns',
+                                    },
+                                    {
+                                        content: 'Digital Scotland Design System',
+                                        href: 'https://designsystem.gov.scot',
+                                        target: '_blank',
+                                    },
+                                ]}
+                                phase={{
+                                    phase: 'alpha',
+                                    text: 'This is a new service.',
+                                }}
+                            />
+                        </>
                     )}
-                >
-                    <div className="ds_page_top" id="page-top">
-                        { !seenCookieNotice && (
-                            <CookieBanner>
-                                <p>
-                                    We use
-                                    {' '}
-                                    <a href="/cookies/">cookies</a>
-                                    {' '}
-                                    to collect anonymous data to help us improve your site browsing
-                                    experience.
-                                </p>
-                                <p>
-                                    Click &apos;Accept all cookies&apos; to agree to all cookies
-                                    that collect anonymous data. To only allow the cookies that make
-                                    the site work, click &apos;Use essential cookies only.&apos;
-                                    Visit &apos;Set cookie preferences&apos; to control specific
-                                    cookies.
-                                </p>
-                            </CookieBanner>
-                        )}
-                        <SiteHeader
+                    bottom={(
+                        <SiteFooter
                             menuItems={[
                                 {
-                                    text: 'Digital Scotland Design System',
-                                    href: 'https://designsystem.gov.scot',
-                                    target: '_blank',
-                                },
-                            ]}
-                        />
-                        <PhaseBanner phase="alpha">
-                            This is a new service.
-                        </PhaseBanner>
-                    </div>
-                    <div className="ds_page_middle">
-                        <main id="main-content">
-                            { children }
-                            <BackToTop />
-                        </main>
-                    </div>
-                    <div className="ds_page_bottom">
-                        <ArticleAside>
-                            <h2 className="gamma">Service feedback</h2>
-                            <p>
-                                <Link
-                                    href="https://github.com/lewisdorigoSoSec/dsds-prototyping/issues/new"
-                                    target="_blank"
-                                >
-                                    Report a problem
-                                </Link>
-                                {' '}
-                                with this online form.
-                            </p>
-                        </ArticleAside>
-                        <SiteFooter
-                            links={[
-                                {
-                                    text: 'Accessibility',
+                                    content: 'Accessibility',
                                     href: 'https://www.mygov.scot/accessibility/',
                                     target: '_blank',
                                 },
                                 {
-                                    text: 'Contact Us',
+                                    content: 'Contact Us',
                                     href: 'https://www.mygov.scot/contact-social-security-scotland/',
                                     target: '_blank',
                                 },
                                 {
-                                    text: 'Privacy',
+                                    content: 'Privacy',
                                     href: 'https://www.mygov.scot/social-security-data/',
                                     target: '_blank',
                                 },
                                 {
-                                    text: 'Social Security Corporate Site',
+                                    content: 'Social Security Corporate Site',
                                     href: 'https://www.socialsecurity.gov.scot/',
                                     target: '_blank',
                                 },
                                 {
-                                    text: 'mygov.scot',
+                                    content: 'mygov.scot',
                                     href: 'http://www.mygov.scot/',
                                     target: '_blank',
                                 },
                                 {
-                                    text: 'The Scottish government',
+                                    content: 'The Scottish government',
                                     href: 'https://gov.scot/',
                                     target: '_blank',
                                 },
@@ -213,8 +215,10 @@ const Layout:React.FC<PropsWithChildren> = function Layout({
                                 content: 'mygov.scot is the place for people in Scotland to access public services that are easy to find and simple to use.',
                             }}
                         />
-                    </div>
-                </div>
+                    )}
+                >
+                    { children }
+                </PageLayout>
             </body>
         </html>
     );

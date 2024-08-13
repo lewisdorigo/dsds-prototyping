@@ -1,13 +1,13 @@
 {
-    "title": {
-        "caption": "About you",
+    "pageHeader": {
+        "label": "About you",
         "title": "Your name and date of birth"
     },
     "partOf": {
-        "title": "Adult disability payment",
+        "label": "Adult disability payment",
         "link": "/"
     },
-    "components": [
+    "content": [
         "In this section, we want to find out more about you.",
         {
             "id": "first-name",
@@ -31,7 +31,8 @@
             "hintText": "For example, 31 3 1980",
             "required": true,
             "maxDate": "+0 days",
-            "multiple": true
+            "multiple": true,
+            "dateFormat": "DMY"
         }
     ],
     "nextButton": true,

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 
-import PageHeader from '@/components/PageHeader';
-import Layout from '@/components/Layout';
-import SummaryList from '@/components/SummaryList';
-import SummaryCard from '@/components/SummaryCard';
+import PageHeader from '@dsds-react/components/PageHeader';
+import Layout from '@dsds-react/layout/Layout';
+import SummaryList from '@dsds-react/components/SummaryList';
+// import SummaryList from '@/components/SummaryList';
+import SummaryCard from '@dsds-react/components/SummaryCard';
 
 export const metadata:Metadata = {
     title: 'Summary Lists',
@@ -24,7 +25,7 @@ const Page:React.FC = function Page() {
     const listItems = [
         {
             label: 'Have you had the grant 3 times or more since 1 May 2022?',
-            answer: 'No',
+            value: 'No',
             actions: [{
                 label: 'Change',
                 action: '#',
@@ -32,7 +33,25 @@ const Page:React.FC = function Page() {
         },
         {
             label: 'Which council area do you live in?',
-            answer: 'City of Edinburgh',
+            value: [
+                {
+                    label: 'Question 1',
+                    value: 'City of Edinburgh',
+                },
+                {
+                    label: 'Question 2',
+                    value: ['Answer 1', 'Answer 2'],
+                },
+                {
+                    label: 'Question 3',
+                    value: [
+                        {
+                            label: 'Question 3a',
+                            value: 'City of Edinburgh',
+                        },
+                    ],
+                },
+            ],
             actions: [{
                 label: 'Change',
                 action: '#',
@@ -40,7 +59,7 @@ const Page:React.FC = function Page() {
         },
         {
             label: 'Do you work?',
-            answer: 'Yes',
+            value: ['Answer 1', 'Answer 2'],
             actions: [{
                 label: 'Change',
                 action: '#',
@@ -48,7 +67,7 @@ const Page:React.FC = function Page() {
         },
         {
             label: 'Will you lose earnings because you need to self-isolate?',
-            answer: 'Yes',
+            value: 'Yes',
             actions: [{
                 label: 'Change',
                 action: '#',
@@ -56,7 +75,7 @@ const Page:React.FC = function Page() {
         },
         {
             label: 'Have you tested positive for Covid?',
-            answer: 'No - I need a PCR test or to rebook a PCR test',
+            value: 'No - I need a PCR test or to rebook a PCR test',
             actions: [{
                 label: 'Change',
                 action: '#',
@@ -75,17 +94,20 @@ const Page:React.FC = function Page() {
             <h2>Summary list</h2>
             <SummaryList
                 items={listItems}
+                id="summary-list"
             />
 
             <h2>Summary list without borders</h2>
             <SummaryList
                 items={listItems}
                 borders={false}
+                id="summary-list-borders"
             />
 
             <h2>Summary Cards</h2>
             <SummaryCard
-                title="Joe Bloggs"
+                id="summary-card"
+                label="Joe Bloggs"
                 items={listItems}
                 actions={[
                     {

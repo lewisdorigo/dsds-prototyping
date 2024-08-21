@@ -7,11 +7,11 @@ import { notFound } from 'next/navigation';
 import type { SideNavigationItem } from 'dsds-react/dist/components/SideNavigation/SideNavigation.type';
 import type { Component, Components, FormComponent } from 'dsds-react/dist/utils/types';
 
-import Layout from '@dsds-react/layout/Layout';
-import PageHeader from '@dsds-react/components/PageHeader';
-import SideNavigation from '@dsds-react/components/SideNavigation';
-import Details from '@dsds-react/components/Details';
-import ComponentsHelper from '@dsds-react/components/ComponentHelper';
+import { Layout } from '@dsds-react/layout/Layout';
+import { PageHeader } from '@dsds-react/components/PageHeader';
+import { SideNavigation } from '@dsds-react/components/SideNavigation';
+import { Details } from '@dsds-react/components/Details';
+import { ComponentsHelper } from '@dsds-react/components/ComponentHelper';
 
 import SectionHeader from '@/components/SectionHeader';
 

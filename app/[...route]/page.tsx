@@ -5,11 +5,11 @@ import { notFound } from 'next/navigation';
 import type { Component, Components, FormComponent } from 'dsds-react/dist/utils/types';
 
 // import handleSubmit from './submit-handler';
-import Layout from '@dsds-react/layout/Layout';
-import PageHeader from '@dsds-react/components/PageHeader';
-import ComponentsHelper from '@dsds-react/components/ComponentHelper';
+import { Layout } from '@dsds-react/layout/Layout';
+import { PageHeader } from '@dsds-react/components/PageHeader';
+import { ComponentsHelper } from '@dsds-react/components/ComponentHelper';
 
-import Details from '@dsds-react/components/Details';
+import { Details } from '@dsds-react/components/Details';
 
 import SectionHeader from '@/components/SectionHeader';
 import { getData, getAllRoutes } from '@/lib/routeAction';

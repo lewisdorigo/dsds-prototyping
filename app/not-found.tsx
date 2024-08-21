@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 
-import { LayoutTypes } from 'dsds-react/dist/layout/Layout/Layout.type';
-
-import PageHeader from '@dsds-react/components/PageHeader';
-import Layout from '@dsds-react/layout/Layout';
+import { PageHeader } from '@dsds-react/components/PageHeader';
+import { Layout, Types as LayoutTypes } from '@dsds-react/layout/Layout';
 
 export const metadata:Metadata = {
     title: 'Page not found',
@@ -23,7 +21,7 @@ const Page:React.FC = function Page() {
 
     return (
         <Layout
-            layout={LayoutTypes.Article}
+            layout={LayoutTypes.Type.Article}
             header={(
                 <PageHeader
                     title={pageTitle}

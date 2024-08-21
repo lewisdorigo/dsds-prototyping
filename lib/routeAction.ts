@@ -2,8 +2,7 @@
 
 import { isValidElement } from 'react';
 import type { Components, FormComponent } from 'dsds-react/dist/utils/types';
-import type { DatePicker } from 'dsds-react/dist/components/DatePicker/DatePicker.type';
-import { DatePickerFormat } from 'dsds-react/dist/components/DatePicker/DatePicker.type';
+import { Types as DatePickerTypes } from 'dsds-react/dist/components/DatePicker';
 import type { Page as FormPage } from 'dsds-react/dist/utils/types/page';
 import type { Value as FormValue } from 'dsds-react/dist/utils/types/meta';
 import type { Error as FormError } from 'dsds-react/dist/utils/types/validation';
@@ -162,7 +161,7 @@ const handleValidation = function handleValidation(
         }
         if (
             type === 'date'
-            && (component as DatePicker).multiple
+            && (component as DatePickerTypes.DatePicker).multiple
         ) {
             fieldId = `${id}`;
         }
@@ -282,7 +281,7 @@ const handleSubmit = async function handleSubmit(
                 type === 'date'
                 || type === 'date-picker'
             )
-            && (component as DatePicker).multiple
+            && (component as DatePickerTypes.DatePicker).multiple
         ) {
             if (formData.get(`${name}`)) {
                 formValue = formData.get(`${name}`) as string;
@@ -295,14 +294,14 @@ const handleSubmit = async function handleSubmit(
                 const monthValue:string = (formData.get(`${name}-month`) as string).padStart(2, '0');
                 const yearValue:string = (formData.get(`${name}-year`) as string).padStart(4, '0');
 
-                const { dateFormat } = component as DatePicker;
+                const { dateFormat } = component as DatePickerTypes.DatePicker;
 
                 switch (dateFormat) {
-                    case DatePickerFormat.MonthDayYear:
+                    case DatePickerTypes.DateFormat.MonthDayYear:
                         formValue = `${monthValue}/${dayValue}/${yearValue}`;
                         break;
 
-                    case DatePickerFormat.YearMonthDay:
+                    case DatePickerTypes.DateFormat.YearMonthDay:
                         formValue = `${yearValue}/${monthValue}/${dayValue}`;
                         break;
 

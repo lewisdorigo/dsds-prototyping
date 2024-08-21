@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 
-import PageHeader from '@dsds-react/components/PageHeader';
-import Layout from '@dsds-react/layout/Layout';
-import SummaryList from '@dsds-react/components/SummaryList';
+import { PageHeader } from '@dsds-react/components/PageHeader';
+import { Layout } from '@dsds-react/layout/Layout';
+import { SummaryList } from '@dsds-react/components/SummaryList';
 // import SummaryList from '@/components/SummaryList';
-import SummaryCard from '@dsds-react/components/SummaryCard';
+import { SummaryCard } from '@dsds-react/components/SummaryCard';
 
 export const metadata:Metadata = {
     title: 'Summary Lists',

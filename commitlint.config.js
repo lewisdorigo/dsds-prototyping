@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
     extends: [
         '@commitlint/config-conventional',
     ],
@@ -39,3 +39,5 @@ module.exports = {
     ],
     helpUrl: 'https://ssalpha.atlassian.net/wiki/spaces/SDP/pages/1964212347/Version+control#Committing-code',
 };
+
+export default config;

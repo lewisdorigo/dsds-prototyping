@@ -5,12 +5,12 @@ import { useFormState } from 'react-dom';
 import type { Page as FormPage } from 'dsds-react/dist/utils/types/page';
 import { FormComponent } from 'dsds-react/dist/utils/types';
 
-import ComponentsHelper from '@dsds-react/components/ComponentHelper/ComponentHelper';
+import { ComponentsHelper } from '@dsds-react/components/ComponentHelper/ComponentHelper';
 import { Provider as FormProvider } from '@dsds-react/context/FormContext/FormContext';
 
-import Details from '@dsds-react/components/Details';
-import ErrorSummary from '@dsds-react/components/ErrorSummary';
-import FormNav from '@dsds-react/patterns/FormNav';
+import { Details } from '@dsds-react/components/Details';
+import { ErrorSummary } from '@dsds-react/components/ErrorSummary';
+import { FormNav } from '@dsds-react/patterns/FormNav';
 
 import SectionHeader from '@/components/SectionHeader';
 import Grid from '@/components/Grid';

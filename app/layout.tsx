@@ -7,9 +7,9 @@ import '@/styles/globals.scss';
 
 import type { WrapperTag } from 'dsds-react/dist/components/WrapperTag/WrapperTag.type';
 
-import PageLayout from '@dsds-react/layout/Page';
-import SiteHeader from '@dsds-react/components/SiteHeader';
-import SiteFooter from '@dsds-react/components/SiteFooter';
+import { Page as PageLayout } from '@dsds-react/layout/Page';
+import { SiteHeader } from '@dsds-react/components/SiteHeader';
+import { SiteFooter } from '@dsds-react/components/SiteFooter';
 
 const CookieBanner = dynamic<WrapperTag>(
     () => import('@/components/CookieBanner'),

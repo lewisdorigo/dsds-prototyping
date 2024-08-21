@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ArticleAside from '@dsds-react/components/ArticleAside';
-import Link from '@dsds-react/components/Link';
+import { ArticleAside } from '@dsds-react/components/ArticleAside';
+import { Link } from '@dsds-react/components/Link';
 
 /**
  * @returns {JSX.Element} - The page

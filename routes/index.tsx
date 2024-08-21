@@ -1,14 +1,9 @@
-import { InputWidth } from 'dsds-react/dist/components/TextInput/TextInput.type';
-import { TextAreaSize } from 'dsds-react/dist/components/TextArea/TextArea.type';
-import {
-    Style as ButtonStyle,
-    Size as ButtonSize,
-    Width as ButtonWidth,
-    IconPosition as ButtonIconPosition,
-} from 'dsds-react/dist/components/Button/Button.type';
-import { CategoryListLayout } from 'dsds-react/dist/components/CategoryList/CategoryList.type';
-import { FeatureHeaderStyle } from 'dsds-react/dist/components/FeatureHeader/FeatureHeader.type';
-import { AspectRatio } from 'dsds-react/dist/components/AspectBox/AspectBox.type';
+import { Types as InputTypes } from 'dsds-react/dist/components/TextInput';
+import { Types as TextAreaTypes } from 'dsds-react/dist/components/TextArea';
+import { Types as ButtonTypes } from 'dsds-react/dist/components/Button';
+import { Types as CategoryListTypes } from 'dsds-react/dist/components/CategoryList';
+import { Types as FeatureHeaderTypes } from 'dsds-react/dist/components/FeatureHeader';
+import { Types as AspectBoxTypes } from 'dsds-react/dist/components/AspectBox';
 
 const data = {
     pageHeader: {
@@ -33,12 +28,12 @@ const data = {
                         {
                             type: 'button',
                             label: 'Secondary',
-                            style: ButtonStyle.Secondary,
+                            style: ButtonTypes.Style.Secondary,
                         },
                         {
                             type: 'button',
                             label: 'Cancel',
-                            style: ButtonStyle.Cancel,
+                            style: ButtonTypes.Style.Cancel,
                         },
                         {
                             type: 'button',
@@ -58,7 +53,7 @@ const data = {
                         {
                             type: 'button',
                             label: 'Small',
-                            size: ButtonSize.Small,
+                            size: ButtonTypes.Size.Small,
                         },
                     ],
                 },
@@ -69,17 +64,17 @@ const data = {
                         {
                             type: 'button',
                             label: 'Flexible',
-                            size: ButtonWidth.Flexible,
+                            size: ButtonTypes.Width.Flexible,
                         },
                         {
                             type: 'button',
                             label: 'Fixed',
-                            width: ButtonWidth.Fixed,
+                            width: ButtonTypes.Width.Fixed,
                         },
                         {
                             type: 'button',
                             label: 'Max',
-                            width: ButtonWidth.Max,
+                            width: ButtonTypes.Width.Max,
                         },
                     ],
                 },
@@ -90,21 +85,21 @@ const data = {
                         {
                             type: 'button',
                             label: 'Back',
-                            style: ButtonStyle.Cancel,
+                            style: ButtonTypes.Style.Cancel,
                             icon: 'chevron_left',
-                            iconPosition: ButtonIconPosition.Left,
+                            iconPosition: ButtonTypes.IconPosition.Left,
                         },
                         {
                             type: 'button',
                             label: 'Continue',
                             icon: 'chevron_right',
-                            iconPosition: ButtonIconPosition.Right,
+                            iconPosition: ButtonTypes.IconPosition.Right,
                         },
                         {
                             type: 'button',
                             label: 'Search',
                             icon: 'search',
-                            iconPosition: ButtonIconPosition.IconOnly,
+                            iconPosition: ButtonTypes.IconPosition.IconOnly,
                         },
                     ],
                 },
@@ -131,42 +126,42 @@ const data = {
                             id: 'field-fixed-20',
                             label: '20 characters',
                             type: 'text',
-                            width: InputWidth.Fixed20,
+                            width: InputTypes.Width.Fixed20,
                             required: true,
                         },
                         {
                             id: 'field-fixed-10',
                             label: '10 characters',
                             type: 'text',
-                            width: InputWidth.Fixed10,
+                            width: InputTypes.Width.Fixed10,
                             required: true,
                         },
                         {
                             id: 'field-fixed-5',
                             label: '5 characters',
                             type: 'text',
-                            width: InputWidth.Fixed5,
+                            width: InputTypes.Width.Fixed5,
                             required: true,
                         },
                         {
                             id: 'field-fixed-4',
                             label: '4 characters',
                             type: 'text',
-                            width: InputWidth.Fixed4,
+                            width: InputTypes.Width.Fixed4,
                             required: true,
                         },
                         {
                             id: 'field-fixed-3',
                             label: '3 characters',
                             type: 'text',
-                            width: InputWidth.Fixed3,
+                            width: InputTypes.Width.Fixed3,
                             required: true,
                         },
                         {
                             id: 'field-fixed-2',
                             label: '2 characters',
                             type: 'text',
-                            width: InputWidth.Fixed2,
+                            width: InputTypes.Width.Fixed2,
                             required: true,
                         },
                     ],
@@ -179,35 +174,35 @@ const data = {
                             id: 'field-fluid-three-quarters',
                             label: 'Three quarters',
                             type: 'text',
-                            width: InputWidth.FluidThreeQuarter,
+                            width: InputTypes.Width.FluidThreeQuarter,
                             required: true,
                         },
                         {
                             id: 'field-fluid-two-thirds',
                             label: 'Two thirds',
                             type: 'text',
-                            width: InputWidth.FluidTwoThirds,
+                            width: InputTypes.Width.FluidTwoThirds,
                             required: true,
                         },
                         {
                             id: 'field-fluid-half',
                             label: 'One half',
                             type: 'text',
-                            width: InputWidth.FluidHalf,
+                            width: InputTypes.Width.FluidHalf,
                             required: true,
                         },
                         {
                             id: 'field-fluid-one-third',
                             label: 'One third',
                             type: 'text',
-                            width: InputWidth.FluidThird,
+                            width: InputTypes.Width.FluidThird,
                             required: true,
                         },
                         {
                             id: 'field-fluid-one-quarter',
                             label: 'One quarter',
                             type: 'text',
-                            width: InputWidth.FluidQuarter,
+                            width: InputTypes.Width.FluidQuarter,
                             required: true,
                         },
                     ],
@@ -249,14 +244,14 @@ const data = {
                                             type: 'number',
                                             label: 'Years',
                                             id: 'how-long-years',
-                                            width: InputWidth.Fixed2,
+                                            width: InputTypes.Width.Fixed2,
                                             required: true,
                                         },
                                         {
                                             type: 'number',
                                             label: 'Months',
                                             id: 'how-long-months',
-                                            width: InputWidth.Fixed2,
+                                            width: InputTypes.Width.Fixed2,
                                             required: true,
                                         },
                                     ],
@@ -306,7 +301,7 @@ const data = {
                     id: 'textarea-long',
                     type: 'textarea',
                     label: 'Long Textarea',
-                    size: TextAreaSize.Large,
+                    size: TextAreaTypes.Size.Large,
                     attributes: { rows: 7 },
                     required: true,
                 },
@@ -314,7 +309,7 @@ const data = {
                     id: 'textarea-short',
                     type: 'textarea',
                     label: 'Short Textarea',
-                    size: TextAreaSize.Small,
+                    size: TextAreaTypes.Size.Small,
                     required: true,
                 },
             ],
@@ -795,7 +790,7 @@ const data = {
                             title: 'Design standards',
                             content: 'The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland.',
                             hasBackground: true,
-                            style: FeatureHeaderStyle.Wide,
+                            style: FeatureHeaderTypes.Style.Wide,
                             image: {
                                 src: '//picsum.photos/256/256',
                                 alt: '',
@@ -1173,7 +1168,7 @@ const data = {
                         {
                             type: 'category-list',
                             id: 'category-list-grid',
-                            layout: CategoryListLayout.Grid,
+                            layout: CategoryListTypes.Layout.Grid,
                             items: [
                                 {
                                     type: 'category-item',
@@ -1210,7 +1205,7 @@ const data = {
                         {
                             type: 'category-list',
                             id: 'category-grid-card',
-                            layout: CategoryListLayout.Grid,
+                            layout: CategoryListTypes.Layout.Grid,
                             items: [
                                 {
                                     type: 'card',
@@ -1247,7 +1242,7 @@ const data = {
                         {
                             type: 'category-list',
                             id: 'category-grid-card',
-                            layout: CategoryListLayout.Grid,
+                            layout: CategoryListTypes.Layout.Grid,
                             items: [
                                 {
                                     type: 'card',
@@ -1256,7 +1251,7 @@ const data = {
                                     image: {
                                         src: '//picsum.photos/256/256/',
                                         alt: 'Placeholder Image',
-                                        ratio: AspectRatio.FourByThree,
+                                        ratio: AspectBoxTypes.AspectRatio.FourByThree,
                                     },
                                     link: {
                                         href: '#',
@@ -1270,7 +1265,7 @@ const data = {
                                     image: {
                                         src: '//picsum.photos/256/256/',
                                         alt: 'Placeholder Image',
-                                        ratio: AspectRatio.FourByThree,
+                                        ratio: AspectBoxTypes.AspectRatio.FourByThree,
                                     },
                                     content: 'This is some content for the category item',
                                 },
@@ -1281,7 +1276,7 @@ const data = {
                                     image: {
                                         src: '//picsum.photos/256/256/',
                                         alt: 'Placeholder Image',
-                                        ratio: AspectRatio.FourByThree,
+                                        ratio: AspectBoxTypes.AspectRatio.FourByThree,
                                     },
                                     link: {
                                         href: '#',

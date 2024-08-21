@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import PageHeader from '@dsds-react/components/PageHeader';
-import Layout from '@dsds-react/layout/Layout';
+import { PageHeader } from '@dsds-react/components/PageHeader';
+import { Layout } from '@dsds-react/layout/Layout';
 
 export const metadata:Metadata = {
     title: 'Help',

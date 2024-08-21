@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ComponentHelper } from '@dsds-react/components/ComponentHelper/ComponentHelper';
-import WrapperTag from '@dsds-react/components/WrapperTag';
+import { WrapperTag } from '@dsds-react/components/WrapperTag';
 
 import type { Grid as GridProps } from './Grid.type';
 

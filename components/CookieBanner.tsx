@@ -5,9 +5,9 @@ import CookieNotification from '@scottish-government/design-system/src/component
 
 import classNames from '@/lib/classNames';
 
-import NotificationBanner from '@dsds-react/components/NotificationBanner';
-import Button from '@dsds-react/components/Button';
-import Wrapper from '@dsds-react/components/Wrapper';
+import { NotificationBanner } from '@dsds-react/components/NotificationBanner';
+import { Button } from '@dsds-react/components/Button';
+import { Wrapper } from '@dsds-react/components/Wrapper';
 
 import type { WrapperTag } from 'dsds-react/dist/components/WrapperTag/WrapperTag.type';
 import {

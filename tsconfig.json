@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "target": "esnext",
-        "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "jsx": "preserve",
         "lib": [
             "dom",
@@ -23,6 +23,7 @@
         "paths": {
             "@/*": ["./*"],
             "@design-system/*": ["./node_modules/@scottish-government/design-system/src/*"],
+            "@dsds-react/*": ["./node_modules/dsds-react/dist/*"],
         },
         "typeRoots": [
             "./node_modules/@types",
@@ -38,6 +39,7 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
+        "./@types",
         ".next/types/**/*.ts"
     ],
     "exclude": [

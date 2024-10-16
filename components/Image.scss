@@ -1,8 +1,0 @@
-.sss_figure {
-    &:last-child { margin-bottom: 0; }
-
-    &__caption {
-        @include ds_responsive-margin(2, 'top');
-        p:last-child { margin-bottom: 0; }
-    }
-}

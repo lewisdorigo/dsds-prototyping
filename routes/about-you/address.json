@@ -1,0 +1,82 @@
+{
+    "pageHeader": {
+        "label": "About you",
+        "title": "Your address"
+    },
+    "partOf": {
+        "label": "Adult disability payment",
+        "link": "/"
+    },
+    "content": [
+        {
+            "type": "address",
+            "items": {
+                "postcodeLookup": {
+                    "id": "postcode-lookup",
+                    "name": "postcode-lookup",
+                    "type": "text",
+                    "width": "fixed-10",
+                    "label": "Postcode",
+                    "required": true
+                },
+                "addressSelect": {
+                    "id": "address-select",
+                    "name": "address-select",
+                    "type": "select",
+                    "width": "fixed-10",
+                    "label": "Select an address",
+                    "required": true,
+                    "items": [],
+                    "allowNull": true
+                },
+                "address1": {
+                    "id": "address-1",
+                    "name": "address-1",
+                    "type": "text",
+                    "label": "Building and street",
+                    "required": true
+                },
+                "address2": {
+                    "id": "address-2",
+                    "name": "address-2",
+                    "type": "text",
+                    "label": "Building and street",
+                    "required": false
+                },
+                "city": {
+                    "id": "city",
+                    "name": "city",
+                    "type": "text",
+                    "label": "City",
+                    "required": true
+                } ,
+                "country": {
+                    "id": "country",
+                    "name": "country",
+                    "type": "select",
+                    "label": "Country",
+                    "required": true,
+                    "items": [
+                        {
+                            "id": "country-scotland",
+                            "label": "Scotland",
+                            "value": "Scotland"
+                        }
+                    ],
+                    "allowNull": true
+                },
+                "postcode": {
+                    "id": "postcode",
+                    "name": "postcode",
+                    "type": "text",
+                    "width": "fixed-10",
+                    "label": "Postcode",
+                    "required": true
+                }
+            }
+        }
+    ],
+    "nextButton": true,
+    "backButton": true,
+    "nextPage": "/about-you/address"
+}

@@ -5,18 +5,23 @@ import CookieNotification from '@scottish-government/design-system/src/component
 
 import classNames from '@/lib/classNames';
 
-import NotificationBanner from './NotificationBanner';
-import Button from './Button';
-import Wrapper from './Wrapper';
+import { NotificationBanner } from '@dsds-react/components/NotificationBanner';
+import { Button } from '@dsds-react/components/Button';
+import { Wrapper } from '@dsds-react/components/Wrapper';
+
+import type { WrapperTag } from 'dsds-react/dist/components/WrapperTag/WrapperTag.type';
+import {
+    Style as ButtonStyle,
+    Size as ButtonSize,
+} from 'dsds-react/dist/components/Button/Button.type';
 
 /**
- * @param {ScotGov.Component.WrapperTag} props - Properties for the element
+ * @param {WrapperTag} props - Properties for the element
  * @returns {JSX.Element} - The element
  */
-const CookieBanner:React.FC<ScotGov.Component.WrapperTag> = function CookieBanner({
+const CookieBanner:React.FC<WrapperTag> = function CookieBanner({
     children,
     className,
-    ...props
 }) {
     const ref = useRef(null);
 
@@ -37,7 +42,6 @@ const CookieBanner:React.FC<ScotGov.Component.WrapperTag> = function CookieBanne
                     className,
                 )}
                 data-module="ds-cookie-notification"
-                {...props}
                 ref={ref}
             >
                 <Wrapper>
@@ -49,15 +53,15 @@ const CookieBanner:React.FC<ScotGov.Component.WrapperTag> = function CookieBanne
 
                         <div className="ds_notification__actions">
                             <Button
-                                size="small"
+                                size={ButtonSize.Small}
                                 className="js-accept-all-cookies"
                             >
                                 Accept all cookies
                             </Button>
                             <Button
                                 className="js-accept-essential-cookies"
-                                size="small"
-                                variants="secondary"
+                                size={ButtonSize.Small}
+                                style={ButtonStyle.Secondary}
                             >
                                 Use essential cookies only
                             </Button>
@@ -69,7 +73,6 @@ const CookieBanner:React.FC<ScotGov.Component.WrapperTag> = function CookieBanne
 
             <NotificationBanner
                 id="cookie-confirm"
-                variant="cookie-success"
                 className={classNames(
                     'ds_notification--cookie-success',
                     'js-confirm-cookie-content',
@@ -77,7 +80,6 @@ const CookieBanner:React.FC<ScotGov.Component.WrapperTag> = function CookieBanne
                     className,
                 )}
                 data-module="ds-cookie-notification"
-                {...props}
             >
                 <p>
                     Your cookie preferences have been saved. You can

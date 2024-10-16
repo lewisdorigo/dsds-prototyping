@@ -1,1107 +1,136 @@
+import React, { isValidElement } from 'react';
+
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-import PageHeader from '@/components/PageHeader';
-import Layout from '@/components/Layout';
-import Wrapper from '@/components/Wrapper';
+// import handleSubmit from './submit-handler';
+import type { SideNavigationItem } from 'dsds-react/dist/components/SideNavigation/SideNavigation.type';
+import type { Component, Components, FormComponent } from 'dsds-react/dist/utils/types';
 
-import Button from '@/components/Button';
-import ButtonGroup from '@/components/ButtonGroup';
-import Question from '@/components/Question';
-import Input from '@/components/Input';
-import FieldGroup from '@/components/FieldGroup';
-import Pagination from '@/components/Pagination';
-import SequentialNavigation from '@/components/SequentialNavigation';
-import SideNavigation from '@/components/SideNavigation';
-import FeatureHeader from '@/components/FeatureHeader';
-import NotificationBanner from '@/components/NotificationBanner';
-import DateInput from '@/components/Date';
-import Accordion, { AccordionItem } from '@/components/Accordion';
-import ContactDetails from '@/components/ContactDetails';
-import FileDownload from '@/components/FileDownload';
-import Checkboxes from '@/components/Checkbox';
-import Radios from '@/components/Radio';
+import { Layout } from '@dsds-react/layout/Layout';
+import { PageHeader } from '@dsds-react/components/PageHeader';
+import { SideNavigation } from '@dsds-react/components/SideNavigation';
+import { Details } from '@dsds-react/components/Details';
+import { ComponentsHelper } from '@dsds-react/components/ComponentHelper';
+
 import SectionHeader from '@/components/SectionHeader';
-import TextArea from '@/components/TextArea';
-import Select from '@/components/Select';
-import CategoryList, { CategoryItem } from '@/components/CategoryList';
-import Card from '@/components/Card';
-import ConfirmationMessage from '@/components/ConfirmationMessage';
-import Tabs from '@/components/Tabs';
 
-export const metadata:Metadata = {
-    title: 'Prototype Toolkit',
-};
+import { getData } from '@/lib/routeAction';
+
+import Form from './[...route]/form';
+import Feedback from './[...route]/feedback';
+
+/**
+ * @param {PageRoute} props - The page route parameters
+ * @returns {Promise<Metadata>}
+ */
+export function generateMetadata():Promise<Metadata> {
+    return getData(['index']).then(({ pageTitle, pageHeader }) => {
+        let title:string = 'Social Security Scotland';
+
+        if (pageTitle) {
+            title = (
+                Array.isArray(pageTitle)
+                    ? pageTitle.join(' - ')
+                    : pageTitle
+            );
+        } else if (pageHeader && typeof pageHeader.title === 'string') {
+            title = pageHeader.title;
+        }
+
+        return { title };
+    }).catch(() => notFound());
+}
+
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
 
 /**
  * The document structure
  *
  * @returns {JSX.Element} - The page
  */
-const Page:React.FC = function Page() {
-    const pageTitle:string = (
-        typeof metadata.title === 'string'
-            ? metadata.title
-            : 'Social Security Scotland'
-    );
+const Page:React.FC = async function Page() {
+    const data = await getData(['index']).catch(() => notFound());
+
+    const { pageHeader, partOf, content: rawContent } = data;
+    const {
+        header,
+        partner,
+        navigation,
+        list,
+        grid,
+        footer,
+        sidebar,
+        feedback,
+    } = data;
+
+    const navItems:SideNavigationItem[] = [];
+    const content:Components = rawContent.map((item) => {
+        if (
+            !item
+            || typeof item !== 'object'
+            || !Object.prototype.hasOwnProperty.call(item, 'type')
+            || isValidElement(item)
+        ) {
+            return item;
+        }
+
+        const component = item as Component | FormComponent;
+
+        if (component.type === 'group') {
+            navItems.push({
+                content: (component as Component).label,
+                href: `#${component.id}`,
+            });
+        }
+
+        return {
+            ...component,
+            validation: undefined,
+        };
+    });
 
     return (
         <Layout
-            layout="pl-component"
+            layout={data.layout}
             header={(
-                <PageHeader
-                    title={pageTitle}
-                    metadata={[
-                        {
-                            name: 'Last updated',
-                            value: <time>July 20th 2023</time>,
-                        },
-                    ]}
-                />
+                <>
+                    {partOf && (
+                        <SectionHeader {...partOf} />
+                    )}
+                    <PageHeader {...pageHeader} />
+                    {header && <ComponentsHelper components={header} />}
+                </>
             )}
+            partner={partner && <ComponentsHelper components={partner} />}
+            navigation={navigation && <ComponentsHelper components={navigation} />}
+            list={list && <ComponentsHelper components={list} />}
+            grid={grid && <ComponentsHelper components={grid} />}
+            footer={footer && <ComponentsHelper components={footer} />}
             sidebar={(
-                <SideNavigation
-                    items={[
-                        {
-                            label: 'Buttons',
-                            link: '#component-buttons',
-                        },
-                        {
-                            label: 'Text Inputs',
-                            link: '#component-text-inputs',
-                        },
-                        {
-                            label: 'Select',
-                            link: '#component-select',
-                        },
-                        {
-                            label: 'Checkboxes',
-                            link: '#component-checkbox',
-                        },
-                        {
-                            label: 'Radio Buttons',
-                            link: '#component-radios',
-                        },
-                        {
-                            label: 'Pagination',
-                            link: '#component-pagination',
-                        },
-                        {
-                            label: 'Paging',
-                            link: '#component-paging',
-                        },
-                        {
-                            label: 'Side Navigation',
-                            link: '#component-side-navigation',
-                        },
-                        {
-                            label: 'Feature Headers',
-                            link: '#component-feature-header',
-                        },
-                        {
-                            label: 'Notification banners',
-                            link: '#component-notification-banner',
-                        },
-                        {
-                            label: 'Accordion',
-                            link: '#component-accordion',
-                        },
-                        {
-                            label: 'Tabs',
-                            link: '#component-tabs',
-                        },
-                        {
-                            label: 'Contact Details',
-                            link: '#component-contact-details',
-                        },
-                        {
-                            label: 'File Download',
-                            link: '#component-download',
-                        },
-                        {
-                            label: 'Section Header',
-                            link: '#component-section-header',
-                        },
-                        {
-                            label: 'Confirmation Message',
-                            link: '#confirmation-message',
-                        },
-                        {
-                            label: 'Category Lists',
-                            link: '#category-list',
-                        },
-                    ]}
-                />
+                <>
+                    <SideNavigation items={navItems} />
+                    { sidebar && <ComponentsHelper components={sidebar} /> }
+                </>
+            )}
+            feedback={(
+                <>
+                    <Feedback />
+                    { feedback && <ComponentsHelper components={feedback} /> }
+                </>
             )}
         >
-            <p>
-                This is something that you’ll be able to use to build up pages using the
-                {' '}
-                <a href="https://designsystem.gov.scot" target="_blank" rel="noopener noreferrer">
-                    Digital Scotland Design System
-                </a>
-                .
-            </p>
+            <Form {...data} content={content} />
 
-            <hr />
-
-            <h2 id="component-buttons">Buttons</h2>
-            <h3>Styles</h3>
-            <ButtonGroup>
-                <Button>Button</Button>
-                <br />
-                <Button variants="secondary">Secondary</Button>
-                <br />
-                <Button variants="cancel">Cancel</Button>
-                <br />
-                <Button disabled>Disabled</Button>
-            </ButtonGroup>
-
-            <h3>Sizes</h3>
-            <ButtonGroup>
-                <Button size="small">Small</Button>
-                <br />
-                <Button size="fixed">Fixed</Button>
-                <br />
-                <Button size="max">Max</Button>
-            </ButtonGroup>
-
-            <h3>Icons</h3>
-            <ButtonGroup>
-                <Button
-                    variants="cancel"
-                    icon="chevron_left"
-                    iconSide="left"
-                >
-                    Back
-                </Button>
-                <Button
-                    icon="chevron_right"
-                >
-                    Continue
-                </Button>
-                <br />
-                <Button
-                    icon="search"
-                    iconSide="icon-only"
-                >
-                    Search
-                </Button>
-            </ButtonGroup>
-
-            <hr />
-
-            <h2 id="component-text-inputs">Text Inputs</h2>
-            <Question id="field-default" label="Field">
-                <Input name="field-default" id="field-default" />
-            </Question>
-
-            <fieldset>
-                <legend>Fixed-width</legend>
-
-                <Question id="field-fixed-20" label="20 characters">
-                    <Input name="field-fixed-20" id="field-fixed-20" width="fixed-20" />
-                </Question>
-
-                <Question id="field-fixed-10" label="10 characters">
-                    <Input name="field-fixed-10" id="field-fixed-10" width="fixed-10" />
-                </Question>
-
-                <Question id="field-fixed-5" label="5 characters">
-                    <Input name="field-fixed-5" id="field-fixed-5" width="fixed-5" />
-                </Question>
-
-                <Question id="field-fixed-4" label="4 characters">
-                    <Input name="field-fixed-4" id="field-fixed-4" width="fixed-4" />
-                </Question>
-
-                <Question id="field-fixed-3" label="3 characters">
-                    <Input name="field-fixed-3" id="field-fixed-3" width="fixed-3" />
-                </Question>
-
-                <Question id="field-fixed-2" label="2 characters">
-                    <Input name="field-fixed-2" id="field-fixed-2" width="fixed-2" />
-                </Question>
-            </fieldset>
-
-            <fieldset>
-                <legend>Fluid-width</legend>
-
-                <Question id="field-fluid-three-quarters" label="Three Quarter">
-                    <Input
-                        name="field-fluid-three-quarters"
-                        id="field-fluid-three-quarters"
-                        width="fluid-three-quarters"
-                    />
-                </Question>
-
-                <Question id="field-fluid-two-thirds" label="Two Third">
-                    <Input
-                        name="field-fluid-two-thirds"
-                        id="field-fluid-two-thirds"
-                        width="fluid-two-thirds"
-                    />
-                </Question>
-
-                <Question id="field-fluid-half" label="Half">
-                    <Input
-                        name="field-fluid-half"
-                        id="field-fluid-half"
-                        width="fluid-half"
-                    />
-                </Question>
-
-                <Question id="field-fluid-one-third" label="One Third">
-                    <Input
-                        name="field-fluid-one-third"
-                        id="field-fluid-one-third"
-                        width="fluid-one-third"
-                    />
-                </Question>
-
-                <Question id="field-fluid-one-quarter" label="One Quarter">
-                    <Input
-                        name="field-fluid-one-quarter"
-                        id="field-fluid-one-quarter"
-                        width="fluid-one-quarter"
-                    />
-                </Question>
-            </fieldset>
-
-            <h3>Icon</h3>
-            <Question id="field-search" label="Search">
-                <Input
-                    name="field-search"
-                    id="field-search"
-                    icon="search"
-                />
-            </Question>
-
-            <h3>Currency</h3>
-            <Question id="field-currency" label="Search">
-                <Input
-                    name="field-currency"
-                    id="field-currency"
-                    type="number"
-                    currency="£"
-                />
-            </Question>
-
-            <h3>Inline Fields</h3>
-
-            <Question
-                id="field-dob"
-                label="Date of birth"
-                tag="fieldset"
-                hintText="For example, 04 02 1992"
-            >
-                <FieldGroup inline>
-                    <Input
-                        type="number"
-                        name="dob-day"
-                        id="dob-day"
-                        width="fixed-2"
-                    />
-                    <Input
-                        type="number"
-                        name="dob-month"
-                        id="dob-month"
-                        width="fixed-2"
-                    />
-                    <Input
-                        type="number"
-                        name="dob-year"
-                        id="dob-year"
-                        width="fixed-4"
-                    />
-                </FieldGroup>
-            </Question>
-
-            <h3>Date Picker</h3>
-            <Question
-                id="dob-picker"
-                label="Date of birth"
-                tag="fieldset"
-                hintText="For example, 04 02 1992"
-            >
-                <DateInput
-                    name="dob-picker"
-                    id="dob-picker"
-                />
-            </Question>
-
-            <Question
-                id="dob-multi"
-                label="Date of birth"
-                tag="fieldset"
-                hintText="For example, 04 02 1992"
-            >
-                <DateInput
-                    name="dob-multi"
-                    id="dob-multi"
-                    multiple
-                />
-            </Question>
-
-            <h3>Field Errors</h3>
-
-            <Question
-                id="field-error"
-                label="Field Error"
-                error="This field is required"
-            >
-                <Input
-                    error
-                    name="field-error"
-                    id="field-error"
-                />
-            </Question>
-
-            <hr />
-
-            <h2>Textarea</h2>
-            <Question
-                id="textarea"
-                label="Description"
-            >
-                <TextArea
-                    name="textarea"
-                    id="textarea"
-                />
-            </Question>
-
-            <h3>Long textarea</h3>
-            <Question
-                id="textarea-long"
-                label="Description"
-            >
-                <TextArea
-                    name="textarea-long"
-                    id="textarea-long"
-                    rows={7}
-                />
-            </Question>
-
-            <h3>Short textarea</h3>
-            <Question
-                id="textarea-short"
-                label="Description"
-            >
-                <TextArea
-                    name="textarea-short"
-                    id="textarea-short"
-                    rows={2}
-                />
-            </Question>
-
-            <h3>Field errors</h3>
-            <Question
-                id="textarea-error"
-                label="Description"
-                error="This field is required"
-            >
-                <TextArea
-                    name="textarea-error"
-                    id="textarea-error"
-                    error
-                />
-            </Question>
-
-            <hr />
-
-            <h2 id="component-select">Select</h2>
-            <Question
-                id="select-dropdown"
-                label="Select a component"
-            >
-                <Select
-                    id="select-dropdown"
-                    name="select-dropdown"
-                    items={[
-                        {
-                            label: 'Accordion',
-                            value: 'accordion',
-                        },
-                        {
-                            label: 'Breadcrumbs',
-                            value: 'breadcrumbs',
-                        },
-                        {
-                            label: 'Button',
-                            value: 'button',
-                        },
-                    ]}
-                />
-            </Question>
-
-            <hr />
-
-            <h2 id="component-checkbox">Checkboxes</h2>
-            <Checkboxes
-                name="checkboxes-default"
-                id="checkboxes-default"
-                label="What topics are you interested in?"
-                hintText="Select as many as you like"
-                items={[
-                    {
-                        label: 'Education',
-                        value: 'education',
-                    },
-                    {
-                        label: 'Housing',
-                        value: 'housing',
-                    },
-                    {
-                        label: 'Transport',
-                        value: 'transport',
-                    },
-                ]}
-            />
-
-            <h3>Small checkboxes</h3>
-            <Checkboxes
-                name="checkboxes-small"
-                id="checkboxes-small"
-                label="What topics are you interested in?"
-                hintText="Select as many as you like"
-                size="small"
-                items={[
-                    {
-                        label: 'Education',
-                        value: 'education',
-                    },
-                    {
-                        label: 'Housing',
-                        value: 'housing',
-                    },
-                    {
-                        label: 'Transport',
-                        value: 'transport',
-                    },
-                ]}
-            />
-
-            <h3>Field hint text</h3>
-            <Checkboxes
-                name="checkboxes-hint"
-                id="checkboxes-hint"
-                label="What topics are you interested in?"
-                items={[
-                    {
-                        label: 'Benefits and grants',
-                        value: 'benefits',
-                        hintText: 'Information on benefits, funds and grants, including Child Benefit and tax credits.',
-                    },
-                    {
-                        label: 'Environment, farming and marine',
-                        value: 'environment',
-                        hintText: 'Guidance on recycling, flooding, farming, fishing and conservation, including advice for businesses.',
-                    },
-                    {
-                        label: 'Living in and visiting Scotland',
-                        value: 'visiting',
-                        hintText: 'Voting, charities, tourism and life in Scotland.',
-                    },
-                ]}
-            />
-
-            <h3>Exclusive</h3>
-            <Checkboxes
-                name="checkboxes-exclusive"
-                id="checkboxes-exclusive"
-                label="Do you receive any of these benefits?"
-                hintText="Select all that apply"
-                items={[
-                    {
-                        label: 'Universal Credit',
-                        value: 'universal-credit',
-                    },
-                    {
-                        label: 'Pension Credit',
-                        value: 'pension-credit',
-                    },
-                    {
-                        label: "Income-based Job Seeker's Allowance",
-                        value: 'job-seekers',
-                    },
-                    {
-                        label: 'No, I do not receive any of these benefits',
-                        value: 'none',
-                        exclusive: true,
-                    },
-                ]}
-            />
-
-            <h3>Errors</h3>
-            <Checkboxes
-                name="checkboxes-errors"
-                id="checkboxes-errors"
-                label="What topics are you interested in?"
-                hintText="Select as many as you like"
-                error="This field is required"
-                items={[
-                    {
-                        label: 'Education',
-                        value: 'education',
-                    },
-                    {
-                        label: 'Housing',
-                        value: 'housing',
-                    },
-                    {
-                        label: 'Transport',
-                        value: 'transport',
-                    },
-                ]}
-            />
-
-            <hr />
-
-            <h2 id="component-radios">Radio Buttons</h2>
-            <Radios
-                name="radios-default"
-                id="radios-default"
-                label="Was this page useful?"
-                hintText="Select an option"
-                items={[
-                    {
-                        label: 'Yes',
-                        value: 'yes',
-                    },
-                    {
-                        label: 'No',
-                        value: 'no',
-                    },
-                    {
-                        label: 'Maybe',
-                        value: 'maybe',
-                    },
-                ]}
-            />
-
-            <h3>Small radio buttons</h3>
-            <Radios
-                name="radios-small"
-                id="radios-small"
-                label="Was this page useful?"
-                hintText="Select an option"
-                size="small"
-                items={[
-                    {
-                        label: 'Yes',
-                        value: 'yes',
-                    },
-                    {
-                        label: 'No',
-                        value: 'no',
-                    },
-                    {
-                        label: 'Maybe',
-                        value: 'maybe',
-                    },
-                ]}
-            />
-
-            <h3>Inline</h3>
-            <Radios
-                name="radios-inline"
-                id="radios-inline"
-                label="Was this page useful?"
-                hintText="Select an option"
-                inline
-                items={[
-                    {
-                        label: 'Yes',
-                        value: 'yes',
-                    },
-                    {
-                        label: 'No',
-                        value: 'no',
-                    },
-                ]}
-            />
-
-            <h3>Hint text</h3>
-            <Radios
-                name="radios-hint"
-                id="radios-hint"
-                label="How will the payments be paid in?"
-                hintText="Select an option"
-                items={[
-                    {
-                        label: 'Advance',
-                        value: 'advance',
-                        hintText: "This means you're paid for the period coming up, i.e. the month ahead",
-                    },
-                    {
-                        label: 'Arrears',
-                        value: 'arrears',
-                        hintText: "This means you're paid for the time that's just passed, i.e. for the last month",
-                    },
-                ]}
-            />
-
-            <h3>Errors</h3>
-            <Radios
-                name="radios-error"
-                id="radios-error"
-                label="How will the payments be paid in?"
-                hintText="Select an option"
-                error="This field is required"
-                items={[
-                    {
-                        label: 'Advance',
-                        value: 'advance',
-                        hintText: "This means you're paid for the period coming up, i.e. the month ahead",
-                    },
-                    {
-                        label: 'Arrears',
-                        value: 'arrears',
-                        hintText: "This means you're paid for the time that's just passed, i.e. for the last month",
-                    },
-                ]}
-            />
-
-            <hr />
-
-            <h2 id="component-pagination">Pagination</h2>
-
-            <Pagination
-                aria-label="Search result pages"
-                currentIndex={5}
-                pages={['#', '#', '#', '#', '#', '#', '#', '#', '#', '#']}
-            />
-
-            <hr />
-
-            <h2 id="component-paging">Paging</h2>
-            <SequentialNavigation
-                prev={{
-                    type: 'prev',
-                    label: 'Apply for or renew a Blue Badge',
-                    link: '#',
-                }}
-                next={{
-                    type: 'next',
-                    label: 'Eligibility: who can have one?',
-                    link: '#',
-                }}
-            />
-
-            <hr />
-            <h2 id="component-side-navigation">Side Navigation</h2>
-
-            <SideNavigation
-                items={[
-                    {
-                        label: 'Apples',
-                        link: '#',
-                        items: [
-                            {
-                                label: 'Green apples',
-                                link: '#',
-                                items: [
-                                    {
-                                        label: 'Bramley',
-                                        link: '#',
-                                    },
-                                    {
-                                        label: 'Granny smith',
-                                        link: '#',
-                                    },
-                                ],
-                            },
-                            {
-                                label: 'Red apples',
-                                link: '#',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Bananas',
-                        link: '#',
-                    },
-                    {
-                        label: 'Cherries',
-                        link: '#',
-                    },
-                    {
-                        label: 'Dates',
-                        link: '#',
-                    },
-                ]}
-            />
-            <hr />
-            <h2 id="component-feature-header">Feature Headers</h2>
-            <FeatureHeader
-                title="Design Standards"
-                content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
-                imageData={{
-                    src: '/images/logo.svg',
-                    alt: 'Social Security Scotland logo',
-                }}
-            />
-            <h3>Coloured background</h3>
-            <FeatureHeader
-                title="Design Standards"
-                content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
-                imageData={{
-                    src: '/images/logo.svg',
-                    alt: 'Social Security Scotland logo',
-                }}
-                background="grey"
-            />
-            <h3>Wide text</h3>
-            <FeatureHeader
-                title="Design Standards"
-                content="The patterns included here have been developed for use by government, public sector and third sector non-commercial organisations in Scotland."
-                imageData={{
-                    src: '/images/logo.svg',
-                    alt: 'Social Security Scotland logo',
-                }}
-                wideText
-            />
-            <hr />
-            <h2 id="component-notification-banner">Notification Banners</h2>
-            <h3>Default</h3>
-            <NotificationBanner hasClose={false}>
-                <p>We need to tell you about something</p>
-            </NotificationBanner>
-
-            <h3>With close</h3>
-            <NotificationBanner>
-                <p>We need to tell you about something</p>
-            </NotificationBanner>
-            <h3>Success banner with link</h3>
-            <NotificationBanner variant="success">
-                <p>
-                    We need to tell you about
-                    {' '}
-                    <a href="https://gov.scot/" rel="noopener noreferrer" target="_blank">something</a>
-                </p>
-            </NotificationBanner>
-
-            <h3>With icon</h3>
-            <NotificationBanner icon>
-                <p>
-                    We need to tell you about something
-                </p>
-            </NotificationBanner>
-
-            <h2 id="component-accordion">Accordion</h2>
-            <Accordion id="accordion-example" toggleAll>
-                <AccordionItem id="accordion-1" title="Healthcare for veterans">
-                    <p>
-                        Veterans are entitled to the same healthcare as any citizen. And there
-                        are health care options and support available specifically for veterans.
-                    </p>
-                    <p>
-                        If you have a health condition that’s related to your service, you’re
-                        entitled to priority treatment based on clinical need.
-                    </p>
-                </AccordionItem>
-                <AccordionItem id="accordion-2" title="Employability for veterans">
-                    <p>
-                        Veterans are entitled to the same healthcare as any citizen. And there
-                        are health care options and support available specifically for veterans.
-                    </p>
-                    <p>
-                        If you have a health condition that’s related to your service, you’re
-                        entitled to priority treatment based on clinical need.
-                    </p>
-                </AccordionItem>
-                <AccordionItem id="accordion-3" title="Housing for veterans">
-                    <p>
-                        Veterans are entitled to the same healthcare as any citizen. And there
-                        are health care options and support available specifically for veterans.
-                    </p>
-                    <p>
-                        If you have a health condition that’s related to your service, you’re
-                        entitled to priority treatment based on clinical need.
-                    </p>
-                </AccordionItem>
-            </Accordion>
-
-            <h2 id="component-tabs">Tabs</h2>
-            <Tabs
-                id="tabs"
-                items={[
-                    {
-                        id: 'courses-funding',
-                        title: 'Courses and funding',
-                        text: (
-                            <>
-                                <h2>Search for training courses and funding</h2>
-                                <p>
-                                    A wide range of training courses for your employees are
-                                    available.
-                                </p>
-                            </>
-                        ),
-                    },
-                    {
-                        id: 'choosing-apprenticeships',
-                        title: 'Choosing apprenticeships',
-                        text: (
-                            <>
-                                <h2>Choosing an apprenticeship for your business</h2>
-                                <p>
-                                    Apprenticeships can help you address skills gaps in your
-                                    business. The government provides help with the cost of
-                                    training an apprentice.
-                                </p>
-                            </>
-                        ),
-                    },
-                    {
-                        id: 'extra-skills-support',
-                        title: 'Extra skills support',
-                        text: (
-                            <>
-                                <h2>Extra skills support</h2>
-                                <p>
-                                    The
-                                    {' '}
-                                    <a href="#top">Skills for Growth</a>
-                                    {' '}
-                                    service can offer skills advice to businesses with fewer
-                                    than 250 employees.
-                                </p>
-                            </>
-                        ),
-                    },
-                ]}
-            />
-
-            <h2 id="component-contact-detail">Contact Details</h2>
-            <ContactDetails
-                columns={[
-                    [
-                        {
-                            title: 'Address',
-                            content: (
-                                <>
-                                    Scottish Government
-                                    <br />
-                                    St Andrew’s House
-                                    <br />
-                                    Regent Road
-                                    <br />
-                                    Edinburgh
-                                    <br />
-                                    EH1 3DG
-                                </>
-                            ),
-                        },
-                        {
-                            title: 'Email',
-                            content: <a href="mailto:email@gov.scot">email@gov.scot</a>,
-                        },
-                        {
-                            title: 'Phone',
-                            content: (
-                                <>
-                                    0123 456 7000
-                                    <br />
-                                    Main line is open 8am-5pm
-                                    <br />
-                                    <a href="https://www.gov.uk/call-charges">Find out about call charges</a>
-                                </>
-                            ),
-                        },
-                        {
-                            title: 'Out of hours',
-                            content: '0123 456 7001',
-                        },
-                        {
-                            title: 'Fax',
-                            content: '0123 456 7002',
-                        },
-                        {
-                            title: 'Website',
-                            content: <a href="https://www.gov.scot">www.gov.scot</a>,
-                        },
-                    ],
-                    [
-                        {
-                            title: 'Follow',
-                            socials: {
-                                facebook: { link: '#', label: 'Facebook' },
-                                twitter: { link: '#', label: 'Twitter' },
-                                flickr: { link: '#', label: 'Flickr' },
-                                linkedin: { link: '#', label: 'LinkedIn' },
-                                instagram: { link: '#', label: 'Instagram' },
-                                youtube: { link: '#', label: 'YouTube' },
-                            },
-                        },
-                    ],
-                ]}
-            />
-            <h2 id="component-download">File Download</h2>
-            <FileDownload
-                link="#"
-                title="Scotland's Artificial Intelligence Strategy - Trustworthy, Ethical and Inclusive"
-                metadata={[
-                    {
-                        name: 'File type',
-                        value: '44 page PDF',
-                    },
-                    {
-                        name: 'File size',
-                        value: '7.2MB',
-                    },
-                ]}
-            />
-            <FileDownload
-                link="#"
-                image="https://designsystem.gov.scot/binaries/content/gallery/designsystem/examples/ai-publication-cover-png"
-                title="Scotland's Artificial Intelligence Strategy - Trustworthy, Ethical and Inclusive"
-                highlight
-                metadata={[
-                    {
-                        name: 'File type',
-                        value: '44 page PDF',
-                    },
-                    {
-                        name: 'File size',
-                        value: '7.2MB',
-                    },
-                ]}
-            />
-            <hr />
-            <h2 id="component-section-header">Section header</h2>
-            <SectionHeader
-                link="/"
-                title="Adult disability payment"
-            />
-            <h3>Without link</h3>
-            <SectionHeader
-                title="Adult disability payment"
-            />
-
-            <h2 id="confirmation-message">Confirmation Message</h2>
-            <ConfirmationMessage
-                title="Landlord added successfully"
-                content="You have added the landlord <strong>John Smith</strong> to the application."
-                headingLevel="h3"
-            />
-            <ConfirmationMessage
-                title="Deleted"
-                headingLevel="h3"
-            />
-
-            <h2 id="category-list">Category List</h2>
-            <CategoryList>
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-            </CategoryList>
-
-            <h3>Category List (Grid)</h3>
-            <CategoryList layout="grid">
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-                <CategoryItem
-                    title="Environment and countryside"
-                    text="Access to and protection of the countryside and managing wildlife on your land"
-                    link="#"
-                />
-            </CategoryList>
-
-            <Wrapper hasBackground="grey">
-                <h3>Category List (Cards)</h3>
-                <CategoryList layout="grid" spacing="narrow">
-                    <Card
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                    <Card
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                    <Card
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                    <Card
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                </CategoryList>
-
-                <h3>Category List (Image Cards)</h3>
-                <CategoryList layout="grid" spacing="narrow">
-                    <Card
-                        image={{
-                            src: '//picsum.photos/1280/720',
-                            alt: '',
-                        }}
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                    <Card
-                        image={{
-                            src: '//picsum.photos/1280/720',
-                            alt: '',
-                        }}
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                    <Card
-                        image={{
-                            src: '//picsum.photos/1280/720',
-                            alt: '',
-                        }}
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                    <Card
-                        image={{
-                            src: '//picsum.photos/1280/720',
-                            alt: '',
-                        }}
-                        title="Environment and countryside"
-                        text="Access to and protection of the countryside and managing wildlife on your land"
-                        link="#"
-                    />
-                </CategoryList>
-            </Wrapper>
+            { process.env.NODE_ENV === 'development' && (
+                <Details label="View page details">
+                    <pre>
+                        <code>{ JSON.stringify(data, undefined, 4) }</code>
+                    </pre>
+                </Details>
+            )}
         </Layout>
     );
 };

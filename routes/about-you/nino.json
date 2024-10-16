@@ -1,13 +1,13 @@
 {
-    "title": {
-        "caption": "About you",
+    "pageHeader": {
+        "label": "About you",
         "title": "What’s your National Insurance number?"
     },
     "partOf": {
-        "title": "Adult disability payment",
+        "label": "Adult disability payment",
         "link": "/"
     },
-    "components": [
+    "content": [
         "It’s on your:",
         {
             "type": "list",
@@ -21,26 +21,18 @@
         {
             "id": "national-insurance-warning",
             "type": "warning",
-            "text": "You do not need to add your National Insurance number. If you do it helps us process your application as quickly as possible."
+            "content": "You do not need to add your National Insurance number. If you do it helps us process your application as quickly as possible."
         },
         {
             "id": "nino",
             "name": "nino",
             "type": "text",
-            "label": "National Insurance number (if you know it)",
+            "label": "National Insurance number",
+            "optional": "if you know it",
             "hintText": "For example, QQ 12 34 56 C"
         }
     ],
     "nextButton": true,
     "backButton": true,
-    "nextPage": {
-        "default": "/",
-        "options": [
-            {
-                "field": "nino",
-                "isNull": true,
-                "page": "/super/secret/route"
-            }
-        ]
-    }
+    "nextPage": "/about-you/address"
 }

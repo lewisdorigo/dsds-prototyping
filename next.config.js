@@ -4,4 +4,4 @@ const nextConfig = {
     transpilePackages: ['@scottish-government/design-system'],
 };
 
-module.exports = nextConfig;
+export default nextConfig;

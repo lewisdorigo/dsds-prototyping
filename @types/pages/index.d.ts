@@ -1,3 +1,7 @@
+import type { Title } from 'dsds-react/dist/components/PageHeader/PageHeader.type';
+import type { Components } from 'dsds-react/dist/utils/types';
+import type { SectionHeader } from '@/components/SectionHeader/SectionHeader.type';
+
 declare namespace ScotGov {
     namespace Pages {
         interface NextPageOption {
@@ -19,9 +23,9 @@ declare namespace ScotGov {
     }
 
     interface Page {
-        title: PageHeader,
-        components: (string | Field<unknown, unknown, unknown>)[],
-        partOf?: ScotGov.Component.SectionHeader,
+        header: Title,
+        components: Components,
+        partOf?: SectionHeader,
         route?: string,
     }
 }
